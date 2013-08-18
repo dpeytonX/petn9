@@ -3,8 +3,13 @@
 #include <QtDeclarative>
 #include <qglobal.h>
 #include <QTime>
+#include <QDebug>
+#include <QString>
 
 #include <cstdlib>
+
+#include "appsettings.h"
+#include "databasemanager.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -14,6 +19,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //Startup context
     QTime time = QTime::currentTime(); //initialize random numbers
     qsrand((uint)time.msec());
+
+    AppSettings settings;
+    QString dbPath = settings.getDatabasePath();
+    DatabaseManager dbManager(dbPath);
+
+    bool isOpen = dbManager.open();
+    if(!isOpen) {
+        qDebug() << dbManager.lastError().databaseText();
+    }
 
 
     //Set context variables
