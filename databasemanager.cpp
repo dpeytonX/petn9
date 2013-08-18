@@ -24,5 +24,4 @@ void DatabaseManager::close()
 
 
 DatabaseManager::~DatabaseManager() {
-    close();
 }

@@ -28,6 +28,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if(!isOpen) {
         qDebug() << dbManager.lastError().databaseText();
     }
+    db.close();
 
 
     //Set context variables
