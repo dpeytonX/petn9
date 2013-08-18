@@ -11,6 +11,8 @@
 #include "appsettings.h"
 #include "databasemanager.h"
 
+void initWorld(QmlApplicationViewer & viewer);
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
@@ -25,10 +27,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     DatabaseManager dbManager(dbPath);
 
     bool isOpen = dbManager.open();
+    qDebug() << "main: opened db " << isOpen;
     if(!isOpen) {
-        qDebug() << dbManager.lastError().databaseText();
+        qDebug() << dbManager.lastError().text();
     }
-    db.close();
+
+    bool isFirstRun = !dbManager.getPetCount();
+    qDebug() << "main: first run " << isFirstRun;
+
+    dbManager.close();
 
 
     //Set context variables
@@ -40,7 +47,16 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //Open initial view
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
 
+
     //Random world selection
+    initWorld(viewer);
+
+    viewer.showExpanded();
+
+    return app->exec();
+}
+
+void initWorld(QmlApplicationViewer & viewer) {
 #ifndef NO_RANDOM_WORLDS
     int selection = qrand();
     if(selection < RAND_MAX / 2) {
@@ -51,8 +67,4 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #else
     viewer.setMainQmlFile(QLatin1String("qml/petn9/worlds/Plain.qml"));
 #endif
-
-    viewer.showExpanded();
-
-    return app->exec();
 }

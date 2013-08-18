@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/petn9">
+<file alias="petn9.sql">petn9.sql</file>
+</qresource>
+</RCC>

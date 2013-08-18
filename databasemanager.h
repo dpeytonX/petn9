@@ -35,15 +35,21 @@ public:
       */
     bool open();
     /**
-      Closes a database connection
+      Closes a database connection.
       */
     void close();
     /**
       Returns the last given DB error.
 
-      @return the last SQL error
+      @return the last SQL error.
       */
     QSqlError lastError();
+
+    /**
+      Gets the number of pets saved in the database.
+      @return the pet count.
+      */
+    int getPetCount();
 
 private:
     QSqlDatabase db;

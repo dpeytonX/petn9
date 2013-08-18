@@ -10,8 +10,12 @@ QT += sql
 
 #defines
 #NO_RANDOM_WORLDS = true
+NEW_DB = true
 !isEmpty(NO_RANDOM_WORLDS) {
     DEFINES += NO_RANDOM_WORLDS
+}
+!isEmpty(NEW_DB) {
+    DEFINES += NEW_DB
 }
 
 
@@ -47,6 +51,8 @@ SOURCES += main.cpp \
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
+include(models/models.pri)
+
 OTHER_FILES += \
     qtc_packaging/debian_harmattan/rules \
     qtc_packaging/debian_harmattan/README \
@@ -54,8 +60,13 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog
+    qtc_packaging/debian_harmattan/changelog \
+    models/models.pri \
+    petn9.sql
 
 HEADERS += \
     databasemanager.h \
     appsettings.h
+
+RESOURCES += \
+    petn9.qrc
