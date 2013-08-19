@@ -46,11 +46,10 @@ public:
     QSqlError lastError();
 
     /**
-      Gets the number of pets saved in the database.
-      @return the pet count.
+      Returns the pets created by user.
+      @return the query to retrieve the pets.
       */
-    int getPetCount();
-
+    QSqlQuery getPets();
 private:
     QSqlDatabase db;
     QString dbPath;

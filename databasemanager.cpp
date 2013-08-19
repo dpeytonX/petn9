@@ -56,18 +56,13 @@ void DatabaseManager::close()
     db.close();
 }
 
-int DatabaseManager::getPetCount() {
-    QSqlQuery petCount("SELECT count(*) AS numPets FROM Pet", db);
+QSqlQuery DatabaseManager::getPets() {
+    QSqlQuery petCount("SELECT * FROM Pet", db);
     if(!petCount.exec()) {
         qDebug() << "DatabaseManager: getPetCount " << lastError().databaseText();
         return 0;
     }
-    QSqlRecord rec = petCount.record();
-    int numPets = rec.indexOf("numPets");
-    int petCountResult =  (petCount.next() && (petCountResult = petCount.value(numPets).toInt())) ?
-                petCountResult : 0;
-    qDebug() << "DatabaseManager: getPetCount " << petCountResult;
-    return petCountResult;
+    return petCount;
 }
 
 DatabaseManager::~DatabaseManager() {

@@ -1,12 +1,11 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "pets"
+import "../pets"
 
-Rectangle {
-    width: ScreenWidth
-    height: ScreenHeight
-    color: "#b7fcff"
+Page {
+
+    orientationLock: PageOrientation.LockLandscape
 
     /** Must be defined by sub-elements to provide Sprite boundaries*/
     property real spriteBottom

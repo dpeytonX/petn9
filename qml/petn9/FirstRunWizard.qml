@@ -2,10 +2,9 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
-Rectangle {
+Page {
     id: wizard
-    width: ScreenWidth
-    height: ScreenHeight
+    orientationLock: PageOrientation.LockLandscape
 
     Text {
         id: title
