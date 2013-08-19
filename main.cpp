@@ -8,8 +8,7 @@
 
 #include <cstdlib>
 
-#include "appsettings.h"
-#include "databasemanager.h"
+#include "manager.h"
 
 void initWorld(QmlApplicationViewer & viewer);
 
@@ -22,34 +21,27 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QTime time = QTime::currentTime(); //initialize random numbers
     qsrand((uint)time.msec());
 
-    AppSettings settings;
-    QString dbPath = settings.getDatabasePath();
-    DatabaseManager dbManager(dbPath);
+    Manager* manager = new Manager(&viewer);
 
-    bool isOpen = dbManager.open();
-    qDebug() << "main: opened db " << isOpen;
-    if(!isOpen) {
-        qDebug() << dbManager.lastError().text();
-    }
-
-    bool isFirstRun = !dbManager.getPetCount();
+    bool isFirstRun = !manager->getDatabaseManager()->getPetCount();
     qDebug() << "main: first run " << isFirstRun;
-
-    dbManager.close();
-
 
     //Set context variables
     int screenWidth = viewer.geometry().width();
     int screenHeight = viewer.geometry().height();
     viewer.rootContext()->setContextProperty("ScreenWidth", screenWidth);
     viewer.rootContext()->setContextProperty("ScreenHeight", screenHeight);
+    viewer.rootContext()->setContextProperty("Manager", manager);
 
     //Open initial view
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
 
-
-    //Random world selection
-    initWorld(viewer);
+    //TODO: move UI selection to QML
+    if(isFirstRun) {
+        viewer.setMainQmlFile(QLatin1String("qml/petn9/FirstRunWizard.qml"));
+    } else {
+        initWorld(viewer);
+    }
 
     viewer.showExpanded();
 
@@ -57,6 +49,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 }
 
 void initWorld(QmlApplicationViewer & viewer) {
+    //Random world selection
 #ifndef NO_RANDOM_WORLDS
     int selection = qrand();
     if(selection < RAND_MAX / 2) {

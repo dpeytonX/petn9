@@ -5,8 +5,8 @@
 #include <QVariant>
 #include <QFile>
 
-DatabaseManager::DatabaseManager(const QString &dbPath) :
-    QObject(),
+DatabaseManager::DatabaseManager(const QString &dbPath, QObject *parent) :
+    QObject(parent),
     dbPath(dbPath)
 {
 }

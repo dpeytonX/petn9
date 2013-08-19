@@ -20,7 +20,7 @@ public:
 
       @param dbPath is the path to the DB file
       */
-    explicit DatabaseManager(const QString& dbPath);
+    explicit DatabaseManager(const QString& dbPath, QObject* parent=0);
     ~DatabaseManager();
 
 signals:

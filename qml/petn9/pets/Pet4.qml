@@ -3,5 +3,5 @@ import QtQuick 1.1
 import ".."
 
 AbstractPet {
-    color: "blue"
+    color: "yellow"
 }

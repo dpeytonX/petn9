@@ -45,7 +45,8 @@ CONFIG += qdeclarative-boostable
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     databasemanager.cpp \
-    appsettings.cpp
+    appsettings.cpp \
+    manager.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -66,7 +67,8 @@ OTHER_FILES += \
 
 HEADERS += \
     databasemanager.h \
-    appsettings.h
+    appsettings.h \
+    manager.h
 
 RESOURCES += \
     petn9.qrc
