@@ -20,7 +20,8 @@ PageStackWindow {
             console.log("main.qml: empty pets. Creating first run wizard.")
             appWindow.pageStack.push(Qt.resolvedUrl("FirstRunWizard.qml"), {})
         } else {
-            appWindow.pageStack.push(Qt.resolvedUrl(Manager.world), {})
+            console.log("main.qml: has pets, creating game")
+            appWindow.pageStack.push(Qt.resolvedUrl("Game.qml"), {"pet": Manager.pets[0], "world": Manager.getWorld()})
         }
     }
 

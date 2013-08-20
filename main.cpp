@@ -32,12 +32,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //Open initial view
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
 
-    //TODO: move UI selection to QML
-//    if(isFirstRun) {
-//        viewer.setMainQmlFile(QLatin1String("qml/petn9/FirstRunWizard.qml"));
-//    } else {
-//        initWorld(viewer);
-//    }
     viewer.setMainQmlFile(QLatin1String("qml/petn9/main.qml"));
 
     viewer.showExpanded();

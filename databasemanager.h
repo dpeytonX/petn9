@@ -6,6 +6,8 @@
 #include <QSqlError>
 #include <QFile>
 
+#include "models/pet.h"
+
 /**
   Manages database connections for the application.
   */
@@ -50,6 +52,12 @@ public:
       @return the query to retrieve the pets.
       */
     QSqlQuery getPets();
+
+    /**
+      Inserts a new Pet Model into the database.
+      @return true if successful.
+      */
+    bool insertPetRecord(const Pet& pet);
 private:
     QSqlDatabase db;
     QString dbPath;

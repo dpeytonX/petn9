@@ -1,10 +1,17 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import com.blogspot.iamboke 1.0
 
-Page {
+/**
+  FirstRunWizard.qml
+
+  Presents the user with pet selections. To be run if there are no pets stored.
+
+  */
+DefaultPage {
     id: wizard
-    orientationLock: PageOrientation.LockLandscape
+    orientationLock: Manager.isSimulator() ? PageOrientation.Automatic : PageOrientation.LockLandscape
 
     Text {
         id: title
@@ -25,6 +32,11 @@ Page {
 
             spacing: 10
 
+            function launchWorld(currentPet) {
+                console.log("FirstRunWizard.qml: got pet " + currentPet);
+                wizard.pageStack.push(Qt.resolvedUrl("Game.qml"), {"pet": Manager.pets[0], "world": Manager.getWorld()})
+            }
+
             MouseArea {
                 id:petArea1
                 width: 100
@@ -40,7 +52,7 @@ Page {
 
                 onClicked: {
                     console.log(qml + " was clicked.")
-
+                    parent.launchWorld(Manager.createPet(0));
                 }
             }
 
@@ -49,11 +61,17 @@ Page {
                 width: 100
                 height: 100
                 property string qml: "pets/Pet2.qml"
+
                 Component.onCompleted: {
                     var component = Qt.createComponent(qml)
                     if(component.status == Component.Ready) {
                         component.createObject(petArea2)
                     }
+                }
+
+                onClicked: {
+                    console.log(qml + " was clicked.")
+                    parent.launchWorld(Manager.createPet(1));
                 }
             }
             MouseArea {
@@ -61,11 +79,17 @@ Page {
                 width: 100
                 height: 100
                 property string qml: "pets/Pet3.qml"
+
                 Component.onCompleted: {
                     var component = Qt.createComponent(qml)
                     if(component.status == Component.Ready) {
                         component.createObject(petArea3)
                     }
+                }
+
+                onClicked: {
+                    console.log(qml + " was clicked.")
+                    parent.launchWorld(Manager.createPet(2))
                 }
             }
             MouseArea {
@@ -73,11 +97,17 @@ Page {
                 width: 100
                 height: 100
                 property string qml: "pets/Pet4.qml"
+
                 Component.onCompleted: {
                     var component = Qt.createComponent(qml)
                     if(component.status == Component.Ready) {
                         component.createObject(petArea4)
                     }
+                }
+
+                onClicked: {
+                    console.log(qml + " was clicked.")
+                    parent.launchWorld(Manager.createPet(3));
                 }
             }
         }

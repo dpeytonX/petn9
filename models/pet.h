@@ -5,9 +5,14 @@
 
 class QString;
 
+/**
+  Represents a Pet object.
+  */
 class Pet : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(PETS)
+    Q_PROPERTY(PETS type READ getType)
 
 public:
     enum PETS {PET1, PET2, PET3, PET4};
@@ -27,6 +32,22 @@ public:
 
     void setHealth(int health) {
         this->health = health;
+    }
+
+    PETS getType() const {
+        return type;
+    }
+
+    QString getName() const {
+        return name;
+    }
+
+    long getCreationTime() const {
+        return creation;
+    }
+
+    int getHealth() const {
+        return health;
     }
     
 signals:

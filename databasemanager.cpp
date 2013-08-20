@@ -3,7 +3,11 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+
+#ifdef NEW_DB
 #include <QFile>
+#include <QDir>
+#endif
 
 DatabaseManager::DatabaseManager(const QString &dbPath, QObject *parent) :
     QObject(parent),
@@ -15,7 +19,10 @@ bool DatabaseManager::open()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
 #ifdef NEW_DB
-    QFile::remove(dbPath);
+    QDir dir;
+    QString dbFile = dir.absolutePath() + dir.separator() + dbPath;
+    qDebug() << "DatabaseManager: removing file " << dbFile;
+    QFile::remove(dbFile);
 #endif
     db.setDatabaseName(dbPath);
     bool isDbOpen = db.open();
@@ -57,12 +64,19 @@ void DatabaseManager::close()
 }
 
 QSqlQuery DatabaseManager::getPets() {
-    QSqlQuery petCount("SELECT * FROM Pet", db);
-    if(!petCount.exec()) {
-        qDebug() << "DatabaseManager: getPetCount " << lastError().databaseText();
-        return 0;
-    }
-    return petCount;
+    QSqlQuery petsQuery("SELECT * FROM Pet");
+
+    return petsQuery;
+}
+
+bool DatabaseManager::insertPetRecord(const Pet &pet)
+{
+    QSqlQuery query;
+    query.prepare("INSERT Into Pet (TYPE_ID, NAME, HEALTH) VALUES(?,?,?)");
+    query.addBindValue(pet.getType());
+    query.addBindValue(pet.getName());
+    query.addBindValue(pet.getHealth());
+    return query.exec();
 }
 
 DatabaseManager::~DatabaseManager() {

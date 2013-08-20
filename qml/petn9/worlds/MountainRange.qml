@@ -3,6 +3,7 @@ import QtQuick 1.1
 import "elements"
 
 AbstractWorld {
+    color: "#b1c2c2"
     spriteBottom: height - field.height;
 
     SnowyField {

@@ -26,8 +26,20 @@ Manager::Manager(QObject *parent) :
     createPetModels();
 }
 
-DatabaseManager* Manager::getDatabaseManager() {
-    return dbManager;
+QString Manager::getWorld() {
+
+    //Random world selection
+#ifndef NO_RANDOM_WORLDS
+    int selection = qrand();
+    if(selection < RAND_MAX / 2) {
+        return "MountainRange";
+    } else {
+        return "Plain";
+    }
+#else
+    return "Plain";
+#endif
+
 }
 
 void Manager::createPetModels() {
@@ -78,4 +90,38 @@ Manager::~Manager() {
         }
     }
     delete petModels;
+}
+
+Pet *Manager::createPet(int typeId)
+{
+    qDebug() << "Manager: creating pet of type: " << typeId;
+    Pet* pet = new Pet();
+    switch(typeId) {
+    case 0:
+        pet->setType(Pet::PET1);
+        break;
+    case 1:
+        pet->setType(Pet::PET2);
+        break;
+    case 2:
+        pet->setType(Pet::PET3);
+        break;
+    case 3:
+        pet->setType(Pet::PET4);
+        break;
+    default:
+        pet->setType(Pet::PET1);
+        break;
+    }
+
+    pet->setName("example");
+    pet->setHealth(100);
+
+    bool result = dbManager->insertPetRecord(*pet);
+    qDebug() << "Manager: pet created " << result;
+
+    petModels->append(pet);
+    emit petAdded();
+
+    return pet;
 }
