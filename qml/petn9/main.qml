@@ -1,7 +1,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
-import "worlds"
+import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
   main.qml
@@ -16,11 +16,12 @@ PageStackWindow {
     initialPage: Page { anchors.fill: parent}
 
     Component.onCompleted: {
+        Console.LOG_PRIORITY = Console.INFO
         if(!Manager.pets.length) {
-            console.log("main.qml: empty pets. Creating first run wizard.")
+            Console.info("main.qml: empty pets. Creating first run wizard.")
             appWindow.pageStack.push(Qt.resolvedUrl("FirstRunWizard.qml"), {})
         } else {
-            console.log("main.qml: has pets, creating game")
+            Console.info("main.qml: has pets, creating game")
             appWindow.pageStack.push(Qt.resolvedUrl("Game.qml"), {"pet": Manager.pets[0], "world": Manager.getWorld()})
         }
     }

@@ -4,6 +4,7 @@ import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
 import "../js/SpriteFunctions.js" as Sprite
 import "../pets"
+import "../QmlLogger/qmllogger/Logger.js" as Console
 
 /**
   AbstractWorld.qml
@@ -32,21 +33,21 @@ Rectangle {
     property AbstractPet petItem
 
     onSpriteBottomChanged: {
-        console.log("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
+        console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
         if(!!petItem) {
             petItem.y = spriteBottom - petItem.height
-            console.log("AbstractWorld.qml: pet y " + petItem.y)
+            Console.debug("AbstractWorld.qml: pet y " + petItem.y)
         }
     }
 
     onPetItemChanged: {
-        console.log("AbstractWorld.qml: pet object obtained")
+        Console.info("AbstractWorld.qml: pet object obtained")
         if(!!petItem) {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.doStandardAnimations = true
             petItem.x = (ScreenWidth - petItem.width) / 2
             petItem.y = spriteBottom - petItem.height
-            console.log("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
+            console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         }
     }
 
@@ -55,12 +56,12 @@ Rectangle {
     }
 
     function createPetHandler(component) {
-        console.log("AbstractWorld.qml: Pet callback handler with pet " + component)
+        Console.info("AbstractWorld.qml: Pet callback handler with pet " + component)
         world.petItem = component
     }
 
     function isCollisionFree(x) {
-        console.log("AbstractWorld.qml: pet collision detection at " + x)
+        Console.trace("AbstractWorld.qml: pet collision detection at " + x)
         return spriteLeft <= x && x <= spriteRight
     }
 }

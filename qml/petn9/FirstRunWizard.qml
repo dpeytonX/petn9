@@ -4,6 +4,7 @@ import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
 
 import "js/SpriteFunctions.js" as Sprite
+import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
   FirstRunWizard.qml
@@ -35,7 +36,7 @@ DefaultPage {
             spacing: 10
 
             function launchWorld(currentPet) {
-                console.log("FirstRunWizard.qml: got pet " + currentPet);
+                Console.info("FirstRunWizard.qml: got pet " + currentPet);
                 wizard.pageStack.push(Qt.resolvedUrl("Game.qml"), {"pet": Manager.pets[0], "world": Manager.getWorld()})
             }
 
@@ -49,7 +50,7 @@ DefaultPage {
                 }
 
                 onClicked: {
-                    console.log("FirstRunWizard.qml: " + Pet.PET1 + " was clicked.")
+                    Console.debug("FirstRunWizard.qml: " + Pet.PET1 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET1));
                 }
             }
@@ -64,7 +65,7 @@ DefaultPage {
                 }
 
                 onClicked: {
-                    console.log("FirstRunWizard.qml: " + Pet.PET2 + " was clicked.")
+                    Console.debug("FirstRunWizard.qml: " + Pet.PET2 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET2));
                 }
             }
@@ -78,7 +79,7 @@ DefaultPage {
                 }
 
                 onClicked: {
-                    console.log("FirstRunWizard.qml: " + Pet.PET3 + " was clicked.")
+                    Console.debug("FirstRunWizard.qml: " + Pet.PET3 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET3))
                 }
             }
@@ -92,7 +93,7 @@ DefaultPage {
                 }
 
                 onClicked: {
-                    console.log("FirstRunWizard.qml: " + Pet.PET4 + " was clicked.")
+                    Console.debug("FirstRunWizard.qml: " + Pet.PET4 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET4));
                 }
             }

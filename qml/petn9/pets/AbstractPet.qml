@@ -2,6 +2,7 @@
 import QtQuick 1.1
 import "js/_private.js" as JObjects
 import "../js/UIConstants.js" as UI
+import "../QmlLogger/qmllogger/Logger.js" as Console
 
 /**
   AbstractPet.qml
@@ -42,7 +43,7 @@ Rectangle {
     }
 
     function performAnimation() {
-        console.log("AbstractPet.qml: performing action " + doStandardAnimations)
+        Console.verbose("AbstractPet.qml: performing action " + doStandardAnimations)
         var rand = Math.random()
         var cb = JObjects.register(abstractPet)
         cb = !!cb ? cb.callback : cb
