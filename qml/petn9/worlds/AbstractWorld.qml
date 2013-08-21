@@ -33,7 +33,7 @@ Rectangle {
     property AbstractPet petItem
 
     onSpriteBottomChanged: {
-        console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
+        Console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
         if(!!petItem) {
             petItem.y = spriteBottom - petItem.height
             Console.debug("AbstractWorld.qml: pet y " + petItem.y)
@@ -47,7 +47,7 @@ Rectangle {
             petItem.doStandardAnimations = true
             petItem.x = (ScreenWidth - petItem.width) / 2
             petItem.y = spriteBottom - petItem.height
-            console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
+            Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         }
     }
 
