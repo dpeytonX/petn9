@@ -3,6 +3,8 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
 
+import "js/SpriteFunctions.js" as Sprite
+
 /**
   FirstRunWizard.qml
 
@@ -41,18 +43,14 @@ DefaultPage {
                 id:petArea1
                 width: 100
                 height: 100
-                property string qml: "pets/Pet1.qml"
 
                 Component.onCompleted: {
-                    var component = Qt.createComponent(qml)
-                    if(component.status == Component.Ready) {
-                        component.createObject(petArea1)
-                    }
+                    Sprite.createPet("pets/", Pet.PET1, petArea1, {}, null)
                 }
 
                 onClicked: {
-                    console.log(qml + " was clicked.")
-                    parent.launchWorld(Manager.createPet(0));
+                    console.log("FirstRunWizard.qml: " + Pet.PET1 + " was clicked.")
+                    parent.launchWorld(Manager.createPet(Pet.PET1));
                 }
             }
 
@@ -60,54 +58,42 @@ DefaultPage {
                 id:petArea2
                 width: 100
                 height: 100
-                property string qml: "pets/Pet2.qml"
 
                 Component.onCompleted: {
-                    var component = Qt.createComponent(qml)
-                    if(component.status == Component.Ready) {
-                        component.createObject(petArea2)
-                    }
+                    Sprite.createPet("pets/", Pet.PET2, petArea2, {}, null)
                 }
 
                 onClicked: {
-                    console.log(qml + " was clicked.")
-                    parent.launchWorld(Manager.createPet(1));
+                    console.log("FirstRunWizard.qml: " + Pet.PET2 + " was clicked.")
+                    parent.launchWorld(Manager.createPet(Pet.PET2));
                 }
             }
             MouseArea {
                 id:petArea3
                 width: 100
                 height: 100
-                property string qml: "pets/Pet3.qml"
 
                 Component.onCompleted: {
-                    var component = Qt.createComponent(qml)
-                    if(component.status == Component.Ready) {
-                        component.createObject(petArea3)
-                    }
+                    Sprite.createPet("pets/", Pet.PET3, petArea3, {}, null)
                 }
 
                 onClicked: {
-                    console.log(qml + " was clicked.")
-                    parent.launchWorld(Manager.createPet(2))
+                    console.log("FirstRunWizard.qml: " + Pet.PET3 + " was clicked.")
+                    parent.launchWorld(Manager.createPet(Pet.PET3))
                 }
             }
             MouseArea {
                 id:petArea4
                 width: 100
                 height: 100
-                property string qml: "pets/Pet4.qml"
 
                 Component.onCompleted: {
-                    var component = Qt.createComponent(qml)
-                    if(component.status == Component.Ready) {
-                        component.createObject(petArea4)
-                    }
+                    Sprite.createPet("pets/", Pet.PET4, petArea4, {}, null)
                 }
 
                 onClicked: {
-                    console.log(qml + " was clicked.")
-                    parent.launchWorld(Manager.createPet(3));
+                    console.log("FirstRunWizard.qml: " + Pet.PET4 + " was clicked.")
+                    parent.launchWorld(Manager.createPet(Pet.PET4));
                 }
             }
         }

@@ -1,13 +1,22 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "../pets"
 import com.blogspot.iamboke 1.0
+import "../js/SpriteFunctions.js" as Sprite
+import "../pets"
 
 /**
   AbstractWorld.qml
 
   This is the element that paints the scenery and Pet element on screen. Has common objects which specific worlds use.
+
+  Properties
+  spriteBottom (real) - bottom boundary for the pet (suggested to override)
+  spriteTop (real) - bottom boundary for the pet
+  spriteLeft (real) - left boundary for the pet
+  spriteRight (real) - right boundary for the pet
+  pet (Pet) - the QtObject backed model
+  petItem (AbstractPet) - the visual pet representation
   */
 
 Rectangle {
@@ -16,59 +25,42 @@ Rectangle {
     property Pet pet
 
     /** Must be defined by sub-elements to provide Sprite boundaries*/
-    property real spriteBottom
-
-    Component.onCompleted: {
-        console.log(height)
-        console.log(width)
-    }
+    property real spriteBottom: ScreenHeight
+    property real spriteTop: 0
+    property real spriteLeft: 0
+    property real spriteRight: ScreenWidth
+    property AbstractPet petItem
 
     onSpriteBottomChanged: {
-        console.log("new sprite bottom: " + spriteBottom)
+        console.log("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
+        if(!!petItem) {
+            petItem.y = spriteBottom - petItem.height
+            console.log("AbstractWorld.qml: pet y " + petItem.y)
+        }
     }
 
-    Item {
-        id: petItem
-        x: 0
-        y: spriteBottom - height
-        z: 50
-        property AbstractPet myPet
-    }
-
-    function createPet(qml) {
-        var component = Qt.createComponent(qml);
-        if(component.status == Component.Ready) {
-            //var petComponent = component.createObject(petItem,{"x": 0, "y": spriteBottom - height, "z": 50})
-            var petComponent = component.createObject(petItem,{
-                                                          "anchors.bottom": petItem.bottom,
-                                                          "anchors.bottomMargin": 0,
-                                                          "anchors.left": petItem.left,
-                                                          "anchors.leftMargin": 0})
-            petItem.myPet = petComponent
-            console.log("created pet component at (" + petComponent.x + ", " + petComponent.y + ")")
+    onPetItemChanged: {
+        console.log("AbstractWorld.qml: pet object obtained")
+        if(!!petItem) {
+            petItem.setCollisionCallback(isCollisionFree)
+            petItem.doStandardAnimations = true
+            petItem.x = (ScreenWidth - petItem.width) / 2
+            petItem.y = spriteBottom - petItem.height
+            console.log("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         }
     }
 
     onPetChanged: {
-        var qml;
-        switch(pet.type) {
-        case Pet.PET1:
-            qml = "../pets/Pet1.qml";
-            break;
-        case Pet.PET2:
-            qml = "../pets/Pet2.qml";
-            break;
-        case Pet.PET3:
-            qml = "../pets/Pet3.qml";
-            break;
-        case Pet.PET4:
-            qml = "../pets/Pet4.qml";
-            break;
-        default:
-            qml = "../pets/Pet1.qml";
-            break;
-        }
-        console.log("pet changed")
-        createPet(qml)
+        Sprite.createPet("../pets/", pet.type, world, {"z": 50}, createPetHandler)
+    }
+
+    function createPetHandler(component) {
+        console.log("AbstractWorld.qml: Pet callback handler with pet " + component)
+        world.petItem = component
+    }
+
+    function isCollisionFree(x) {
+        console.log("AbstractWorld.qml: pet collision detection at " + x)
+        return spriteLeft <= x && x <= spriteRight
     }
 }

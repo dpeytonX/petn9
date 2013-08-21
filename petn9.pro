@@ -63,7 +63,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     models/models.pri \
-    petn9.sql
+    petn9.sql \
+    qml/petn9/js/UIConstants.js
 
 HEADERS += \
     databasemanager.h \
