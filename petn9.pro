@@ -64,7 +64,10 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/changelog \
     models/models.pri \
     petn9.sql \
-    images/plantula.png
+    images/plantula.png \
+    images/dragonator.png \
+    images/drippy.png \
+    images/baphomet.png
 
 
 HEADERS += \

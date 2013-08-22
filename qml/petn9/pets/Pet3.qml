@@ -2,5 +2,9 @@
 import QtQuick 1.1
 
 AbstractPet {
-    color: "green"
+    Image {
+        id: image1
+        anchors.fill: parent
+        source: "qrc:/images/pet3.png"
+    }
 }

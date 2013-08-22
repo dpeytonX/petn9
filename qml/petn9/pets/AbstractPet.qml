@@ -28,8 +28,8 @@ import "../QmlLogger/qmllogger/Logger.js" as Console
 Rectangle {
     id: abstractPet
     width: 100
-    height: 62
-    color: "black"
+    height: 100
+    color: "#00000000"
 
     property bool doStandardAnimations
 

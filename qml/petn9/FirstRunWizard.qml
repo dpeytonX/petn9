@@ -40,13 +40,22 @@ DefaultPage {
                 wizard.pageStack.push(Qt.resolvedUrl("Game.qml"), {"pet": Manager.pets[0], "world": Manager.getWorld()})
             }
 
+            function petCreated(petItem) {
+                petItem.setCollisionCallback(demoMovement)
+                petItem.doStandardAnimations = true
+            }
+
+            function demoMovement(x) {
+                return false
+            }
+
             MouseArea {
                 id:petArea1
                 width: 100
                 height: 100
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET1, petArea1, {}, null)
+                    Sprite.createPet("pets/", Pet.PET1, petArea1, {}, parent.petCreated)
                 }
 
                 onClicked: {
@@ -61,7 +70,7 @@ DefaultPage {
                 height: 100
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET2, petArea2, {}, null)
+                    Sprite.createPet("pets/", Pet.PET2, petArea2, {}, parent.petCreated)
                 }
 
                 onClicked: {
@@ -75,7 +84,7 @@ DefaultPage {
                 height: 100
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET3, petArea3, {}, null)
+                    Sprite.createPet("pets/", Pet.PET3, petArea3, {}, parent.petCreated)
                 }
 
                 onClicked: {
@@ -89,7 +98,7 @@ DefaultPage {
                 height: 100
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET4, petArea4, {}, null)
+                    Sprite.createPet("pets/", Pet.PET4, petArea4, {}, parent.petCreated)
                 }
 
                 onClicked: {

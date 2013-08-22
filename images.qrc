@@ -1,5 +1,8 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/images">
-<file alias="pet2.png">images/plantula.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/images">
+        <file alias="pet2.png">images/plantula.png</file>
+        <file alias="pet3.png">images/dragonator.png</file>
+        <file alias="pet1.png">images/drippy.png</file>
+        <file alias="pet4.png">images/baphomet.png</file>
+    </qresource>
 </RCC>
