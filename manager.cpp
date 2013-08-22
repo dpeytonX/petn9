@@ -92,7 +92,7 @@ Manager::~Manager() {
     delete petModels;
 }
 
-Pet *Manager::createPet(int typeId)
+Pet *Manager::createPet(int typeId, const QString& name)
 {
     qDebug() << "Manager: creating pet of type: " << typeId;
     Pet* pet = new Pet();
@@ -114,7 +114,7 @@ Pet *Manager::createPet(int typeId)
         break;
     }
 
-    pet->setName("example");
+    pet->setName(name);
     pet->setHealth(100);
 
     bool result = dbManager->insertPetRecord(*pet);

@@ -14,7 +14,6 @@ import "QmlLogger/qmllogger/Logger.js" as Console
   */
 DefaultPage {
     id: wizard
-    orientationLock: Manager.isSimulator() ? PageOrientation.Automatic : PageOrientation.LockLandscape
 
     Text {
         id: title
@@ -35,11 +34,6 @@ DefaultPage {
 
             spacing: (parent.width - 100 * 4) / 5
 
-            function launchWorld(currentPet) {
-                Console.info("FirstRunWizard.qml: got pet " + currentPet);
-                wizard.pageStack.push(Qt.resolvedUrl("Game.qml"), {"pet": Manager.pets[0], "world": Manager.getWorld()})
-            }
-
             function petCreated(petItem) {
                 petItem.setCollisionCallback(demoMovement)
                 petItem.doStandardAnimations = true
@@ -53,14 +47,14 @@ DefaultPage {
                 id:petArea1
                 width: 100
                 height: 100
+                property int type: Pet.PET1
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET1, petArea1, {}, parent.petCreated)
+                    Sprite.createPet("pets/", type, petArea1, {}, parent.petCreated)
                 }
 
                 onClicked: {
-                    Console.debug("FirstRunWizard.qml: " + Pet.PET1 + " was clicked.")
-                    parent.launchWorld(Manager.createPet(Pet.PET1));
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
                 }
 
                 onPressed: {
@@ -79,18 +73,19 @@ DefaultPage {
 
             }
 
+
             MouseArea {
                 id:petArea2
                 width: 100
-                height: 100
+                height: 100.
+                property int type: Pet.PET2
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET2, petArea2, {}, parent.petCreated)
+                    Sprite.createPet("pets/", type, petArea2, {}, parent.petCreated)
                 }
 
                 onClicked: {
-                    Console.debug("FirstRunWizard.qml: " + Pet.PET2 + " was clicked.")
-                    parent.launchWorld(Manager.createPet(Pet.PET2));
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
                 }
 
                 onPressed: {
@@ -111,14 +106,14 @@ DefaultPage {
                 id:petArea3
                 width: 100
                 height: 100
+                property int type: Pet.PET3
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET3, petArea3, {}, parent.petCreated)
+                    Sprite.createPet("pets/", type, petArea3, {}, parent.petCreated)
                 }
 
                 onClicked: {
-                    Console.debug("FirstRunWizard.qml: " + Pet.PET3 + " was clicked.")
-                    parent.launchWorld(Manager.createPet(Pet.PET3))
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
                 }
 
                 onPressed: {
@@ -139,14 +134,14 @@ DefaultPage {
                 id:petArea4
                 width: 100
                 height: 100
+                property int type: Pet.PET4
 
                 Component.onCompleted: {
-                    Sprite.createPet("pets/", Pet.PET4, petArea4, {}, parent.petCreated)
+                    Sprite.createPet("pets/", type, petArea4, {}, parent.petCreated)
                 }
 
                 onClicked: {
-                    Console.debug("FirstRunWizard.qml: " + Pet.PET4 + " was clicked.")
-                    parent.launchWorld(Manager.createPet(Pet.PET4));
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
                 }
 
                 onPressed: {

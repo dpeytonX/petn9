@@ -64,4 +64,8 @@ Rectangle {
         Console.trace("AbstractWorld.qml: pet collision detection at " + x)
         return spriteLeft <= x && x <= spriteRight
     }
+
+    Component.onCompleted: {
+        pet = Manager.currentPet
+    }
 }

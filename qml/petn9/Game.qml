@@ -12,7 +12,6 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 DefaultPage {
     id: game
 
-    property Pet pet
     property string world
     property variant worldObject
 
@@ -20,7 +19,7 @@ DefaultPage {
         var component = Qt.createComponent("worlds/" + world + ".qml")
         worldObject = component
         if(component.status == Component.Ready) {
-            worldObject = component.createObject(game, {"pet": pet, "anchors.fill": game})
+            worldObject = component.createObject(game, {"anchors.fill": game})
             Console.debug("Game.qml: created world " + worldObject)
         } else if (component.status == Component.Error) {
             // Error Handling
@@ -34,7 +33,7 @@ DefaultPage {
     function finishWorld() {
         Console.debug("Game: finish world")
         if (worldObject.status == Component.Ready) {
-            worldObject = component.createObject(game, {"pet": pet, "anchors.fill": game})
+            worldObject = component.createObject(game, {"anchors.fill": game})
             if (worldObject == null) {
                 // Error Handling
                 Console.error("Error creating world");
