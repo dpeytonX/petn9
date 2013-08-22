@@ -63,7 +63,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     models/models.pri \
-    petn9.sql
+    petn9.sql \
+    images/plantula.png
 
 
 HEADERS += \
@@ -72,4 +73,5 @@ HEADERS += \
     manager.h
 
 RESOURCES += \
-    petn9.qrc
+    petn9.qrc \
+    images.qrc

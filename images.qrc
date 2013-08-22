@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/images">
+<file alias="pet2.png">images/plantula.png</file>
+</qresource>
+</RCC>

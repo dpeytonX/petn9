@@ -30,7 +30,6 @@ Rectangle {
     width: 100
     height: 62
     color: "black"
-    transformOrigin: Item.TopLeft
 
     property bool doStandardAnimations
 
@@ -51,6 +50,7 @@ Rectangle {
 
         var delta = UI.PET_MOVEMENT
 
+
         if(rand <= .25 && cbExists && cb(x + delta)) {
             //go right
             x += delta
@@ -59,21 +59,28 @@ Rectangle {
             x -= delta
         } else if(rand <= .75) {
             //face left
-            //transform = reflectLeft
+            reflectLeft.angle = 180
+            Console.debug("AbstractPet.qml: pet reflected " + reflectLeft.angle + " " + reflectLeft.origin.x + " " + reflectLeft.origin.y)
+
         } else {
             //face right
-            //transform = reflectRight
+            reflectLeft.angle = 0
+            Console.debug("AbstractPet.qml: pet reflected " + reflectLeft.angle + " " + reflectLeft.origin.x + " " + reflectLeft.origin.y)
+
         }
     }
 
-    Rotation {
+    transform: Rotation {
         id: reflectLeft
         axis {x: 0; y: 1; z: 0}
-        angle: 180
+        origin.x: width / 2
+        origin.y: height / 2
+        angle: 0
     }
 
     Rotation {
         id: reflectRight
+
         axis {x: 0; y: 1; z: 0}
         angle: -180
     }
