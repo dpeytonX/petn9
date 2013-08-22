@@ -33,7 +33,7 @@ DefaultPage {
         Row {
             anchors.centerIn: parent
 
-            spacing: 10
+            spacing: (parent.width - 100 * 4) / 5
 
             function launchWorld(currentPet) {
                 Console.info("FirstRunWizard.qml: got pet " + currentPet);
@@ -62,6 +62,21 @@ DefaultPage {
                     Console.debug("FirstRunWizard.qml: " + Pet.PET1 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET1));
                 }
+
+                onPressed: {
+                    highlight.anchors.centerIn = petArea1
+                    highlight.opacity = 1
+                }
+
+                Rectangle {
+                    id: highlight
+                    border.width: 1
+                    border.color: "blue"
+                    width: 100
+                    height: 100
+                    opacity: 0
+                }
+
             }
 
             MouseArea {
@@ -77,6 +92,20 @@ DefaultPage {
                     Console.debug("FirstRunWizard.qml: " + Pet.PET2 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET2));
                 }
+
+                onPressed: {
+                    highlight2.anchors.centerIn = petArea2
+                    highlight2.opacity = 1
+                }
+
+                Rectangle {
+                    id: highlight2
+                    border.width: 1
+                    border.color: "blue"
+                    width: 100
+                    height: 100
+                    opacity: 0
+                }
             }
             MouseArea {
                 id:petArea3
@@ -91,6 +120,20 @@ DefaultPage {
                     Console.debug("FirstRunWizard.qml: " + Pet.PET3 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET3))
                 }
+
+                onPressed: {
+                    highlight3.anchors.centerIn = petArea3
+                    highlight3.opacity = 1
+                }
+
+                Rectangle {
+                    id: highlight3
+                    border.width: 1
+                    border.color: "blue"
+                    width: 100
+                    height: 100
+                    opacity: 0
+                }
             }
             MouseArea {
                 id:petArea4
@@ -104,6 +147,20 @@ DefaultPage {
                 onClicked: {
                     Console.debug("FirstRunWizard.qml: " + Pet.PET4 + " was clicked.")
                     parent.launchWorld(Manager.createPet(Pet.PET4));
+                }
+
+                onPressed: {
+                    highlight4.anchors.centerIn = petArea4
+                    highlight4.opacity = 1
+                }
+
+                Rectangle {
+                    id: highlight4
+                    border.width: 1
+                    border.color: "blue"
+                    width: 100
+                    height: 100
+                    opacity: 0
                 }
             }
         }
