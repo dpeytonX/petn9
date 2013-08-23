@@ -33,6 +33,10 @@ public:
     void setHealth(int health) {
         this->health = health;
     }
+    
+    void setId(int id) {
+        this->id = id;
+    }
 
     PETS getType() const {
         return type;
@@ -50,11 +54,16 @@ public:
         return health;
     }
     
+    int getId() const {
+        return id;
+    }
+    
 signals:
     
 public slots:
     
 private:
+    int id;
     PETS type;
     QString name;
     long creation;

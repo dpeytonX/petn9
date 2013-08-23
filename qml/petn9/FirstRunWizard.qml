@@ -47,7 +47,7 @@ DefaultPage {
                 id:petArea1
                 width: 100
                 height: 100
-                property int type: Pet.PET1
+                property int type: PetModel.PET1
 
                 Component.onCompleted: {
                     Sprite.createPet("pets/", type, petArea1, {}, parent.petCreated)
@@ -78,7 +78,7 @@ DefaultPage {
                 id:petArea2
                 width: 100
                 height: 100.
-                property int type: Pet.PET2
+                property int type: PetModel.PET2
 
                 Component.onCompleted: {
                     Sprite.createPet("pets/", type, petArea2, {}, parent.petCreated)
@@ -106,7 +106,7 @@ DefaultPage {
                 id:petArea3
                 width: 100
                 height: 100
-                property int type: Pet.PET3
+                property int type: PetModel.PET3
 
                 Component.onCompleted: {
                     Sprite.createPet("pets/", type, petArea3, {}, parent.petCreated)
@@ -134,7 +134,7 @@ DefaultPage {
                 id:petArea4
                 width: 100
                 height: 100
-                property int type: Pet.PET4
+                property int type: PetModel.PET4
 
                 Component.onCompleted: {
                     Sprite.createPet("pets/", type, petArea4, {}, parent.petCreated)

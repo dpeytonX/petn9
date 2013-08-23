@@ -69,6 +69,12 @@ QSqlQuery DatabaseManager::getPets() {
     return petsQuery;
 }
 
+QSqlQuery DatabaseManager::getSprites() {
+    QSqlQuery spriteQuery("SELECT * FROM Sprite");
+
+    return spriteQuery;
+}
+
 bool DatabaseManager::insertPetRecord(const Pet &pet)
 {
     QSqlQuery query;
@@ -76,6 +82,16 @@ bool DatabaseManager::insertPetRecord(const Pet &pet)
     query.addBindValue(pet.getType());
     query.addBindValue(pet.getName());
     query.addBindValue(pet.getHealth());
+    return query.exec();
+}
+
+bool DatabaseManager::insertSpriteRecord(const SpriteModel &spriteModel)
+{
+    QSqlQuery query;
+    query.prepare("INSERT Into Sprite (SPRITE_TYPE_ID, X, Y) VALUES(?,?,?)");
+    query.addBindValue(spriteModel.getSpriteTypeId());
+    query.addBindValue(spriteModel.getX());
+    query.addBindValue(spriteModel.getY());
     return query.exec();
 }
 

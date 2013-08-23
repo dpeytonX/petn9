@@ -36,7 +36,7 @@ public:
     Pet* getCurrentPet() {
         return petModels->empty() ? NULL : petModels->at(petModels->size() - 1);
     }
-
+    
     /**
       Returns whether this is a simulated environment.
       @return true if this is the NOKIA simulator. False, otherwise.
@@ -69,6 +69,8 @@ public slots:
       @param is the Pet type. It should match a value in Pet::PETS.
       */
     Pet* createPet(int typeId, const QString &name);
+    
+    SpriteModel* createSprite(int spriteTypeId, int x, int y) { return NULL;}
 
 private:
     DatabaseManager* dbManager;

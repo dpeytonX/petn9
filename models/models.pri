@@ -6,8 +6,10 @@
 
 HEADERS += \
     models/pet.h \
-    models/pet.h
+    models/pet.h \
+    models/spritemodel.h
 
 
 SOURCES += \
-    models/pet.cpp
+    models/pet.cpp \
+    models/spritemodel.cpp

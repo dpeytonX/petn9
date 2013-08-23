@@ -1,9 +1,11 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
+import com.blogspot.iamboke 1.0
+import ".."
+
 import "js/_private.js" as JObjects
 import "../js/UIConstants.js" as UI
 import "../QmlLogger/qmllogger/Logger.js" as Console
-import ".."
 
 /**
   AbstractPet.qml
@@ -95,6 +97,7 @@ Sprite {
                 var poopItem = component.createObject(abstractPet.parent)
                 poopItem.x = abstractPet.x
                 poopItem.y = abstractPet.y + poopItem.height
+                Manager.createSprite(SpriteModel.POOP, poopItem.x, poopItem.y);
                 Console.debug("AbstractPoop.qml: created world " + worldObject)
             } else if (component.status == Component.Error) {
                 // Error Handling

@@ -7,6 +7,7 @@
 #include <QFile>
 
 #include "models/pet.h"
+#include "models/spritemodel.h"
 
 /**
   Manages database connections for the application.
@@ -52,12 +53,25 @@ public:
       @return the query to retrieve the pets.
       */
     QSqlQuery getPets();
+    
+    /**
+      Returns the sprite models within the DB.
+      @return the query to retrieve sprite objects.
+      */
+    QSqlQuery getSprites();
 
     /**
       Inserts a new Pet Model into the database.
       @return true if successful.
       */
     bool insertPetRecord(const Pet& pet);
+    
+    /**
+      Inserts a new Sprite Model into the database.
+      @return true if successful.
+      */
+    bool insertSpriteRecord(const SpriteModel& spriteModel);
+    
 private:
     QSqlDatabase db;
     QString dbPath;

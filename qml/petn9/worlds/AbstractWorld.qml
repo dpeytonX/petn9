@@ -23,7 +23,7 @@ import "../QmlLogger/qmllogger/Logger.js" as Console
 Rectangle {
     id:world
 
-    property Pet pet
+    property PetModel pet
 
     /** Must be defined by sub-elements to provide Sprite boundaries*/
     property real spriteBottom: ScreenHeight
