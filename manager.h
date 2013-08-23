@@ -21,6 +21,7 @@ class Manager : public QObject
     Q_OBJECT
     Q_PROPERTY(QDeclarativeListProperty<Pet> pets READ getPetModels)
     Q_PROPERTY(Pet* currentPet READ getCurrentPet)
+    Q_PROPERTY(QDeclarativeListProperty<SpriteModel> sprites READ getSpriteModels)
 public:
     explicit Manager(QObject *parent = 0);
     ~Manager();
@@ -32,6 +33,8 @@ public:
     QDeclarativeListProperty<Pet> getPetModels() {
         return QDeclarativeListProperty<Pet>(this, *petModels);
     }
+    
+    QDeclarativeListProperty<SpriteModel> getSpriteModels();
 
     Pet* getCurrentPet() {
         return petModels->empty() ? NULL : petModels->at(petModels->size() - 1);
@@ -70,7 +73,7 @@ public slots:
       */
     Pet* createPet(int typeId, const QString &name);
     
-    SpriteModel* createSprite(int spriteTypeId, int x, int y) { return NULL;}
+    void createSprite(int spriteTypeId, int x, int y);
 
 private:
     DatabaseManager* dbManager;

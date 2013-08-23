@@ -32,7 +32,7 @@ bool DatabaseManager::open()
         return isDbOpen;
     }
     QSqlRecord rec = exists.record();
-
+    
     int numTbl = rec.indexOf("numTbl");
     if(exists.next() && !exists.value(numTbl).toInt()) {
         qDebug() << "DatabaseManager: no tables exist";
@@ -50,7 +50,7 @@ bool DatabaseManager::open()
             }
         }
     }
-
+    
     return isDbOpen;
 }
 
@@ -65,13 +65,18 @@ void DatabaseManager::close()
 
 QSqlQuery DatabaseManager::getPets() {
     QSqlQuery petsQuery("SELECT * FROM Pet");
-
+    
     return petsQuery;
 }
 
-QSqlQuery DatabaseManager::getSprites() {
-    QSqlQuery spriteQuery("SELECT * FROM Sprite");
-
+QSqlQuery DatabaseManager::getSprites(SpriteModel::SPRITES typeId) {
+    QSqlQuery spriteQuery;
+    if(typeId == SpriteModel::ALL) {
+        spriteQuery.prepare("SELECT * FROM Sprite");
+        return spriteQuery;
+    }
+    spriteQuery.prepare("SELECT * FROM Sprite WHERE SPRITE_TYPE_ID = ?");
+    spriteQuery.addBindValue(typeId);
     return spriteQuery;
 }
 

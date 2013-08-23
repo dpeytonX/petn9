@@ -58,7 +58,7 @@ public:
       Returns the sprite models within the DB.
       @return the query to retrieve sprite objects.
       */
-    QSqlQuery getSprites();
+    QSqlQuery getSprites(SpriteModel::SPRITES typeId);
 
     /**
       Inserts a new Pet Model into the database.

@@ -16,18 +16,18 @@ Manager::Manager(QObject *parent) :
     AppSettings settings;
     QString dbPath = settings.getDatabasePath();
     dbManager = new DatabaseManager(dbPath, this);
-
+    
     bool isOpen = dbManager->open();
     qDebug() << "Manager: opened db " << isOpen;
     if(!isOpen) {
         qDebug() << dbManager->lastError().text();
     }
-
+    
     createPetModels();
 }
 
 QString Manager::getWorld() {
-
+    
     //Random world selection
 #ifndef NO_RANDOM_WORLDS
     int selection = qrand();
@@ -39,7 +39,7 @@ QString Manager::getWorld() {
 #else
     return "Plain";
 #endif
-
+    
 }
 
 void Manager::saveOnExit()
@@ -54,7 +54,7 @@ void Manager::createPetModels() {
     int nameCol = rec.indexOf("NAME");
     int creationCol = rec.indexOf("CREATION");
     int healthCol = rec.indexOf("HEALTH");
-
+    
     while(petsQuery.next()) {
         qDebug() << "Manager: creating pet ";
         int typeId = petsQuery.value(typeIdCol).toInt();
@@ -79,7 +79,7 @@ void Manager::createPetModels() {
             pet->setType(Pet::PET1);
             break;
         }
-
+        
         pet->setName(name);
         pet->setCreationTime(creation);
         pet->setHealth(health);
@@ -95,6 +95,11 @@ Manager::~Manager() {
         }
     }
     delete petModels;
+}
+
+QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
+{
+    return QDeclarativeListProperty<SpriteModel>(this, QList<SpriteModel*>());
 }
 
 Pet *Manager::createPet(int typeId, const QString& name)
@@ -118,15 +123,37 @@ Pet *Manager::createPet(int typeId, const QString& name)
         pet->setType(Pet::PET1);
         break;
     }
-
+    
     pet->setName(name);
     pet->setHealth(100);
-
+    
     bool result = dbManager->insertPetRecord(*pet);
     qDebug() << "Manager: pet created " << result;
-
+    
     petModels->append(pet);
     emit petAdded();
-
+    
     return pet;
+}
+
+void Manager::createSprite(int spriteTypeId, int x, int y)
+{
+    qDebug() << "Manager: creating sprite of type: " << spriteTypeId;
+    SpriteModel* sprite = new SpriteModel();
+    switch(spriteTypeId) {
+    case 0:
+        sprite->setSpriteTypeId(SpriteModel::POOP);
+        break;
+    default:
+        sprite->setSpriteTypeId(SpriteModel::POOP);
+        break;
+    }
+    
+    sprite->setX(x);
+    sprite->setY(y);
+    
+    bool result = dbManager->insertSpriteRecord(*sprite);
+    qDebug() << "Manager: sprite added to DB " << result;
+    
+    delete sprite;
 }
