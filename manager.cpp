@@ -42,6 +42,11 @@ QString Manager::getWorld() {
 
 }
 
+void Manager::saveOnExit()
+{
+    qDebug() << "Manager: Saving...";
+}
+
 void Manager::createPetModels() {
     QSqlQuery petsQuery = dbManager->getPets();
     QSqlRecord rec = petsQuery.record();

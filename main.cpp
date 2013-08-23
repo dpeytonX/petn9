@@ -25,6 +25,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     int screenWidth = viewer.geometry().width();
     int screenHeight = viewer.geometry().height();
+    qDebug() << "main.cpp: dimensions (" << screenWidth << "," << screenHeight << ")";
     viewer.rootContext()->setContextProperty("ScreenWidth", screenWidth);
     viewer.rootContext()->setContextProperty("ScreenHeight", screenHeight);
     viewer.rootContext()->setContextProperty("Manager", manager);

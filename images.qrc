@@ -4,5 +4,6 @@
         <file alias="pet3.png">images/dragonator.png</file>
         <file alias="pet1.png">images/drippy.png</file>
         <file alias="pet4.png">images/baphomet.png</file>
+        <file alias="poop.png">images/poop.png</file>
     </qresource>
 </RCC>

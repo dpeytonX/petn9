@@ -45,6 +45,7 @@ Rectangle {
         if(!!petItem) {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.doStandardAnimations = true
+            petItem.doSpawnObjects = true
             petItem.x = (ScreenWidth - petItem.width) / 2
             petItem.y = spriteBottom - petItem.height
             Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
@@ -52,7 +53,7 @@ Rectangle {
     }
 
     onPetChanged: {
-        Sprite.createPet("../pets/", pet.type, world, {"z": 50}, createPetHandler)
+        Sprite.createPet("../pets/", pet.type, world, {}, createPetHandler)
     }
 
     function createPetHandler(component) {

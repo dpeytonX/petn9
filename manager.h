@@ -55,6 +55,8 @@ public:
       */
     Q_INVOKABLE QString getWorld();
 
+    Q_INVOKABLE void saveOnExit();
+
 signals:
     /**
       Emmitted when a Pet is added to the Pet model list.
