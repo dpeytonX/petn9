@@ -58,7 +58,7 @@ Sprite {
         var delta = UI.PET_MOVEMENT
 
 
-        if(rand <= .4 && cbExists && cb(x + delta)) {
+        if(rand <= .4 && cbExists && cb(x + width + delta)) {
             //go right
             x += delta
         } else if(rand <= .8 && cbExists && cb(x - delta)) {
