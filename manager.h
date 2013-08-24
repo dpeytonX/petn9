@@ -33,13 +33,13 @@ public:
     QDeclarativeListProperty<Pet> getPetModels() {
         return QDeclarativeListProperty<Pet>(this, *petModels);
     }
-    
+
     QDeclarativeListProperty<SpriteModel> getSpriteModels();
 
     Pet* getCurrentPet() {
         return petModels->empty() ? NULL : petModels->at(petModels->size() - 1);
     }
-    
+
     /**
       Returns whether this is a simulated environment.
       @return true if this is the NOKIA simulator. False, otherwise.
@@ -72,12 +72,13 @@ public slots:
       @param is the Pet type. It should match a value in Pet::PETS.
       */
     Pet* createPet(int typeId, const QString &name);
-    
+
     void createSprite(int spriteTypeId, int x, int y);
 
 private:
     DatabaseManager* dbManager;
     QList<Pet*>* petModels;
+    SpriteModel* spriteDeclarativeListHolder;
 
     void createPetModels();
 };

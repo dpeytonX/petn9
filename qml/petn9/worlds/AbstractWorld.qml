@@ -66,7 +66,38 @@ Rectangle {
         return spriteLeft <= x && x <= spriteRight
     }
 
+    function spawnSprites() {
+        Console.verbose("AbstractWorld.qml: drawing left oversprites ")
+        var spriteModels = []; spriteModels = Manager.sprites
+        Console.debug("AbstractWorld.qml: retrieved sprite models " + spriteModels)
+        if(!spriteModels) return
+        Console.debug("AbstractWorld.qml: spriteModels.length " + spriteModels.length)
+        for(var i = 0; i < spriteModels.length; i++) {
+            var currentModel = spriteModels[i]
+            var component
+            switch(currentModel.typeId) {
+            case SpriteModel.POOP:
+                component = Qt.createComponent("../objects/Poop.qml")
+                break
+            default:
+                component = Qt.createComponent("../objects/Poop.qml")
+                break
+            }
+            if(component.status == Component.Ready) {
+                var spriteItem = component.createObject(world)
+                spriteItem.x = currentModel.x
+                spriteItem.y = currentModel.y
+                Console.debug("AbstractWorld.qml: created sprite at (" + x + "," + y + ")")
+            } else if (component.status == Component.Error) {
+                // Error Handling
+                Console.error("AbstractWorld.qml: Error loading sprite:", component.errorString());
+            }
+        }
+        spriteModels = []
+    }
+
     Component.onCompleted: {
         pet = Manager.currentPet
+        spawnSprites();
     }
 }
