@@ -102,7 +102,7 @@ Manager::~Manager() {
 QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
 {
     qDebug() << "Manager: retrieving sprite models ";
-    spriteDeclarativeListHolder = new SpriteModel(this);
+    spriteDeclarativeListHolder = new SpriteDeclarativeList(this);
     //Populate Sprite Models
     QSqlQuery spriteQuery = dbManager->getSprites(SpriteModel::ALL);
     QSqlRecord rec = spriteQuery.record();
@@ -131,13 +131,14 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
         spriteObj->setX(x);
         spriteObj->setY(y);
         qDebug() << "Manager: sprite " << spriteId << " was created of type " << spriteTypeId;
-        appendSpriteModelToInternalList(&spriteDeclarativeListHolder->getDeclarativeListImpl(), spriteObj);
+        spriteDeclarativeListHolder->getDeclarativeListData().append(spriteObj);
     }
     //return QDeclListProp
-    return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0, &SpriteModel::SpriteModelListImpl::appendObject,
-                                                 &SpriteModel::SpriteModelListImpl::count,
-                                                 &SpriteModel::SpriteModelListImpl::atIndex,
-                                                 &SpriteModel::SpriteModelListImpl::clearObject);
+    return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0,
+                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::appendObject,
+                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::count,
+                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::atIndex,
+                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::clearObject);
 }
 
 Pet *Manager::createPet(int typeId, const QString& name)

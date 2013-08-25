@@ -12,6 +12,7 @@
 
 #include "databasemanager.h"
 #include "models/pet.h"
+#include "models/spritedeclarativelist.h"
 
 /**
   Back-end for QML providing necessary functions for manipulating DTO models and managing the application's database.
@@ -87,7 +88,7 @@ public slots:
 private:
     DatabaseManager* dbManager;
     QList<Pet*>* petModels;
-    SpriteModel* spriteDeclarativeListHolder;
+    SpriteDeclarativeList* spriteDeclarativeListHolder;
 
     void createPetModels();
 };
