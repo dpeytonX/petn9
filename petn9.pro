@@ -53,6 +53,7 @@ include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 include(models/models.pri)
+include(qtdeclarative-helper/declarativelist.pri)
 
 OTHER_FILES += \
     qtc_packaging/debian_harmattan/rules \
@@ -63,6 +64,7 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     models/models.pri \
+    qtdeclarative-helper/declarativelist.pri \
     petn9.sql \
     images/plantula.png \
     images/dragonator.png \

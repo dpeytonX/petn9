@@ -7,11 +7,9 @@
 HEADERS += \
     models/pet.h \
     models/pet.h \
-    models/spritemodel.h \
-    models/declarativelistimpl.h
+    models/spritemodel.h
 
 
 SOURCES += \
     models/pet.cpp \
-    models/spritemodel.cpp \
-    models/declarativelistimpl.cpp
+    models/spritemodel.cpp

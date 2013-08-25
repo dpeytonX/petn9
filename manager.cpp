@@ -8,6 +8,7 @@
 #include "appsettings.h"
 #include "databasemanager.h"
 #include "models/pet.h"
+#include "qtdeclarative-helper/declarativelist.h"
 
 Manager::Manager(QObject *parent) :
     QObject(parent),
@@ -107,10 +108,10 @@ QDeclarativeListProperty<Pet> Manager::getPetModels() {
         petDeclarativeListHolder->getList().append(o);
     }
     return QDeclarativeListProperty<Pet>(petDeclarativeListHolder, 0,
-                                                 &DeclarativeListImpl<Pet>::appendObject,
-                                                 &DeclarativeListImpl<Pet>::count,
-                                                 &DeclarativeListImpl<Pet>::atIndex,
-                                                 &DeclarativeListImpl<Pet>::clearObject);
+                                                 &DeclarativeList<Pet>::appendObject,
+                                                 &DeclarativeList<Pet>::count,
+                                                 &DeclarativeList<Pet>::atIndex,
+                                                 &DeclarativeList<Pet>::clearObject);
 }
 
 QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
@@ -149,10 +150,10 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
     }
     //return QDeclListProp
     return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0,
-                                                 &DeclarativeListImpl<SpriteModel>::appendObject,
-                                                 &DeclarativeListImpl<SpriteModel>::count,
-                                                 &DeclarativeListImpl<SpriteModel>::atIndex,
-                                                 &DeclarativeListImpl<SpriteModel>::clearObject);
+                                                 &DeclarativeList<SpriteModel>::appendObject,
+                                                 &DeclarativeList<SpriteModel>::count,
+                                                 &DeclarativeList<SpriteModel>::atIndex,
+                                                 &DeclarativeList<SpriteModel>::clearObject);
 }
 
 Pet *Manager::createPet(int typeId, const QString& name)

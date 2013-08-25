@@ -2,12 +2,12 @@
 #define SPRITEMODEL_H
 
 #include <QObject>
-#include "models/declarativelistimpl.h"
+#include "qtdeclarative-helper/declarativelist.h"
 
 /**
   Represents the extra models that are added to the game.
   */
-class SpriteModel : public QObject, public DeclarativeListImpl<SpriteModel>
+class SpriteModel : public QObject, public DeclarativeList<SpriteModel>
 {
     Q_OBJECT
     Q_ENUMS(SPRITES)

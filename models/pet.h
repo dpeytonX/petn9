@@ -2,14 +2,14 @@
 #define PET_H
 
 #include <QObject>
-#include "models/declarativelistimpl.h"
+#include "qtdeclarative-helper/declarativelist.h"
 
 class QString;
 
 /**
   Represents a Pet object.
   */
-class Pet : public QObject, public DeclarativeListImpl<Pet>
+class Pet : public QObject, public DeclarativeList<Pet>
 {
     Q_OBJECT
     Q_ENUMS(PETS)
