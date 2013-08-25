@@ -11,10 +11,6 @@ DefaultPage {
 
     property int petType
 
-    function launchWorld() {
-        firstRunName.pageStack.push(Qt.resolvedUrl("Game.qml"), {"world": Manager.getWorld()})
-    }
-
     function petCreated(petItem) {
         petItem.setCollisionCallback(demoMovement)
         petItem.doStandardAnimations = true
@@ -82,7 +78,7 @@ DefaultPage {
                     text: qsTr("OK!")
                     onClicked: {
                         if(Manager.createPet(petType, nameInput.text)) {
-                            launchWorld()
+                            firstRunName.pageStack.push(Qt.resolvedUrl("Game.qml"))
                         } else {
                             Console.error("FirstRunChooseName.qml: could not create a pet model")
                         }
