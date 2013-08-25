@@ -31,6 +31,7 @@ Rectangle {
     property real spriteLeft: 0
     property real spriteRight: ScreenWidth
     property AbstractPet petItem
+    property bool petDied
 
     onSpriteBottomChanged: {
         Console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
@@ -42,14 +43,16 @@ Rectangle {
 
     onPetItemChanged: {
         Console.info("AbstractWorld.qml: pet object obtained")
-        if(!!petItem) {
+        if(!!petItem && !pet.dead) {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.doStandardAnimations = true
             petItem.doSpawnObjects = true
-            petItem.x = (ScreenWidth - petItem.width) / 2
-            petItem.y = spriteBottom - petItem.height
-            Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         }
+        petItem.x = (ScreenWidth - petItem.width) / 2
+        petItem.y = spriteBottom - petItem.height
+        Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
+        Console.debug("AbstractWorld.qml: pet is " + (pet.dead ? "dead" : "alive"))
+        petDied = true
     }
 
     onPetChanged: {
