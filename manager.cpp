@@ -97,6 +97,47 @@ Manager::~Manager() {
     delete petModels;
 }
 
+QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
+{
+    qDebug() << "Manager: retrieving sprite models ";
+    spriteDeclarativeListHolder = new SpriteModel(this);
+    //Populate Sprite Models
+    QSqlQuery spriteQuery = dbManager->getSprites(SpriteModel::ALL);
+    QSqlRecord rec = spriteQuery.record();
+    int spriteIdCol = rec.indexOf("SPRITE_ID");
+    int spriteTypeIdCol = rec.indexOf("SPRITE_TYPE_ID");
+    int xCol = rec.indexOf("X");
+    int yCol = rec.indexOf("Y");
+
+    while(spriteQuery.next()) {
+        qDebug() << "Manager: creating sprite model ";
+        int spriteId = spriteQuery.value(spriteIdCol).toInt();
+        int spriteTypeId= spriteQuery.value(spriteTypeIdCol).toInt();
+        int x = spriteQuery.value(xCol).toInt();
+        int y = spriteQuery.value(yCol).toInt();
+        SpriteModel* spriteObj = new SpriteModel(this);
+        switch(spriteTypeId) {
+        case 0:
+            spriteObj->setSpriteTypeId(SpriteModel::POOP);
+            break;
+        default:
+            spriteObj->setSpriteTypeId(SpriteModel::POOP);
+            break;
+        }
+
+        spriteObj->setId(spriteId);
+        spriteObj->setX(x);
+        spriteObj->setY(y);
+        qDebug() << "Manager: sprite " << spriteId << " was created of type " << spriteTypeId;
+        appendSpriteModelToInternalList(&spriteDeclarativeListHolder->getDeclarativeListImpl(), spriteObj);
+    }
+    //return QDeclListProp
+    return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0, &SpriteModel::SpriteModelListImpl::appendObject,
+                                                 &SpriteModel::SpriteModelListImpl::count,
+                                                 &SpriteModel::SpriteModelListImpl::atIndex,
+                                                 &SpriteModel::SpriteModelListImpl::clearObject);
+}
+
 Pet *Manager::createPet(int typeId, const QString& name)
 {
     qDebug() << "Manager: creating pet of type: " << typeId;
@@ -129,4 +170,26 @@ Pet *Manager::createPet(int typeId, const QString& name)
     emit petAdded();
 
     return pet;
+}
+
+void Manager::createSprite(int spriteTypeId, int x, int y)
+{
+    qDebug() << "Manager: creating sprite of type: " << spriteTypeId;
+    SpriteModel* sprite = new SpriteModel();
+    switch(spriteTypeId) {
+    case 0:
+        sprite->setSpriteTypeId(SpriteModel::POOP);
+        break;
+    default:
+        sprite->setSpriteTypeId(SpriteModel::POOP);
+        break;
+    }
+
+    sprite->setX(x);
+    sprite->setY(y);
+
+    bool result = dbManager->insertSpriteRecord(*sprite);
+    qDebug() << "Manager: sprite added to DB " << result;
+
+    delete sprite;
 }

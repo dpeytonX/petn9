@@ -21,6 +21,7 @@ class Manager : public QObject
     Q_OBJECT
     Q_PROPERTY(QDeclarativeListProperty<Pet> pets READ getPetModels)
     Q_PROPERTY(Pet* currentPet READ getCurrentPet)
+    Q_PROPERTY(QDeclarativeListProperty<SpriteModel> sprites READ getSpriteModels)
 public:
     explicit Manager(QObject *parent = 0);
     ~Manager();
@@ -33,6 +34,17 @@ public:
         return QDeclarativeListProperty<Pet>(this, *petModels);
     }
 
+    /**
+      Gets the sprite models in use by the game.
+      The models returned are not used for persistence so changes will not be saved.
+      @return a QML list of SpriteModels
+      */
+    QDeclarativeListProperty<SpriteModel> getSpriteModels();
+
+    /**
+      Returns the pet that the user is interacting with.
+      @return the current Pet
+      */
     Pet* getCurrentPet() {
         return petModels->empty() ? NULL : petModels->at(petModels->size() - 1);
     }
@@ -70,9 +82,12 @@ public slots:
       */
     Pet* createPet(int typeId, const QString &name);
 
+    void createSprite(int spriteTypeId, int x, int y);
+
 private:
     DatabaseManager* dbManager;
     QList<Pet*>* petModels;
+    SpriteModel* spriteDeclarativeListHolder;
 
     void createPetModels();
 };

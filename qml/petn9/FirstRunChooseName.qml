@@ -12,7 +12,7 @@ DefaultPage {
     property int petType
 
     function launchWorld() {
-        firstRunName.pageStack.push(Qt.resolvedUrl("Game.qml"), {"world": Manager.getWorld()})
+        firstRunName.pageStack.push(Qt.resolvedUrl("Game.qml"))
     }
 
     function petCreated(petItem) {

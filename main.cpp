@@ -8,6 +8,7 @@
 
 #include "manager.h"
 #include "models/pet.h"
+#include "models/spritemodel.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -21,7 +22,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Manager* manager = new Manager(&viewer);
 
     //Set context variables
-    qmlRegisterType<Pet>("com.blogspot.iamboke", 1,0, "Pet");
+    qmlRegisterType<Pet>("com.blogspot.iamboke", 1,0, "PetModel");
+    qmlRegisterType<SpriteModel>("com.blogspot.iamboke", 1,0, "SpriteModel");
 
     int screenWidth = viewer.geometry().width();
     int screenHeight = viewer.geometry().height();

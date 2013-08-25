@@ -12,10 +12,10 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 DefaultPage {
     id: game
 
-    property string world
     property variant worldObject
 
     Component.onCompleted: {
+        var world = Manager.getWorld();
         var component = Qt.createComponent("worlds/" + world + ".qml")
         worldObject = component
         if(component.status == Component.Ready) {

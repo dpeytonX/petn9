@@ -11,3 +11,6 @@ var PET_POOP_CHANCE = (.25/*5 times/day*/) * (PET_POOP_TIMER / 1000/*in ms*/ ) /
 // Game Object Constants
 var GAME_OBJECT_WIDTH = 50
 var GAME_OBJECT_HEIGHT = 50
+
+// Sprite Constants
+var MAX_POOP_OBJECTS = 25
