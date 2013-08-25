@@ -31,13 +31,15 @@ QString Manager::getWorld() {
     //Random world selection
 #ifndef NO_RANDOM_WORLDS
     int selection = qrand();
-    if(selection < RAND_MAX / 2) {
+    if(selection < RAND_MAX / 3) {
         return "MountainRange";
+    } else if(selection < RAND_MAX / 3 * 2)  {
+        return "Desert";
     } else {
         return "Plain";
     }
 #else
-    return "Plain";
+    return "Desert";
 #endif
 
 }
