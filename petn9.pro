@@ -10,7 +10,7 @@ QT += sql
 
 #defines
 #NO_RANDOM_WORLDS = true
-#NEW_DB = true
+NEW_DB = true
 !isEmpty(NO_RANDOM_WORLDS) {
     DEFINES += NO_RANDOM_WORLDS
 }

@@ -5,7 +5,9 @@
 #include <QDeclarativeListProperty>
 #include <QList>
 
-
+/**
+  Represents the extra models that are added to the game.
+  */
 class SpriteModel : public QObject
 {
     Q_OBJECT
@@ -15,6 +17,9 @@ class SpriteModel : public QObject
     Q_PROPERTY(int x READ getX WRITE setX)
     Q_PROPERTY(int y READ getY WRITE setY)
 public:
+    /**
+      QML QDeclarativeListProperty container
+      */
     class SpriteModelListImpl {
     public:
         SpriteModelListImpl() : list(QList<SpriteModel*>()){
@@ -62,6 +67,7 @@ public:
     };
 
 
+    /** Sprite Models For the Game **/
     enum SPRITES {POOP, ALL};
     explicit SpriteModel(QObject *parent = 0);
 
@@ -97,6 +103,9 @@ public:
         this->id = id;
     }
 
+    /**
+      * Pass this object to retrieve the list to be used by the QDeclarativeListProperty.
+      */
     SpriteModelListImpl& getDeclarativeListImpl() {
         return models;
     }

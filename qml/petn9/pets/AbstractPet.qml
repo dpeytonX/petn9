@@ -91,6 +91,11 @@ Sprite {
 
         var rand = Math.random()
         if ((!cbExists || (cbExists && cb())) && rand <= UI.PET_POOP_CHANCE) {
+            if(Manager.sprites.length >= UI.MAX_POOP_OBJECTS) {
+                Console.info("AbstractPet.qml: Max poop objects reached")
+                return
+            }
+
             Console.info("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
             var component = Qt.createComponent("../objects/Poop.qml")
             if(component.status == Component.Ready) {

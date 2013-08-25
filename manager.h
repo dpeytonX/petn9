@@ -34,8 +34,17 @@ public:
         return QDeclarativeListProperty<Pet>(this, *petModels);
     }
 
+    /**
+      Gets the sprite models in use by the game.
+      The models returned are not used for persistence so changes will not be saved.
+      @return a QML list of SpriteModels
+      */
     QDeclarativeListProperty<SpriteModel> getSpriteModels();
 
+    /**
+      Returns the pet that the user is interacting with.
+      @return the current Pet
+      */
     Pet* getCurrentPet() {
         return petModels->empty() ? NULL : petModels->at(petModels->size() - 1);
     }
