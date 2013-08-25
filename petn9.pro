@@ -70,7 +70,12 @@ OTHER_FILES += \
     images/dragonator.png \
     images/drippy.png \
     images/baphomet.png \
-    images/rip.png
+    images/rip.png \
+    petn9._harmattan.desktop \
+    petn980.png \
+    petn964.png \
+    petn9.desktop \
+    petn9_harmattan.desktop
 
 
 HEADERS += \
