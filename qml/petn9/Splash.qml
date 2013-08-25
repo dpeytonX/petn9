@@ -59,30 +59,6 @@ DefaultPage {
                     text = !!Manager.pets.length ? qsTr("Resume") : qsTr("Start")
                 }
             }
-
-//            Button {
-//                text:qsTr("Quit")
-//                onClicked: {
-//                    confirmQuit.open()
-//                }
-
-//                QueryDialog {
-//                    id: confirmQuit
-//                    titleText: qsTr("Quit")
-//                    message: qsTr("Are you sure?")
-//                    acceptButtonText: qsTr("Yes")
-//                    rejectButtonText: qsTr("No")
-
-//                    onAccepted: {
-//                        Console.debug("Splash.qml: quitting app")
-//                        Qt.quit()
-//                    }
-//                    onRejected: {
-//                        Console.debug("Splash.qml: quit left")
-//                        confirmQuit.close()
-//                    }
-//                }
-//            }
         }
     }
 }

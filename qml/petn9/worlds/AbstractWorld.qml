@@ -32,6 +32,9 @@ Rectangle {
     property real spriteRight: ScreenWidth
     property AbstractPet petItem
 
+    signal exitWorld
+    signal exitGame
+
     onSpriteBottomChanged: {
         Console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
         if(!!petItem) {
@@ -42,18 +45,27 @@ Rectangle {
 
     onPetItemChanged: {
         Console.info("AbstractWorld.qml: pet object obtained")
-        if(!!petItem) {
+        if(!!petItem && !pet.dead) {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.doStandardAnimations = true
             petItem.doSpawnObjects = true
-            petItem.x = (ScreenWidth - petItem.width) / 2
-            petItem.y = spriteBottom - petItem.height
-            Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         }
+        petItem.x = (ScreenWidth - petItem.width) / 2
+        petItem.y = spriteBottom - petItem.height
+        petItem.petClicked.connect(petClicked)
+        Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
+        Console.debug("AbstractWorld.qml: pet is " + (pet.dead ? "dead" : "alive"))
     }
 
     onPetChanged: {
         Sprite.createPet("../pets/", pet.type, world, {}, createPetHandler)
+    }
+
+    function petClicked() {
+        Console.debug("AbstractWorld.qml: Pet clicked")
+        if(pet.dead) {
+            restartGame.open()
+        }
     }
 
     function createPetHandler(component) {
@@ -95,6 +107,25 @@ Rectangle {
         }
         spriteModels = []
     }
+
+
+    QueryDialog {
+        id: restartGame
+        titleText: qsTr("Game Over")
+        message: qsTr("You're pet is dead.")
+        acceptButtonText: qsTr("Back to Title")
+        rejectButtonText: qsTr("Quit")
+
+        onAccepted: {
+            Console.info("AbstractWorld.qml: do over")
+            exitWorld()
+        }
+        onRejected: {
+            Console.debug("AbstractWorld.qml: quit left")
+            exitGame()
+        }
+    }
+
 
     Component.onCompleted: {
         pet = Manager.currentPet

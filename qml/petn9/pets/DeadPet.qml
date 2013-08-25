@@ -3,7 +3,8 @@ import QtQuick 1.1
 
 AbstractPet {
     content: Image {
+        id: image1
         anchors.fill: parent
-        source: "qrc:/images/pet2.png"
+        source: "qrc:/images/rip.png"
     }
 }

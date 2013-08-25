@@ -2,22 +2,29 @@
 #define PET_H
 
 #include <QObject>
+#include "qtdeclarative-helper/declarativelist.h"
 
 class QString;
 
 /**
   Represents a Pet object.
   */
-class Pet : public QObject
+class Pet : public QObject, public DeclarativeList<Pet>
 {
     Q_OBJECT
     Q_ENUMS(PETS)
     Q_PROPERTY(PETS type READ getType)
+    Q_PROPERTY(bool dead READ isDead)
 
 public:
-    enum PETS {PET1, PET2, PET3, PET4};
+    enum PETS {PET1, PET2, PET3, PET4, DEAD};
 
     explicit Pet(QObject *parent = 0);
+
+    void setDead(bool dead) {
+        this->dead = dead;
+    }
+
     void setType(PETS type) {
         this->type = type;
     }
@@ -30,10 +37,6 @@ public:
         this->creation = creation;
     }
 
-    void setHealth(int health) {
-        this->health = health;
-    }
-    
     void setId(int id) {
         this->id = id;
     }
@@ -50,24 +53,24 @@ public:
         return creation;
     }
 
-    int getHealth() const {
-        return health;
-    }
-    
     int getId() const {
         return id;
     }
-    
+
+    bool isDead() const {
+        return dead;
+    }
+
 signals:
-    
+
 public slots:
-    
+
 private:
     int id;
     PETS type;
     QString name;
     long creation;
-    int health;
+    bool dead;
 };
 
 #endif // PET_H

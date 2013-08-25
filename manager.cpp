@@ -8,6 +8,7 @@
 #include "appsettings.h"
 #include "databasemanager.h"
 #include "models/pet.h"
+#include "qtdeclarative-helper/declarativelist.h"
 
 Manager::Manager(QObject *parent) :
     QObject(parent),
@@ -55,14 +56,14 @@ void Manager::createPetModels() {
     int typeIdCol = rec.indexOf("TYPE_ID");
     int nameCol = rec.indexOf("NAME");
     int creationCol = rec.indexOf("CREATION");
-    int healthCol = rec.indexOf("HEALTH");
+    int deadCol = rec.indexOf("IS_DEAD");
 
     while(petsQuery.next()) {
         qDebug() << "Manager: creating pet ";
         int typeId = petsQuery.value(typeIdCol).toInt();
         QString name = petsQuery.value(nameCol).toString();
         long creation = petsQuery.value(creationCol).toLongLong();
-        int health = petsQuery.value(healthCol).toInt();
+        bool dead = petsQuery.value(deadCol).toBool();
         Pet* pet = new Pet();
         switch(typeId) {
         case 0:
@@ -84,7 +85,7 @@ void Manager::createPetModels() {
 
         pet->setName(name);
         pet->setCreationTime(creation);
-        pet->setHealth(health);
+        pet->setDead(dead);
         qDebug() << "Manager: pet " << name << " was created";
         petModels->append(pet);
     }
@@ -93,10 +94,24 @@ void Manager::createPetModels() {
 Manager::~Manager() {
     if(!petModels->isEmpty()) {
         foreach(Pet* item, *petModels) {
-            delete item;
+            if(item) {
+                delete item;
+            }
         }
     }
     delete petModels;
+}
+
+QDeclarativeListProperty<Pet> Manager::getPetModels() {
+    petDeclarativeListHolder = new Pet(this);
+    foreach(Pet* o, *petModels) {
+        petDeclarativeListHolder->getList().append(o);
+    }
+    return QDeclarativeListProperty<Pet>(petDeclarativeListHolder, 0,
+                                                 &DeclarativeList<Pet>::appendObject,
+                                                 &DeclarativeList<Pet>::count,
+                                                 &DeclarativeList<Pet>::atIndex,
+                                                 &DeclarativeList<Pet>::clearObject);
 }
 
 QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
@@ -131,13 +146,14 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
         spriteObj->setX(x);
         spriteObj->setY(y);
         qDebug() << "Manager: sprite " << spriteId << " was created of type " << spriteTypeId;
-        appendSpriteModelToInternalList(&spriteDeclarativeListHolder->getDeclarativeListImpl(), spriteObj);
+        spriteDeclarativeListHolder->getList().append(spriteObj);
     }
     //return QDeclListProp
-    return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0, &SpriteModel::SpriteModelListImpl::appendObject,
-                                                 &SpriteModel::SpriteModelListImpl::count,
-                                                 &SpriteModel::SpriteModelListImpl::atIndex,
-                                                 &SpriteModel::SpriteModelListImpl::clearObject);
+    return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0,
+                                                 &DeclarativeList<SpriteModel>::appendObject,
+                                                 &DeclarativeList<SpriteModel>::count,
+                                                 &DeclarativeList<SpriteModel>::atIndex,
+                                                 &DeclarativeList<SpriteModel>::clearObject);
 }
 
 Pet *Manager::createPet(int typeId, const QString& name)
@@ -163,7 +179,6 @@ Pet *Manager::createPet(int typeId, const QString& name)
     }
 
     pet->setName(name);
-    pet->setHealth(100);
 
     bool result = dbManager->insertPetRecord(*pet);
     qDebug() << "Manager: pet created " << result;

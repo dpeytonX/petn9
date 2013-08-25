@@ -30,9 +30,7 @@ public:
       Returns the pets registered with the application.
       @return a QML accessible list of Pet objects.
       */
-    QDeclarativeListProperty<Pet> getPetModels() {
-        return QDeclarativeListProperty<Pet>(this, *petModels);
-    }
+    QDeclarativeListProperty<Pet> getPetModels();
 
     /**
       Gets the sprite models in use by the game.
@@ -87,6 +85,7 @@ public slots:
 private:
     DatabaseManager* dbManager;
     QList<Pet*>* petModels;
+    Pet* petDeclarativeListHolder;
     SpriteModel* spriteDeclarativeListHolder;
 
     void createPetModels();

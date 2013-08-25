@@ -2,13 +2,12 @@
 #define SPRITEMODEL_H
 
 #include <QObject>
-#include <QDeclarativeListProperty>
-#include <QList>
+#include "qtdeclarative-helper/declarativelist.h"
 
 /**
   Represents the extra models that are added to the game.
   */
-class SpriteModel : public QObject
+class SpriteModel : public QObject, public DeclarativeList<SpriteModel>
 {
     Q_OBJECT
     Q_ENUMS(SPRITES)
@@ -17,56 +16,6 @@ class SpriteModel : public QObject
     Q_PROPERTY(int x READ getX WRITE setX)
     Q_PROPERTY(int y READ getY WRITE setY)
 public:
-    /**
-      QML QDeclarativeListProperty container
-      */
-    class SpriteModelListImpl {
-    public:
-        SpriteModelListImpl() : list(QList<SpriteModel*>()){
-        }
-
-        static void appendObject(QDeclarativeListProperty<SpriteModel> *obj, SpriteModel *model) {
-            SpriteModel *backEnd = qobject_cast<SpriteModel*>(obj->object);
-            if(backEnd) {
-                backEnd->models.list.append(model);
-            }
-        }
-
-        static void clearObject(QDeclarativeListProperty<SpriteModel> *obj) {
-            SpriteModel* backEnd = qobject_cast<SpriteModel*>(obj->object);
-            if(backEnd) {
-                foreach(SpriteModel *o, backEnd->models.list) {
-                    delete o;
-                }
-                backEnd->models.list.clear();
-            }
-        }
-
-        static SpriteModel* atIndex(QDeclarativeListProperty<SpriteModel> *obj, int index) {
-            SpriteModel* backEnd = qobject_cast<SpriteModel*>(obj->object);
-            if(backEnd) {
-                return backEnd->models.list[index];
-            }
-            return 0;
-        }
-
-        static int count(QDeclarativeListProperty<SpriteModel> *obj) {
-            SpriteModel* backEnd = qobject_cast<SpriteModel*>(obj->object);
-            if(backEnd) {
-                return backEnd->models.list.size();
-            }
-            return 0;
-        }
-
-        friend void appendSpriteModelToInternalList(SpriteModel::SpriteModelListImpl* listImpl, SpriteModel* otherSprite) {
-            listImpl->list.append(otherSprite);
-        }
-
-    private:
-        QList<SpriteModel*> list;
-    };
-
-
     /** Sprite Models For the Game **/
     enum SPRITES {POOP, ALL};
     explicit SpriteModel(QObject *parent = 0);
@@ -103,13 +52,6 @@ public:
         this->id = id;
     }
 
-    /**
-      * Pass this object to retrieve the list to be used by the QDeclarativeListProperty.
-      */
-    SpriteModelListImpl& getDeclarativeListImpl() {
-        return models;
-    }
-
 signals:
 
 public slots:
@@ -119,7 +61,6 @@ private:
     SPRITES type;
     int x;
     int y;
-    SpriteModelListImpl models;
 };
 
 #endif // SPRITEMODEL_H
