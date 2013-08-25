@@ -12,7 +12,6 @@
 
 #include "databasemanager.h"
 #include "models/pet.h"
-#include "models/spritedeclarativelist.h"
 
 /**
   Back-end for QML providing necessary functions for manipulating DTO models and managing the application's database.
@@ -31,9 +30,7 @@ public:
       Returns the pets registered with the application.
       @return a QML accessible list of Pet objects.
       */
-    QDeclarativeListProperty<Pet> getPetModels() {
-        return QDeclarativeListProperty<Pet>(this, *petModels);
-    }
+    QDeclarativeListProperty<Pet> getPetModels();
 
     /**
       Gets the sprite models in use by the game.
@@ -88,7 +85,8 @@ public slots:
 private:
     DatabaseManager* dbManager;
     QList<Pet*>* petModels;
-    SpriteDeclarativeList* spriteDeclarativeListHolder;
+    Pet* petDeclarativeListHolder;
+    SpriteModel* spriteDeclarativeListHolder;
 
     void createPetModels();
 };

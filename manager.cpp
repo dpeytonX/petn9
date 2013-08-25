@@ -93,16 +93,30 @@ void Manager::createPetModels() {
 Manager::~Manager() {
     if(!petModels->isEmpty()) {
         foreach(Pet* item, *petModels) {
-            delete item;
+            if(item) {
+                delete item;
+            }
         }
     }
     delete petModels;
 }
 
+QDeclarativeListProperty<Pet> Manager::getPetModels() {
+    petDeclarativeListHolder = new Pet(this);
+    foreach(Pet* o, *petModels) {
+        petDeclarativeListHolder->getList().append(o);
+    }
+    return QDeclarativeListProperty<Pet>(petDeclarativeListHolder, 0,
+                                                 &DeclarativeListImpl<Pet>::appendObject,
+                                                 &DeclarativeListImpl<Pet>::count,
+                                                 &DeclarativeListImpl<Pet>::atIndex,
+                                                 &DeclarativeListImpl<Pet>::clearObject);
+}
+
 QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
 {
     qDebug() << "Manager: retrieving sprite models ";
-    spriteDeclarativeListHolder = new SpriteDeclarativeList(this);
+    spriteDeclarativeListHolder = new SpriteModel(this);
     //Populate Sprite Models
     QSqlQuery spriteQuery = dbManager->getSprites(SpriteModel::ALL);
     QSqlRecord rec = spriteQuery.record();
@@ -131,14 +145,14 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
         spriteObj->setX(x);
         spriteObj->setY(y);
         qDebug() << "Manager: sprite " << spriteId << " was created of type " << spriteTypeId;
-        spriteDeclarativeListHolder->getDeclarativeListData().append(spriteObj);
+        spriteDeclarativeListHolder->getList().append(spriteObj);
     }
     //return QDeclListProp
     return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0,
-                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::appendObject,
-                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::count,
-                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::atIndex,
-                                                 &DeclarativeListImpl<SpriteDeclarativeList, SpriteModel>::clearObject);
+                                                 &DeclarativeListImpl<SpriteModel>::appendObject,
+                                                 &DeclarativeListImpl<SpriteModel>::count,
+                                                 &DeclarativeListImpl<SpriteModel>::atIndex,
+                                                 &DeclarativeListImpl<SpriteModel>::clearObject);
 }
 
 Pet *Manager::createPet(int typeId, const QString& name)
