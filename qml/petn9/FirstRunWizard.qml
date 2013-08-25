@@ -2,6 +2,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
+import "pets"
 
 import "js/SpriteFunctions.js" as Sprite
 import "QmlLogger/qmllogger/Logger.js" as Console
@@ -43,119 +44,27 @@ DefaultPage {
                 return false
             }
 
-            MouseArea {
-                id:petArea1
-                width: 100
-                height: 100
-                property int type: PetModel.PET1
-
-                Component.onCompleted: {
-                    Sprite.createPet("pets/", type, petArea1, {}, parent.petCreated)
-                }
-
-                onClicked: {
-                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
-                }
-
-                onPressed: {
-                    highlight.anchors.centerIn = petArea1
-                    highlight.opacity = 1
-                }
-
-                Rectangle {
-                    id: highlight
-                    border.width: 1
-                    border.color: "blue"
-                    width: 100
-                    height: 100
-                    opacity: 0
-                }
-
-            }
-
-
-            MouseArea {
-                id:petArea2
-                width: 100
-                height: 100.
-                property int type: PetModel.PET2
-
-                Component.onCompleted: {
-                    Sprite.createPet("pets/", type, petArea2, {}, parent.petCreated)
-                }
-
-                onClicked: {
-                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
-                }
-
-                onPressed: {
-                    highlight2.anchors.centerIn = petArea2
-                    highlight2.opacity = 1
-                }
-
-                Rectangle {
-                    id: highlight2
-                    border.width: 1
-                    border.color: "blue"
-                    width: 100
-                    height: 100
-                    opacity: 0
+            Pet1 {
+                onPetClicked: {
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": PetModel.PET1})
                 }
             }
-            MouseArea {
-                id:petArea3
-                width: 100
-                height: 100
-                property int type: PetModel.PET3
 
-                Component.onCompleted: {
-                    Sprite.createPet("pets/", type, petArea3, {}, parent.petCreated)
-                }
-
-                onClicked: {
-                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
-                }
-
-                onPressed: {
-                    highlight3.anchors.centerIn = petArea3
-                    highlight3.opacity = 1
-                }
-
-                Rectangle {
-                    id: highlight3
-                    border.width: 1
-                    border.color: "blue"
-                    width: 100
-                    height: 100
-                    opacity: 0
+            Pet2 {
+                onPetClicked: {
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": PetModel.PET2})
                 }
             }
-            MouseArea {
-                id:petArea4
-                width: 100
-                height: 100
-                property int type: PetModel.PET4
 
-                Component.onCompleted: {
-                    Sprite.createPet("pets/", type, petArea4, {}, parent.petCreated)
+            Pet3 {
+                onPetClicked: {
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": PetModel.PET3})
                 }
+            }
 
-                onClicked: {
-                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": type})
-                }
-
-                onPressed: {
-                    highlight4.anchors.centerIn = petArea4
-                    highlight4.opacity = 1
-                }
-
-                Rectangle {
-                    id: highlight4
-                    border.width: 1
-                    border.color: "blue"
-                    width: 100
-                    height: 100
-                    opacity: 0
+            Pet4 {
+                onPetClicked: {
+                    wizard.pageStack.push(Qt.resolvedUrl("FirstRunChooseName.qml"), {"petType": PetModel.PET4})
                 }
             }
         }

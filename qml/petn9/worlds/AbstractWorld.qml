@@ -31,7 +31,9 @@ Rectangle {
     property real spriteLeft: 0
     property real spriteRight: ScreenWidth
     property AbstractPet petItem
-    property bool petDied
+
+    signal exitWorld
+    signal exitGame
 
     onSpriteBottomChanged: {
         Console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
@@ -50,13 +52,20 @@ Rectangle {
         }
         petItem.x = (ScreenWidth - petItem.width) / 2
         petItem.y = spriteBottom - petItem.height
+        petItem.petClicked.connect(petClicked)
         Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         Console.debug("AbstractWorld.qml: pet is " + (pet.dead ? "dead" : "alive"))
-        petDied = true
     }
 
     onPetChanged: {
         Sprite.createPet("../pets/", pet.type, world, {}, createPetHandler)
+    }
+
+    function petClicked() {
+        Console.debug("AbstractWorld.qml: Pet clicked")
+        if(pet.dead) {
+            restartGame.open()
+        }
     }
 
     function createPetHandler(component) {
@@ -98,6 +107,25 @@ Rectangle {
         }
         spriteModels = []
     }
+
+
+    QueryDialog {
+        id: restartGame
+        titleText: qsTr("Game Over")
+        message: qsTr("You're pet is dead.")
+        acceptButtonText: qsTr("Back to Title")
+        rejectButtonText: qsTr("Quit")
+
+        onAccepted: {
+            Console.info("AbstractWorld.qml: do over")
+            exitWorld()
+        }
+        onRejected: {
+            Console.debug("AbstractWorld.qml: quit left")
+            exitGame()
+        }
+    }
+
 
     Component.onCompleted: {
         pet = Manager.currentPet

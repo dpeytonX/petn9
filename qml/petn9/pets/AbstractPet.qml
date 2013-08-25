@@ -38,6 +38,17 @@ Sprite {
 
     property bool doStandardAnimations
     property bool doSpawnObjects
+    property alias content: mouseArea.children
+    signal petClicked
+
+    MouseArea {
+        anchors.fill: parent
+        id: mouseArea
+
+        Component.onCompleted: {
+            mouseArea.clicked.connect(petClicked)
+        }
+    }
 
     /**
       Sets the collision callback to detect the boundaries of pet movement.

@@ -67,7 +67,8 @@ OTHER_FILES += \
     images/plantula.png \
     images/dragonator.png \
     images/drippy.png \
-    images/baphomet.png
+    images/baphomet.png \
+    images/rip.png
 
 
 HEADERS += \

@@ -2,7 +2,7 @@
 import QtQuick 1.1
 
 AbstractPet {
-    Image {
+    content: Image {
         id: image1
         anchors.fill: parent
         source: "qrc:/images/rip.png"
