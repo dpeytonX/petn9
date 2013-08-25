@@ -5,6 +5,7 @@ import ".."
 
 import "js/_private.js" as JObjects
 import "../js/UIConstants.js" as UI
+import "../js/SpriteFunctions.js" as Sprite
 import "../QmlLogger/qmllogger/Logger.js" as Console
 
 /**
@@ -69,25 +70,25 @@ Sprite {
         } else if(rand <= .9) {
             //face left
             reflectLeft.angle = 180
-            Console.debug("AbstractPet.qml: pet reflected " + reflectLeft.angle + " " + reflectLeft.origin.x + " " + reflectLeft.origin.y)
+            Console.verbose("AbstractPet.qml: pet reflected " + reflectLeft.angle + " " + reflectLeft.origin.x + " " + reflectLeft.origin.y)
 
         } else {
             //face right
             reflectLeft.angle = 0
-            Console.debug("AbstractPet.qml: pet reflected " + reflectLeft.angle + " " + reflectLeft.origin.x + " " + reflectLeft.origin.y)
+            Console.verbose("AbstractPet.qml: pet reflected " + reflectLeft.angle + " " + reflectLeft.origin.x + " " + reflectLeft.origin.y)
 
         }
     }
 
     function spawnPoop() {
-        Console.verbose("AbstractPet.qml: spawning poop action " + doSpawnObjects)
+        Console.debug("AbstractPet.qml: spawning poop action " + doSpawnObjects)
         if(!doSpawnObjects) return;
 
         var cb = JObjects.register(abstractPet)
         cb = !!cb ? cb.spawnPoopCallback : cb
         var cbExists = !!cb
 
-        Console.verbose("AbstractPet.qml: poop callback is " + cbExists)
+        Console.debug("AbstractPet.qml: poop callback is " + cbExists)
 
         var rand = Math.random()
         if ((!cbExists || (cbExists && cb())) && rand <= UI.PET_POOP_CHANCE) {
@@ -96,18 +97,18 @@ Sprite {
                 return
             }
 
-            Console.info("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
-            var component = Qt.createComponent("../objects/Poop.qml")
-            if(component.status == Component.Ready) {
-                var poopItem = component.createObject(abstractPet.parent)
-                poopItem.x = abstractPet.x
-                poopItem.y = abstractPet.y + poopItem.height
-                Manager.createSprite(SpriteModel.POOP, poopItem.x, poopItem.y);
-                Console.debug("AbstractPoop.qml: created world " + worldObject)
-            } else if (component.status == Component.Error) {
-                // Error Handling
-                Console.error("AbstractPet.qml: Error loading poop object:", component.errorString());
-            }
+            Console.debug("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
+            Sprite.createSprite("../objects", SpriteModel.POOP, abstractPet.parent, {}, spriteCreated)
+        }
+    }
+
+    function spriteCreated(spriteObject) {
+        if(!!spriteObject) {
+            Console.debug("AbstractPet.qml: sprite object created")
+            spriteObject.x = abstractPet.x
+            spriteObject.y = abstractPet.y + spriteObject.height
+        } else {
+            Console.error("AbstractPet.qml: Error loading sprite object")
         }
     }
 
