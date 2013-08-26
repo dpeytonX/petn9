@@ -6,30 +6,18 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
   Splash.qml
-
+  
   Presents the game logo and start options to the user.
   */
 DefaultPage {
-
+    
     property string world
     property variant worldObject
-
-    Rectangle {
+    
+    content: Item {
         id: splash
-        gradient: Gradient {
-            GradientStop {
-                position: 0
-                color: "#f3abe6"
-            }
-
-            GradientStop {
-                position: 1
-                color: "#5e0f64"
-            }
-        }
         anchors.fill: parent
-
-
+        
         Text {
             anchors.horizontalCenter: splash.horizontalCenter
             anchors.verticalCenter: splash.verticalCenter
@@ -37,13 +25,13 @@ DefaultPage {
             text: qsTr("PetN9")
             font.pointSize: 60
         }
-
+        
         Column {
             spacing: 10
             anchors.horizontalCenter: splash.horizontalCenter
             anchors.bottom: splash.bottom
             anchors.bottomMargin: 20
-
+            
             Button {
                 onClicked: {
                     if(!Manager.pets.length) {
@@ -54,7 +42,7 @@ DefaultPage {
                         appWindow.pageStack.push(Qt.resolvedUrl("Game.qml"))
                     }
                 }
-
+                
                 Component.onCompleted: {
                     text = !!Manager.pets.length ? qsTr("Resume") : qsTr("Start")
                 }

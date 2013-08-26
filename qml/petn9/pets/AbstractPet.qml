@@ -109,7 +109,7 @@ Sprite {
             }
 
             Console.debug("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
-            Sprite.createSprite("../objects", SpriteModel.POOP, abstractPet.parent, {}, spriteCreated)
+            Sprite.createSprite("../objects/", SpriteModel.POOP, abstractPet.parent, {}, spriteCreated)
         }
     }
 
@@ -118,6 +118,7 @@ Sprite {
             Console.debug("AbstractPet.qml: sprite object created")
             spriteObject.x = abstractPet.x
             spriteObject.y = abstractPet.y + spriteObject.height
+            Manager.createSprite(spriteObject.type, spriteObject.x, spriteObject.y)
         } else {
             Console.error("AbstractPet.qml: Error loading sprite object")
         }

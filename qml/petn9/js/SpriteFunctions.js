@@ -1,5 +1,5 @@
 var _petQmlFiles = ["Pet1.qml", "Pet2.qml", "Pet3.qml", "Pet4.qml", "DeadPet.qml"]
-var _spriteQmlFiles = ["Poop.qml"]
+var _spriteQmlFiles = ["Poop.qml", "Food.qml"]
 
 function createPet(petPackage, petType, parent, properties, callback) {
     var component = Qt.createComponent(petPackage + _petQmlFiles[petType])

@@ -104,6 +104,7 @@ Manager::~Manager() {
 
 QDeclarativeListProperty<Pet> Manager::getPetModels() {
     petDeclarativeListHolder = new Pet(this);
+    petDeclarativeListHolder->setManageMemory(false);
     foreach(Pet* o, *petModels) {
         petDeclarativeListHolder->getList().append(o);
     }
@@ -136,6 +137,9 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
         switch(spriteTypeId) {
         case 0:
             spriteObj->setSpriteTypeId(SpriteModel::POOP);
+            break;
+        case 1:
+            spriteObj->setSpriteTypeId(SpriteModel::FOOD);
             break;
         default:
             spriteObj->setSpriteTypeId(SpriteModel::POOP);
@@ -196,6 +200,9 @@ void Manager::createSprite(int spriteTypeId, int x, int y)
     switch(spriteTypeId) {
     case 0:
         sprite->setSpriteTypeId(SpriteModel::POOP);
+        break;
+    case 1:
+        sprite->setSpriteTypeId(SpriteModel::FOOD);
         break;
     default:
         sprite->setSpriteTypeId(SpriteModel::POOP);

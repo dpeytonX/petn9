@@ -82,7 +82,8 @@ OTHER_FILES += \
     petn9_harmattan-ja_JP.desktop \
     petn9_harmattan.desktop \
     i18n/tr_jp.qm \
-    i18n/tr_en.qm
+    i18n/tr_en.qm \
+    images/hamburger.png
 
 HEADERS += \
     databasemanager.h \
