@@ -35,7 +35,7 @@ DefaultPage {
             anchors.verticalCenter: splash.verticalCenter
             color: "#ffffff"
             text: qsTr("PetN9")
-            font.pointSize: 31
+            font.pointSize: 60
         }
 
         Column {

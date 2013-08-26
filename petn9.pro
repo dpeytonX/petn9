@@ -11,11 +11,15 @@ QT += sql
 #defines
 #NO_RANDOM_WORLDS = true
 NEW_DB = true
+ALLOW_JP = true
 !isEmpty(NO_RANDOM_WORLDS) {
     DEFINES += NO_RANDOM_WORLDS
 }
 !isEmpty(NEW_DB) {
     DEFINES += NEW_DB
+}
+!isEmpty(ALLOW_JP) {
+    DEFINES += ALLOW_JP
 }
 
 
@@ -60,7 +64,6 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/README \
     qtc_packaging/debian_harmattan/manifest.aegis \
     qtc_packaging/debian_harmattan/copyright \
-    qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     models/models.pri \
@@ -71,11 +74,22 @@ OTHER_FILES += \
     images/drippy.png \
     images/baphomet.png \
     images/rip.png \
-    petn9._harmattan.desktop \
     petn980.png \
     petn964.png \
     petn9.desktop \
-    petn9_harmattan.desktop
+    i18n/tr_jp.qm \
+    i18n/tr_en.qm \
+    qtc_packaging/debian_harmattan/control
+
+
+!isEmpty(ALLOW_JP) {
+    OTHER_FILES += petn9_harmattan-ja_JP.desktop
+   #qtc_packaging/jp/control
+}
+isEmpty(ALLOW_JP) {
+    OTHER_FILES += petn9_harmattan.desktop
+    #qtc_packaging/debian_harmattan/control
+}
 
 
 HEADERS += \
@@ -85,4 +99,5 @@ HEADERS += \
 
 RESOURCES += \
     petn9.qrc \
-    images.qrc
+    images.qrc \
+    translations.qrc

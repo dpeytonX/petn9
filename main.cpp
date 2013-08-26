@@ -5,6 +5,7 @@
 #include <QTime>
 #include <QDebug>
 #include <QString>
+#include <QLocale>
 
 #include "manager.h"
 #include "models/pet.h"
@@ -13,6 +14,23 @@
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
+    QTranslator translator;
+
+#ifdef ALLOW_JP
+    qDebug() << "Loading Japanese translation";
+    if(!translator.load("tr_jp", ":/translations")) {
+        qDebug() << "Could not load Japanese translation";
+    }
+#else
+    QString locale = QLocale::system().name();
+    qDebug() << "Loading translations for " << locale;
+    if(!(translator.load("tr_"+locale, ":/translations"))) {
+        qDebug() << "Could not find translation for " << locale;
+        translator.load("tr_en", ":/translations");
+    }
+#endif
+    app->installTranslator(&translator);
+
 
     QmlApplicationViewer viewer;
     //Startup context
