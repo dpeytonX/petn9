@@ -7,7 +7,7 @@
 # This special exception was added by Craig Small in version 0.37 of dh-make.
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 
 
@@ -56,8 +56,12 @@ install: build
 binary-indep: build install
 # We have nothing to do by default.
 
+override_dh_gencontrol: 
+	#I think I can pass -T/path/to/substvars and control whether this is a JP build. For now, comment out below.
+	dh_gencontrol -- -c"$(CURDIR)"/debian/controljp
+
 # Build architecture-dependent files here.
-binary-arch: build install
+binary-arch: build override_dh_gencontrol install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs 
@@ -83,7 +87,7 @@ binary-arch: build install
 #	dh_makeshlibs
 	dh_installdeb
 	# dh_shlibdeps # Uncomment this line for use without Qt Creator
-	dh_gencontrol
+	# dh_gencontrol
 	dh_md5sums
 	dh_builddeb
 

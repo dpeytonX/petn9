@@ -66,6 +66,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
+    qtc_packaging/debian_harmattan/control \
+    qtc_packaging/debian_harmattan/controljp \
     models/models.pri \
     qtdeclarative-helper/declarativelist.pri \
     petn9.sql \
@@ -77,20 +79,10 @@ OTHER_FILES += \
     petn980.png \
     petn964.png \
     petn9.desktop \
+    petn9_harmattan-ja_JP.desktop \
+    petn9_harmattan.desktop \
     i18n/tr_jp.qm \
-    i18n/tr_en.qm \
-    qtc_packaging/debian_harmattan/control
-
-
-!isEmpty(ALLOW_JP) {
-    OTHER_FILES += petn9_harmattan-ja_JP.desktop
-   #qtc_packaging/jp/control
-}
-isEmpty(ALLOW_JP) {
-    OTHER_FILES += petn9_harmattan.desktop
-    #qtc_packaging/debian_harmattan/control
-}
-
+    i18n/tr_en.qm
 
 HEADERS += \
     databasemanager.h \
