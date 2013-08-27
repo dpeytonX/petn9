@@ -8,7 +8,7 @@ import "js/SpriteFunctions.js" as Sprite
 import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
-  FirstRunpetSelection.qml
+  PetSelection.qml
 
   Presents the user with pet selections. To be run if there are no pets stored.
 
@@ -48,33 +48,29 @@ DefaultPage {
                 }
 
                 Pet1 {
-                    onPetClicked: {
-                        petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": PetModel.PET1})
-                    }
+                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }
 
                 Pet2 {
-                    onPetClicked: {
-                        petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": PetModel.PET2})
-                    }
+                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }
 
                 Pet3 {
-                    onPetClicked: {
-                        petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": PetModel.PET3})
-                    }
+                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }
 
                 Pet4 {
-                    onPetClicked: {
-                        petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": PetModel.PET4})
-                    }
+                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }

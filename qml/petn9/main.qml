@@ -17,10 +17,16 @@ PageStackWindow {
 
     Component.onCompleted: {
         Console.LOG_PRIORITY = Console.INFO
+        pageStack.toolBar.platformStyle = tbStyle
     }
 
     Component.onDestruction: {
         Console.critical("main.qml: APP IS CLOSING.")
         Manager.saveOnExit()
+    }
+
+    ToolBarStyle {
+        id: tbStyle
+        inverted: true
     }
 }

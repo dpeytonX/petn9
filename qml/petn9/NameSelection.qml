@@ -7,6 +7,12 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 import "js/SpriteFunctions.js" as Sprite
 import "js/UIConstants.js" as UI
 
+/**
+  NameSelection.qml
+
+  Allows user to set the Pet's name.
+
+  */
 DefaultPage {
     id: nameSelection
     tools: nameSelectionTools
