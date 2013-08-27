@@ -36,6 +36,7 @@ Sprite {
     height: UI.PET_WIDTH
     z: 50
 
+    property int petType
     property bool doStandardAnimations
     property bool doSpawnObjects
     property alias content: mouseArea.children

@@ -11,7 +11,7 @@ QT += sql
 #defines
 #NO_RANDOM_WORLDS = true
 NEW_DB = true
-ALLOW_JP = true
+ALLOW_JP = true #If you set unset this, then remember to alter debian/rules file override_dh_gencontrol
 !isEmpty(NO_RANDOM_WORLDS) {
     DEFINES += NO_RANDOM_WORLDS
 }

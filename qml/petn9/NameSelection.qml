@@ -5,9 +5,11 @@ import com.blogspot.iamboke 1.0
 
 import "QmlLogger/qmllogger/Logger.js" as Console
 import "js/SpriteFunctions.js" as Sprite
+import "js/UIConstants.js" as UI
 
 DefaultPage {
     id: nameSelection
+    tools: nameSelectionTools
     property int petType
 
     content: Item {
@@ -40,14 +42,14 @@ DefaultPage {
 
             Column {
                 anchors.fill: parent
+                anchors.topMargin: 20
                 spacing: 20
 
-                Rectangle {
+                Sprite {
                     anchors.horizontalCenter: parent.horizontalCenter
                     id:petArea1
-                    width: 100
-                    height: 100
-                    color: "#00000000"
+                    width: UI.PET_WIDTH
+                    height: UI.PET_HEIGHT
 
                     Component.onCompleted: {
                         Sprite.createPet("pets/", petType, petArea1, {}, firstRunName.petCreated)
@@ -75,7 +77,7 @@ DefaultPage {
                     }
                 }
 
-                Row {
+                ButtonRow {
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     Button {
@@ -99,6 +101,14 @@ DefaultPage {
                     }
                 }
             }
+        }
+    }
+
+    ToolBarLayout {
+        id: nameSelectionTools
+        ToolIcon {
+            iconId: "toolbar-back"
+            onClicked: pageStack.pop();
         }
     }
 
