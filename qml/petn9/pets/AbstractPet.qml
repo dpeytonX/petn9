@@ -3,10 +3,10 @@ import QtQuick 1.1
 import com.blogspot.iamboke 1.0
 import ".."
 
-import "js/_private.js" as JObjects
-import "../js/UIConstants.js" as UI
-import "../js/SpriteFunctions.js" as Sprite
 import "../QmlLogger/qmllogger/Logger.js" as Console
+import "js/_private.js" as JObjects
+import "../js/SpriteFunctions.js" as Sprite
+import "../js/UIConstants.js" as UI
 
 /**
   AbstractPet.qml
@@ -15,7 +15,7 @@ import "../QmlLogger/qmllogger/Logger.js" as Console
 
   Properties:
   doStandardAnimations (bool) - set to true to perform the standard animation after each animation loop. Set to false to switch off.
-  doSpawnObjects (bool) - set to true to have the pet spawn objects from itself. Default is false.
+
 
   Elements
   animationTimer (Timer) - performs the animation loop.
@@ -38,7 +38,6 @@ Sprite {
 
     property int petType
     property bool doStandardAnimations
-    property bool doSpawnObjects
     property alias content: mouseArea.children
     signal petClicked
 
@@ -92,28 +91,6 @@ Sprite {
         }
     }
 
-    function spawnPoop() {
-        Console.debug("AbstractPet.qml: spawning poop action " + doSpawnObjects)
-        if(!doSpawnObjects) return;
-
-        var cb = JObjects.register(abstractPet)
-        cb = !!cb ? cb.spawnPoopCallback : cb
-        var cbExists = !!cb
-
-        Console.debug("AbstractPet.qml: poop callback is " + cbExists)
-
-        var rand = Math.random()
-        if ((!cbExists || (cbExists && cb())) && rand <= UI.PET_POOP_CHANCE) {
-            if(Manager.sprites.length >= UI.MAX_POOP_OBJECTS) {
-                Console.info("AbstractPet.qml: Max poop objects reached")
-                return
-            }
-
-            Console.debug("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
-            Sprite.createSprite("../objects/", SpriteModel.POOP, abstractPet.parent, {}, spriteCreated)
-        }
-    }
-
     function spriteCreated(spriteObject) {
         if(!!spriteObject) {
             Console.debug("AbstractPet.qml: sprite object created")
@@ -147,16 +124,6 @@ Sprite {
         repeat: true
         onTriggered: {
             performAnimation()
-        }
-    }
-
-    Timer {
-        id: poopTimer
-        interval: UI.PET_POOP_TIMER
-        running: doSpawnObjects
-        repeat: true
-        onTriggered: {
-            spawnPoop()
         }
     }
 }

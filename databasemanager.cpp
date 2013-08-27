@@ -102,5 +102,14 @@ bool DatabaseManager::insertSpriteRecord(const SpriteModel &spriteModel)
     return query.exec();
 }
 
+bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)
+{
+    qDebug() << "DatabaseManager: deleting sprite model " << spriteModel.getId();
+    QSqlQuery query;
+    query.prepare("DELETE FROM Sprite WHERE SPRITE_ID = ?");
+    query.addBindValue(spriteModel.getId());
+    return query.exec();
+}
+
 DatabaseManager::~DatabaseManager() {
 }

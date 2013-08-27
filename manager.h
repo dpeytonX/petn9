@@ -39,6 +39,12 @@ public:
       */
     QDeclarativeListProperty<SpriteModel> getSpriteModels();
 
+    Q_INVOKABLE void deleteSpriteModel(SpriteModel* spriteToRemove);
+
+    Q_INVOKABLE SpriteModel* getNewSpriteModel() {
+        return new SpriteModel(this);
+    }
+
     /**
       Returns the pet that the user is interacting with.
       @return the current Pet

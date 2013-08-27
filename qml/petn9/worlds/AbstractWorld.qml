@@ -2,9 +2,11 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
-import "../js/SpriteFunctions.js" as Sprite
 import "../pets"
+
 import "../QmlLogger/qmllogger/Logger.js" as Console
+import "../js/SpriteFunctions.js" as Sprite
+import "../js/UIConstants.js" as UI
 
 /**
   AbstractWorld.qml
@@ -30,6 +32,7 @@ Rectangle {
     property real spriteTop: 0
     property real spriteLeft: 0
     property real spriteRight: ScreenWidth
+    property variant spriteModels
     property AbstractPet petItem
 
     signal exitWorld
@@ -48,7 +51,6 @@ Rectangle {
         if(!!petItem && !pet.dead) {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.doStandardAnimations = true
-            petItem.doSpawnObjects = true
         }
         petItem.x = (ScreenWidth - petItem.width) / 2
         petItem.y = spriteBottom - petItem.height
@@ -59,6 +61,29 @@ Rectangle {
 
     onPetChanged: {
         Sprite.createPet("../pets/", pet.type, world, {}, createPetHandler)
+    }
+
+    function clearSprites() {
+        //reset sprite map
+        Console.log("AbstractWorld.qml: clearing sprites")
+        var newSpriteModels = Manager.sprites;
+        for(var i = 0; i < spriteModels.length; i++) {
+            var s = spriteModels[i]
+            Console.log("Checking model " + s.id)
+            var found = false
+            for(var j = 0; j < newSpriteModels.length; j++) {
+                var t = newSpriteModels[j]
+                if(s.id == t.id) {
+                    found = true
+                    break;
+                }
+            }
+            if(!found) {
+                Console.log("AbstractWorld.qml: deleting sprite " + s.id)
+                s.destroy();
+            }
+        }
+        spriteModels = newSpriteModels
     }
 
     function petClicked() {
@@ -80,21 +105,42 @@ Rectangle {
 
     function spawnSprites() {
         Console.verbose("AbstractWorld.qml: drawing left oversprites ")
-        var spriteModels = []; spriteModels = Manager.sprites
+        spriteModels = Manager.sprites
         Console.debug("AbstractWorld.qml: retrieved sprite models " + spriteModels)
         if(!spriteModels) return
         Console.debug("AbstractWorld.qml: spriteModels.length " + spriteModels.length)
         for(var i = 0; i < spriteModels.length; i++) {
             var currentModel = spriteModels[i]
-            Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": currentModel.x, "y": currentModel.y}, null)
+            Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": currentModel.x, "y": currentModel.y, "z": 5}, spriteCreated)
         }
-        spriteModels = []
-    }
-    
-    function spriteCreated(spriteItem) {
-        
     }
 
+    function spriteCreated(spriteItem) {
+
+    }
+
+    function poopCreated(spriteItem) {
+        spriteItem.x = petItem.x
+        spriteItem.y = petItem.y + spriteItem.height
+        Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
+        spriteModels = Manager.sprites
+    }
+
+
+    function spawnPoop() {
+        Console.debug("AbstractWolrd.qml: spawning poop action ")
+
+        var rand = Math.random()
+        if (rand <= UI.PET_POOP_CHANCE) {
+            if(spriteModels.length >= UI.MAX_POOP_OBJECTS) {
+                Console.info("AbstractPet.qml: Max poop objects reached")
+                return
+            }
+
+            Console.debug("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
+            Sprite.createSprite("../objects/", SpriteModel.POOP, world.parent, {"z": 5}, poopCreated)
+        }
+    }
 
     QueryDialog {
         id: restartGame
@@ -117,5 +163,15 @@ Rectangle {
     Component.onCompleted: {
         pet = Manager.currentPet
         spawnSprites();
+    }
+
+    Timer {
+        id: poopTimer
+        interval: UI.PET_POOP_TIMER
+        running: true
+        repeat: true
+        onTriggered: {
+            spawnPoop()
+        }
     }
 }

@@ -109,10 +109,10 @@ QDeclarativeListProperty<Pet> Manager::getPetModels() {
         petDeclarativeListHolder->getList().append(o);
     }
     return QDeclarativeListProperty<Pet>(petDeclarativeListHolder, 0,
-                                                 &DeclarativeList<Pet>::appendObject,
-                                                 &DeclarativeList<Pet>::count,
-                                                 &DeclarativeList<Pet>::atIndex,
-                                                 &DeclarativeList<Pet>::clearObject);
+                                         &DeclarativeList<Pet>::appendObject,
+                                         &DeclarativeList<Pet>::count,
+                                         &DeclarativeList<Pet>::atIndex,
+                                         &DeclarativeList<Pet>::clearObject);
 }
 
 QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
@@ -158,6 +158,22 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
                                                  &DeclarativeList<SpriteModel>::count,
                                                  &DeclarativeList<SpriteModel>::atIndex,
                                                  &DeclarativeList<SpriteModel>::clearObject);
+}
+
+void Manager::deleteSpriteModel(SpriteModel *spriteToRemove)
+{
+    qDebug() << "Removing sprite " << spriteToRemove->getId();
+    if(spriteToRemove->getSpriteTypeId() == SpriteModel::ALL) {
+        qDebug() << "Manager: removing all sprites";
+        QDeclarativeListProperty<SpriteModel> spriteProp = getSpriteModels();
+        DeclarativeList<SpriteModel>* sprites = dynamic_cast<DeclarativeList<SpriteModel>* >(spriteProp.object);
+        foreach(SpriteModel* s,sprites->getList()) {
+            qDebug() << "Removing sprite " << s->getId();
+            dbManager->deleteSpriteModel(*s);
+        }
+        return;
+    }
+    dbManager->deleteSpriteModel(*spriteToRemove);
 }
 
 Pet *Manager::createPet(int typeId, const QString& name)
