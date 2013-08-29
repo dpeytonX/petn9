@@ -12,6 +12,9 @@ import "QmlLogger/qmllogger/Logger.js" as Console
   */
 DefaultPage {
     id: game
+    tools: gameTools
+
+    signal clean
 
     Component.onCompleted: {
         var world = Manager.getWorld()
@@ -21,6 +24,7 @@ DefaultPage {
     function finishedWorld(worldObject) {
         worldObject.exitWorld.connect(startOver)
         worldObject.exitGame.connect(gameOver)
+        clean.connect(worldObject.clearSprites)
     }
 
     function startOver() {
@@ -30,5 +34,23 @@ DefaultPage {
 
     function gameOver() {
         Qt.quit();
+    }
+
+    ToolBarLayout {
+        id: gameTools
+        ToolButtonRow {
+            ToolButton {
+                text: qsTr("Clean");
+                onClicked: {
+                    //Create a blank sprite model
+                    var s = Manager.getNewSpriteModel()
+                    //Make sure that we target ALL models
+                    s.typeId = SpriteModel.ALL
+                    Manager.deleteSpriteModel(s)
+                    Console.info("Game.qml: Cleaning")
+                    clean()
+                }
+            }
+        }
     }
 }

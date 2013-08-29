@@ -27,7 +27,7 @@ public:
     ~DatabaseManager();
 
 signals:
-    
+
 public slots:
 
 public:
@@ -53,7 +53,7 @@ public:
       @return the query to retrieve the pets.
       */
     QSqlQuery getPets();
-    
+
     /**
       Returns the sprite models within the DB.
       @return the query to retrieve sprite objects.
@@ -65,13 +65,15 @@ public:
       @return true if successful.
       */
     bool insertPetRecord(const Pet& pet);
-    
+
     /**
       Inserts a new Sprite Model into the database.
       @return true if successful.
       */
-    bool insertSpriteRecord(const SpriteModel& spriteModel);
-    
+    QSqlQuery insertSpriteRecord(const SpriteModel& spriteModel);
+
+    bool deleteSpriteModel(const SpriteModel& spriteModel);
+
 private:
     QSqlDatabase db;
     QString dbPath;
