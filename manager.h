@@ -86,7 +86,7 @@ public slots:
       */
     Pet* createPet(int typeId, const QString &name);
 
-    void createSprite(int spriteTypeId, int x, int y);
+    SpriteModel* createSprite(int spriteTypeId, int x, int y);
 
 private:
     DatabaseManager* dbManager;

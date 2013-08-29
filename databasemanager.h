@@ -70,7 +70,7 @@ public:
       Inserts a new Sprite Model into the database.
       @return true if successful.
       */
-    bool insertSpriteRecord(const SpriteModel& spriteModel);
+    QSqlQuery insertSpriteRecord(const SpriteModel& spriteModel);
 
     bool deleteSpriteModel(const SpriteModel& spriteModel);
 

@@ -4,7 +4,7 @@ import com.blogspot.iamboke 1.0
 import ".."
 
 import "../QmlLogger/qmllogger/Logger.js" as Console
-import "js/_private.js" as JObjects
+import "../js/_private.js" as JObjects
 import "../js/SpriteFunctions.js" as Sprite
 import "../js/UIConstants.js" as UI
 
@@ -56,10 +56,6 @@ Sprite {
       */
     function setCollisionCallback(cb) {
         JObjects.register(abstractPet).callback = cb
-    }
-
-    function setPoopCallback(cb) {
-        JObjects.register(abstractPet).spawnPoopCallback = cb
     }
 
     function performAnimation() {

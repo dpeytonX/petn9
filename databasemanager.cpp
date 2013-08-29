@@ -92,14 +92,18 @@ bool DatabaseManager::insertPetRecord(const Pet &pet)
     return query.exec();
 }
 
-bool DatabaseManager::insertSpriteRecord(const SpriteModel &spriteModel)
+QSqlQuery DatabaseManager::insertSpriteRecord(const SpriteModel &spriteModel)
 {
     QSqlQuery query;
     query.prepare("INSERT Into Sprite (SPRITE_TYPE_ID, X, Y) VALUES(?,?,?)");
     query.addBindValue(spriteModel.getSpriteTypeId());
     query.addBindValue(spriteModel.getX());
     query.addBindValue(spriteModel.getY());
-    return query.exec();
+    query.exec();
+    QSqlQuery query2;
+    query2.prepare("SELECT * FROM Sprite ORDER BY SPRITE_ID DESC");
+    query2.exec();
+    return query2;
 }
 
 bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)

@@ -209,10 +209,10 @@ Pet *Manager::createPet(int typeId, const QString& name)
     return pet;
 }
 
-void Manager::createSprite(int spriteTypeId, int x, int y)
+SpriteModel *Manager::createSprite(int spriteTypeId, int x, int y)
 {
     qDebug() << "Manager: creating sprite of type: " << spriteTypeId;
-    SpriteModel* sprite = new SpriteModel();
+    SpriteModel* sprite = new SpriteModel(this);
     switch(spriteTypeId) {
     case 0:
         sprite->setSpriteTypeId(SpriteModel::POOP);
@@ -228,8 +228,16 @@ void Manager::createSprite(int spriteTypeId, int x, int y)
     sprite->setX(x);
     sprite->setY(y);
 
-    bool result = dbManager->insertSpriteRecord(*sprite);
-    qDebug() << "Manager: sprite added to DB " << result;
+    QSqlQuery spriteQuery = dbManager->insertSpriteRecord(*sprite);
+    QSqlRecord rec = spriteQuery.record();
+    int spriteIdCol = rec.indexOf("SPRITE_ID");
+    while(spriteQuery.next()) {
+        qDebug() << "Manager: createSprite retrieved sprite ID ";
+        int spriteId = spriteQuery.value(spriteIdCol).toInt();
+        sprite->setId(spriteId);
+        break;
+    }
+    qDebug() << "Manager: sprite added to DB ";
 
-    delete sprite;
+    return sprite;
 }
