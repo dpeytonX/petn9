@@ -36,7 +36,7 @@ DefaultPage {
     }
 
     function deleteModel(spriteId) {
-        Console.log("Game.qml: deleting sprite " + spriteId)
+        Console.debug("Game.qml: deleting sprite " + spriteId)
         //Create a blank sprite model
         var s = Manager.getNewSpriteModel()
         //Make sure that we target ALL models
@@ -60,7 +60,7 @@ DefaultPage {
                     deleteModel(-1)
                 }
                 Component.onCompleted: {
-                    Console.log("Game.qml: tool icon size: " + width + " " + height)
+                    Console.trace("Game.qml: tool icon size: " + width + " " + height)
                 }
             }
 

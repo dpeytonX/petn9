@@ -72,13 +72,13 @@ Rectangle {
 
     function clearSprites() {
         //reset sprite map
-        Console.log("AbstractWorld.qml: clearing sprites")
+        Console.debug("AbstractWorld.qml: clearing sprites")
         var newSpriteModels = Manager.sprites;
         var spriteObjectArray = JObjects.register(world).spriteObjectArray;
 
         for(var i = 0; i < spriteObjectArray.length; i++) {
             var s = spriteObjectArray[i]
-            Console.log("AbstractWorld.qml: Checking model " + s.spriteId)
+            Console.debug("AbstractWorld.qml: Checking model " + s.spriteId)
             var found = false
             for(var j = 0; j < newSpriteModels.length; j++) {
                 var t = newSpriteModels[j]
@@ -88,7 +88,7 @@ Rectangle {
                 }
             }
             if(!found) {
-                Console.log("deleting item " + s)
+                Console.debug("deleting item " + s)
                 s.destroy() //Remove Item from view
                 spriteObjectArray.splice(i,1) //Remove item from store
 
@@ -129,7 +129,7 @@ Rectangle {
 
         var foodObjectArray = JObjects.register(world).foodObjectArray;
         var foodExists = !!foodObjectArray.length
-        Console.log("AbstractWorld.qml: foodExists " + foodExists)
+        Console.trace("AbstractWorld.qml: foodExists " + foodExists)
         var firstFood = foodObjectArray[0]
         var dir = null
         if(!!firstFood) {
@@ -138,7 +138,7 @@ Rectangle {
         }
 
         if(dir === null && !!firstFood) {
-            Console.log("AbstractWorld.qml: removing from game " + firstFood.spriteId)
+            Console.debug("AbstractWorld.qml: removing from game " + firstFood.spriteId)
             removeFromGame(firstFood.spriteId)
         }
 
@@ -157,7 +157,7 @@ Rectangle {
         Console.debug("AbstractWorld.qml: spriteModels.length " + spriteModels.length)
         for(var i = 0; i < spriteModels.length; i++) {
             var currentModel = spriteModels[i]
-            Console.log("AbstractWorld.qml: sprite Id " + currentModel.id)
+            Console.debug("AbstractWorld.qml: sprite Id " + currentModel.id)
             Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": currentModel.x, "y": currentModel.y, "z": 5, "spriteId": currentModel.id}, spriteCreated)
         }
     }
@@ -186,12 +186,12 @@ Rectangle {
     function spriteCreated(spriteItem) {
         var spriteObjectArray = JObjects.register(world).spriteObjectArray
         spriteObjectArray[spriteObjectArray.length] = spriteItem
-        Console.log("AbstractWorld: sprite object array " + spriteObjectArray)
+        Console.debug("AbstractWorld: sprite object array " + spriteObjectArray)
 
         if(spriteItem.type == SpriteModel.FOOD) {
             var foodObjectArray = JObjects.register(world).foodObjectArray
             foodObjectArray[foodObjectArray.length] = spriteItem
-            Console.log("AbstractWorld.qml: food object array " + foodObjectArray)
+            Console.debug("AbstractWorld.qml: food object array " + foodObjectArray)
             if(!!petItem) {
                 petItem.doFeedingAnimation = true
             }
@@ -202,17 +202,17 @@ Rectangle {
         spriteItem.x = petItem.x
         spriteItem.y = petItem.y + spriteItem.height
         var spriteModel = Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
-        Console.log("AbstractWorld.qml: poop created " + spriteModel.id)
+        Console.debug("AbstractWorld.qml: poop created " + spriteModel.id)
         spriteItem.spriteId = spriteModel.id
         spriteCreated(spriteItem)
     }
 
     function foodCreated(spriteItem) {
-        Console.log("Abstract.qml: food item " + spriteItem)
+        Console.debug("Abstract.qml: food item " + spriteItem)
         spriteItem.x = world.width - petItem.x - petItem.width
         spriteItem.y = petItem.y + spriteItem.height
         var spriteModel = Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
-        Console.log("AbstractWorld.qml: food created " + spriteModel.id)
+        Console.debug("AbstractWorld.qml: food created " + spriteModel.id)
         spriteItem.spriteId = spriteModel.id
         spriteCreated(spriteItem)
     }
