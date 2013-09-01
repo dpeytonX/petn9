@@ -15,6 +15,7 @@ DefaultPage {
     tools: gameTools
 
     signal clean
+    signal feed
 
     Component.onCompleted: {
         var world = Manager.getWorld()
@@ -24,12 +25,26 @@ DefaultPage {
     function finishedWorld(worldObject) {
         worldObject.exitWorld.connect(startOver)
         worldObject.exitGame.connect(gameOver)
+        worldObject.removeFromGame.connect(deleteModel)
         clean.connect(worldObject.clearSprites)
+        feed.connect(worldObject.feedPet)
     }
 
     function startOver() {
         Manager.saveOnExit()
         game.pageStack.replace(Qt.resolvedUrl("Splash.qml"))
+    }
+
+    function deleteModel(spriteId) {
+        Console.debug("Game.qml: deleting sprite " + spriteId)
+        //Create a blank sprite model
+        var s = Manager.getNewSpriteModel()
+        //Make sure that we target ALL models
+        s.typeId = spriteId == -1 ? SpriteModel.ALL : SpriteModel.OTHER
+        s.id = spriteId
+        Manager.deleteSpriteModel(s)
+        Console.info("Game.qml: Cleaning")
+        clean()
     }
 
     function gameOver() {
@@ -39,17 +54,39 @@ DefaultPage {
     ToolBarLayout {
         id: gameTools
         ToolButtonRow {
-            ToolButton {
-                text: qsTr("Clean");
+            ToolIcon {
+                iconId: "toolbar-delete"
                 onClicked: {
-                    //Create a blank sprite model
-                    var s = Manager.getNewSpriteModel()
-                    //Make sure that we target ALL models
-                    s.typeId = SpriteModel.ALL
-                    Manager.deleteSpriteModel(s)
-                    Console.info("Game.qml: Cleaning")
-                    clean()
+                    deleteModel(-1)
                 }
+                Component.onCompleted: {
+                    Console.trace("Game.qml: tool icon size: " + width + " " + height)
+                }
+            }
+
+            ToolIcon {
+                iconSource: "qrc:/images/icon-feed.png"
+                onClicked: {
+                    Console.info("Game.qml: Feeding")
+                    feed()
+                }
+            }
+        }
+
+        ToolIcon {
+            iconId: "toolbar-view-menu"
+            onClicked: (mainMenu.status === DialogStatus.Closed) ? mainMenu.open() : mainMenu.close()
+        }
+    }
+
+    Menu {
+        id: mainMenu
+        visualParent: pageStack
+        MenuLayout {
+
+            MenuItem {
+                text: qsTr("Quit")
+                onClicked: Qt.quit()
             }
         }
     }

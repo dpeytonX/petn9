@@ -23,7 +23,7 @@ function createObject(component, parent, properties, callback) {
         //console.log("SpriteFunctions.js: created object " + element)
         if(!!callback) callback(element)
     } else if (component.status == Component.Error) {
-        //console.log("SpriteFunctions.js: error loading object:", component.errorString());
+        console.log("SpriteFunctions.js: error loading object:", component.errorString());
         if(!!callback) callback(null)
     } else {
         console.log("SpriteFunctions.js: component not ready")
@@ -33,7 +33,7 @@ function createObject(component, parent, properties, callback) {
                                                 element = component.createObject(parent, properties)
                                                 if(!!callback) callback(element)
                                             } else if (component.status == Component.Error) {
-                                                //console.log("SpriteFunctions.js: error loading component:", component.errorString());
+                                                console.log("SpriteFunctions.js: error loading component:", component.errorString());
                                                 if(!!callback) callback(element)
                                             }
                                         }

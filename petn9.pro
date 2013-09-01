@@ -71,11 +71,6 @@ OTHER_FILES += \
     models/models.pri \
     qtdeclarative-helper/declarativelist.pri \
     petn9.sql \
-    images/plantula.png \
-    images/dragonator.png \
-    images/drippy.png \
-    images/baphomet.png \
-    images/rip.png \
     petn980.png \
     petn964.png \
     petn9.desktop \

@@ -11,13 +11,13 @@ class SpriteModel : public QObject, public DeclarativeList<SpriteModel>
 {
     Q_OBJECT
     Q_ENUMS(SPRITES)
-    Q_PROPERTY(int id READ getId)
+    Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(SPRITES typeId READ getSpriteTypeId WRITE setSpriteTypeId)
     Q_PROPERTY(int x READ getX WRITE setX)
     Q_PROPERTY(int y READ getY WRITE setY)
 public:
     /** Sprite Models For the Game **/
-    enum SPRITES {POOP, FOOD, ALL};
+    enum SPRITES {POOP, FOOD, OTHER, ALL};
     explicit SpriteModel(QObject *parent = 0);
 
     SPRITES getSpriteTypeId() const {
