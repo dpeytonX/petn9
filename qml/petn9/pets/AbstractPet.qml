@@ -82,6 +82,7 @@ Sprite {
     }
 
     function performFeedingAnimation() {
+        doFeedingAnimation = false
         doStandardAnimations = false
         var cb = JObjects.register(abstractPet).foodCallback
         if(!cb) {
@@ -91,13 +92,13 @@ Sprite {
         var result = cb(x)
         var delta = UI.PET_MOVEMENT
 
-        if(result.direction != null) {
-            delta *= (result.direction == moveLeft ? -1 : 1)
-        }
-
         if(!result.gotFood) {
             doStandardAnimations = true
             return
+        }
+
+        if(result.direction != null) {
+            delta *= (result.direction == moveLeft ? -1 : 1)
         }
 
         result = cb(x + width + delta)
@@ -109,6 +110,7 @@ Sprite {
         if(result.canMove) {
             x += delta
         }
+        doFeedingAnimation = true
     }
 
     function performAnimation() {

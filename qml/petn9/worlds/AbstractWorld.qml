@@ -129,11 +129,15 @@ Rectangle {
 
         var foodObjectArray = JObjects.register(world).foodObjectArray;
         var foodExists = !!foodObjectArray.length
+        Console.log("AbstractWorld.qml: foodExists " + foodExists)
         var firstFood = foodObjectArray[0]
-        var dir = firstFood.x - petItem.x < 0 ? petItem.moveLeft : petItem.moveRight
-        dir = Math.abs(firstFood.x - petItem.x) <= petItem.width ? null : dir
+        var dir = null
+        if(!!firstFood) {
+            dir = firstFood.x - petItem.x < 0 ? petItem.moveLeft : petItem.moveRight
+            dir = Math.abs(firstFood.x - petItem.x) <= petItem.width ? null : dir
+        }
 
-        if(dir === null) {
+        if(dir === null && !!firstFood) {
             Console.log("AbstractWorld.qml: removing from game " + firstFood.spriteId)
             removeFromGame(firstFood.spriteId)
         }
