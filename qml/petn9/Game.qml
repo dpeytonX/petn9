@@ -39,8 +39,8 @@ DefaultPage {
     ToolBarLayout {
         id: gameTools
         ToolButtonRow {
-            ToolButton {
-                text: qsTr("Clean");
+            ToolIcon {
+                iconId: "toolbar-delete"
                 onClicked: {
                     //Create a blank sprite model
                     var s = Manager.getNewSpriteModel()
@@ -49,6 +49,25 @@ DefaultPage {
                     Manager.deleteSpriteModel(s)
                     Console.info("Game.qml: Cleaning")
                     clean()
+                }
+                Component.onCompleted: {
+                    Console.log("Game.qml: tool icon size: " + width + " " + height)
+                }
+            }
+
+            ToolIcon {
+                iconSource: "qrc:/images/icon-feed.png"
+                onClicked: {
+                    //Create a blank sprite model
+                    var s = Manager.getNewSpriteModel()
+                    //Make sure that we target ALL models
+                    s.typeId = SpriteModel.ALL
+                    Manager.deleteSpriteModel(s)
+                    Console.info("Game.qml: Cleaning")
+                    clean()
+                }
+                Component.onCompleted: {
+                    Console.log("Game.qml: tool icon size: " + width + " " + height)
                 }
             }
         }

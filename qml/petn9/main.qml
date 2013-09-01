@@ -27,6 +27,6 @@ PageStackWindow {
 
     ToolBarStyle {
         id: tbStyle
-        inverted: true
+        //inverted: true
     }
 }

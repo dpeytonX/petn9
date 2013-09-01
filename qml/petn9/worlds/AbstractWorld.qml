@@ -135,10 +135,6 @@ Rectangle {
     }
 
     function spriteCreated(spriteItem) {
-        var spriteObjectArray = JObjects.register(world).spriteObjectArray
-        if(!spriteObjectArray) {
-            JObjects.register(world).spriteObjectArray = []
-        }
         spriteObjectArray = JObjects.register(world).spriteObjectArray
         spriteObjectArray[spriteObjectArray.length] = spriteItem
         Console.log("AbstractWorld: sprite object array " + spriteObjectArray)
@@ -151,6 +147,13 @@ Rectangle {
         Console.log("AbstractWorld.qml: poop created " + spriteModel.id)
         spriteItem.spriteId = spriteModel.id
         spriteCreated(spriteItem)
+    }
+
+    function initSpriteObjectArray() {
+        var spriteObjectArray = JObjects.register(world).spriteObjectArray
+        if(!spriteObjectArray) {
+            JObjects.register(world).spriteObjectArray = []
+        }
     }
 
     QueryDialog {
@@ -173,6 +176,7 @@ Rectangle {
 
     Component.onCompleted: {
         pet = Manager.currentPet
+        initSpriteObjectArray()
         spawnSprites();
     }
 
