@@ -15,6 +15,7 @@ DefaultPage {
     tools: gameTools
 
     signal clean
+    signal feed
 
     Component.onCompleted: {
         var world = Manager.getWorld()
@@ -25,6 +26,7 @@ DefaultPage {
         worldObject.exitWorld.connect(startOver)
         worldObject.exitGame.connect(gameOver)
         clean.connect(worldObject.clearSprites)
+        feed.connect(worldObject.feedPet)
     }
 
     function startOver() {
@@ -58,17 +60,26 @@ DefaultPage {
             ToolIcon {
                 iconSource: "qrc:/images/icon-feed.png"
                 onClicked: {
-                    //Create a blank sprite model
-                    var s = Manager.getNewSpriteModel()
-                    //Make sure that we target ALL models
-                    s.typeId = SpriteModel.ALL
-                    Manager.deleteSpriteModel(s)
-                    Console.info("Game.qml: Cleaning")
-                    clean()
+                    Console.info("Game.qml: Feeding")
+                    feed()
                 }
-                Component.onCompleted: {
-                    Console.log("Game.qml: tool icon size: " + width + " " + height)
-                }
+            }
+        }
+
+        ToolIcon {
+            iconId: "toolbar-view-menu"
+            onClicked: (mainMenu.status === DialogStatus.Closed) ? mainMenu.open() : mainMenu.close()
+        }
+    }
+
+    Menu {
+        id: mainMenu
+        visualParent: pageStack
+        MenuLayout {
+
+            MenuItem {
+                text: qsTr("Quit")
+                onClicked: Qt.quit()
             }
         }
     }

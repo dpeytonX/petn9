@@ -134,8 +134,13 @@ Rectangle {
         }
     }
 
+    function feedPet() {
+        Console.debug("AbstractWolrd.qml: feeding pet action ")
+        Sprite.createSprite("../objects/", SpriteModel.FOOD, world.parent, {"z": 5}, foodCreated)
+    }
+
     function spriteCreated(spriteItem) {
-        spriteObjectArray = JObjects.register(world).spriteObjectArray
+        var spriteObjectArray = JObjects.register(world).spriteObjectArray
         spriteObjectArray[spriteObjectArray.length] = spriteItem
         Console.log("AbstractWorld: sprite object array " + spriteObjectArray)
     }
@@ -145,6 +150,16 @@ Rectangle {
         spriteItem.y = petItem.y + spriteItem.height
         var spriteModel = Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
         Console.log("AbstractWorld.qml: poop created " + spriteModel.id)
+        spriteItem.spriteId = spriteModel.id
+        spriteCreated(spriteItem)
+    }
+
+    function foodCreated(spriteItem) {
+        Console.log("Abstract.qml: food item " + spriteItem)
+        spriteItem.x = petItem.x
+        spriteItem.y = petItem.y + spriteItem.height
+        var spriteModel = Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
+        Console.log("AbstractWorld.qml: food created " + spriteModel.id)
         spriteItem.spriteId = spriteModel.id
         spriteCreated(spriteItem)
     }
