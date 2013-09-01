@@ -50,6 +50,7 @@ Rectangle {
         Console.info("AbstractWorld.qml: pet object obtained")
         if(!!petItem && !pet.dead) {
             petItem.setCollisionCallback(isCollisionFree)
+            petItem.setFoodCallback(hasFood)
             petItem.doStandardAnimations = true
         }
         petItem.x = (ScreenWidth - petItem.width) / 2
@@ -106,6 +107,13 @@ Rectangle {
         return spriteLeft <= x && x <= spriteRight
     }
 
+    function hasFood(x) {
+        //Need to consider multiple food items
+        //Remove food object once complete
+        //Pet should automatically feed if food object was created on start
+        //Reset pet state once pet has eaten food
+    }
+
     function spawnSprites() {
         Console.verbose("AbstractWorld.qml: drawing left oversprites ")
         var spriteModels = Manager.sprites
@@ -156,11 +164,12 @@ Rectangle {
 
     function foodCreated(spriteItem) {
         Console.log("Abstract.qml: food item " + spriteItem)
-        spriteItem.x = petItem.x
+        spriteItem.x = world.width - petItem.x - petItem.width
         spriteItem.y = petItem.y + spriteItem.height
         var spriteModel = Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
         Console.log("AbstractWorld.qml: food created " + spriteModel.id)
         spriteItem.spriteId = spriteModel.id
+        petItem.doFeedingAnimation = true
         spriteCreated(spriteItem)
     }
 

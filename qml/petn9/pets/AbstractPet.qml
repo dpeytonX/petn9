@@ -29,6 +29,17 @@ import "../js/UIConstants.js" as UI
   Where x is a real number determining the next x position the Pet will move,
   and returns true if the move is legal and false, otherwise.
 
+  setFoodCallback(cb) - is the food detection Javascript callback.
+  Additionally, cb is a parameter in the following form:
+  function cb(x) { return
+    {
+      canMove: bool,
+      gotFood: bool,
+      direction: AbstractPet.moveLeft | AbstractPet.moveRight
+    }
+  }
+  Where x is a real number determining the next x position the Pet will move,
+  and returns true if the move is legal and false, otherwise.
   */
 Sprite {
     id: abstractPet
@@ -38,7 +49,11 @@ Sprite {
 
     property int petType
     property bool doStandardAnimations
+    property bool doFeedingAnimation
     property alias content: mouseArea.children
+    property int moveLeft: 0
+    property int moveRight: 1
+
     signal petClicked
 
     MouseArea {
@@ -56,6 +71,18 @@ Sprite {
       */
     function setCollisionCallback(cb) {
         JObjects.register(abstractPet).callback = cb
+    }
+
+    /**
+      Sets the collision callback to detect food boundary.
+      @param cb is the callback
+      */
+    function setFoodCallback(cb) {
+        JObjects.register(abstractPet).foodCallback = cb
+    }
+
+    function performFeedingAnimation() {
+        doStandardAnimations = false
     }
 
     function performAnimation() {
@@ -120,6 +147,16 @@ Sprite {
         repeat: true
         onTriggered: {
             performAnimation()
+        }
+    }
+
+    Timer {
+        id: foodTimer
+        interval: UI.PET_ANIMATION_TIMER
+        running: doFeedingAnimation
+        repeat: true
+        onTriggered: {
+            performFeedingAnimation()
         }
     }
 }
