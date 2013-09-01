@@ -37,6 +37,7 @@ Rectangle {
 
     signal exitWorld
     signal exitGame
+    signal removeFromGame (int spriteId)
 
     onSpriteBottomChanged: {
         Console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
@@ -58,6 +59,11 @@ Rectangle {
         petItem.petClicked.connect(petClicked)
         Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
         Console.debug("AbstractWorld.qml: pet is " + (pet.dead ? "dead" : "alive"))
+
+        var foodObjectArray = JObjects.register(world).foodObjectArray
+        if(!!foodObjectArray && !!foodObjectArray.length) {
+            petItem.doFeedingAnimation = true
+        }
     }
 
     onPetChanged: {
@@ -85,6 +91,17 @@ Rectangle {
                 Console.log("deleting item " + s)
                 s.destroy() //Remove Item from view
                 spriteObjectArray.splice(i,1) //Remove item from store
+
+                var foodObjectArray = JObjects.register(world).foodObjectArray
+
+                for(var k = 0; k < foodObjectArray.length; k++) {
+                    var u = foodObjectArray[k]
+                    if(s.spriteId = u.spriteId) {
+                        foodObjectArray.splice(k,1)
+                        break;
+                    }
+                }
+
                 i -= 1 //Reset accumulator
             }
         }
@@ -108,10 +125,24 @@ Rectangle {
     }
 
     function hasFood(x) {
-        //Need to consider multiple food items
-        //Remove food object once complete
-        //Pet should automatically feed if food object was created on start
-        //Reset pet state once pet has eaten food
+        var collision = isCollisionFree(x)
+
+        var foodObjectArray = JObjects.register(world).foodObjectArray;
+        var foodExists = !!foodObjectArray.length
+        var firstFood = foodObjectArray[0]
+        var dir = firstFood.x - petItem.x < 0 ? petItem.moveLeft : petItem.moveRight
+        dir = Math.abs(firstFood.x - petItem.x) <= petItem.width ? null : dir
+
+        if(dir === null) {
+            Console.log("AbstractWorld.qml: removing from game " + firstFood.spriteId)
+            removeFromGame(firstFood.spriteId)
+        }
+
+        return {
+            canMove: collision,
+            gotFood: foodExists,
+            direction: dir
+        }
     }
 
     function spawnSprites() {
@@ -122,6 +153,7 @@ Rectangle {
         Console.debug("AbstractWorld.qml: spriteModels.length " + spriteModels.length)
         for(var i = 0; i < spriteModels.length; i++) {
             var currentModel = spriteModels[i]
+            Console.log("AbstractWorld.qml: sprite Id " + currentModel.id)
             Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": currentModel.x, "y": currentModel.y, "z": 5, "spriteId": currentModel.id}, spriteCreated)
         }
     }
@@ -151,6 +183,15 @@ Rectangle {
         var spriteObjectArray = JObjects.register(world).spriteObjectArray
         spriteObjectArray[spriteObjectArray.length] = spriteItem
         Console.log("AbstractWorld: sprite object array " + spriteObjectArray)
+
+        if(spriteItem.type == SpriteModel.FOOD) {
+            var foodObjectArray = JObjects.register(world).foodObjectArray
+            foodObjectArray[foodObjectArray.length] = spriteItem
+            Console.log("AbstractWorld.qml: food object array " + foodObjectArray)
+            if(!!petItem) {
+                petItem.doFeedingAnimation = true
+            }
+        }
     }
 
     function poopCreated(spriteItem) {
@@ -169,7 +210,6 @@ Rectangle {
         var spriteModel = Manager.createSprite(spriteItem.type, spriteItem.x, spriteItem.y)
         Console.log("AbstractWorld.qml: food created " + spriteModel.id)
         spriteItem.spriteId = spriteModel.id
-        petItem.doFeedingAnimation = true
         spriteCreated(spriteItem)
     }
 
@@ -177,6 +217,7 @@ Rectangle {
         var spriteObjectArray = JObjects.register(world).spriteObjectArray
         if(!spriteObjectArray) {
             JObjects.register(world).spriteObjectArray = []
+            JObjects.register(world).foodObjectArray = []
         }
     }
 

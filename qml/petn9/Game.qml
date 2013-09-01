@@ -25,6 +25,7 @@ DefaultPage {
     function finishedWorld(worldObject) {
         worldObject.exitWorld.connect(startOver)
         worldObject.exitGame.connect(gameOver)
+        worldObject.removeFromGame.connect(deleteModel)
         clean.connect(worldObject.clearSprites)
         feed.connect(worldObject.feedPet)
     }
@@ -32,6 +33,18 @@ DefaultPage {
     function startOver() {
         Manager.saveOnExit()
         game.pageStack.replace(Qt.resolvedUrl("Splash.qml"))
+    }
+
+    function deleteModel(spriteId) {
+        Console.log("Game.qml: deleting sprite " + spriteId)
+        //Create a blank sprite model
+        var s = Manager.getNewSpriteModel()
+        //Make sure that we target ALL models
+        s.typeId = spriteId == -1 ? SpriteModel.ALL : SpriteModel.OTHER
+        s.id = spriteId
+        Manager.deleteSpriteModel(s)
+        Console.info("Game.qml: Cleaning")
+        clean()
     }
 
     function gameOver() {
@@ -44,13 +57,7 @@ DefaultPage {
             ToolIcon {
                 iconId: "toolbar-delete"
                 onClicked: {
-                    //Create a blank sprite model
-                    var s = Manager.getNewSpriteModel()
-                    //Make sure that we target ALL models
-                    s.typeId = SpriteModel.ALL
-                    Manager.deleteSpriteModel(s)
-                    Console.info("Game.qml: Cleaning")
-                    clean()
+                    deleteModel(-1)
                 }
                 Component.onCompleted: {
                     Console.log("Game.qml: tool icon size: " + width + " " + height)

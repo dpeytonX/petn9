@@ -83,6 +83,32 @@ Sprite {
 
     function performFeedingAnimation() {
         doStandardAnimations = false
+        var cb = JObjects.register(abstractPet).foodCallback
+        if(!cb) {
+            doStandardAnimations = true
+            return
+        }
+        var result = cb(x)
+        var delta = UI.PET_MOVEMENT
+
+        if(result.direction != null) {
+            delta *= (result.direction == moveLeft ? -1 : 1)
+        }
+
+        if(!result.gotFood) {
+            doStandardAnimations = true
+            return
+        }
+
+        result = cb(x + width + delta)
+        if(!result.gotFood) {
+            doStandardAnimations = true
+            return
+        }
+
+        if(result.canMove) {
+            x += delta
+        }
     }
 
     function performAnimation() {

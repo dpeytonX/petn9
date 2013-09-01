@@ -17,7 +17,7 @@ class SpriteModel : public QObject, public DeclarativeList<SpriteModel>
     Q_PROPERTY(int y READ getY WRITE setY)
 public:
     /** Sprite Models For the Game **/
-    enum SPRITES {POOP, FOOD, ALL};
+    enum SPRITES {POOP, FOOD, OTHER, ALL};
     explicit SpriteModel(QObject *parent = 0);
 
     SPRITES getSpriteTypeId() const {
