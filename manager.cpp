@@ -110,6 +110,14 @@ void Manager::updateFed() {
     dbManager->updateLastFedTimestamp(*(getCurrentPet()));
 }
 
+void Manager::updateLastPoop() {
+    dbManager->updateLastPoopTimestamp(*(getCurrentPet()));
+}
+
+void Manager::updateLastAppStart() {
+    dbManager->updateLastAppStartTimestamp(*(getCurrentPet()));
+}
+
 QDeclarativeListProperty<Pet> Manager::getPetModels() {
     petDeclarativeListHolder = new Pet(this);
     petDeclarativeListHolder->setManageMemory(false);

@@ -77,6 +77,8 @@ public:
 
     bool deleteSpriteModel(const SpriteModel& spriteModel);
 
+    void updateLastAppStartTimestamp(const Pet &pet);
+    void updateLastPoopTimestamp(const Pet &pet);
 private:
     QSqlDatabase db;
     QString dbPath;

@@ -176,6 +176,7 @@ Rectangle {
 
             Console.debug("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
             Sprite.createSprite("../objects/", SpriteModel.POOP, world.parent, {"z": 5}, poopCreated)
+            Manager.updateLastPoop();
         }
     }
 

@@ -28,6 +28,7 @@ DefaultPage {
         worldObject.removeFromGame.connect(deleteModel)
         clean.connect(worldObject.clearSprites)
         feed.connect(worldObject.feedPet)
+        Manager.updateLastAppStart()
     }
 
     function startOver() {

@@ -128,6 +128,26 @@ void DatabaseManager::updateLastFedTimestamp(const Pet &pet)
     query.exec();
 }
 
+void DatabaseManager::updateLastPoopTimestamp(const Pet &pet)
+{
+    initStatus(pet.getId());
+    qDebug() << "DatabaseManager: update LAST_POOP timestamp";
+    QSqlQuery query;
+    query.prepare("UPDATE Status SET LAST_POOP=CURRENT_TIMESTAMP WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+}
+
+void DatabaseManager::updateLastAppStartTimestamp(const Pet &pet)
+{
+    initStatus(pet.getId());
+    qDebug() << "DatabaseManager: update LAST_APP_START timestamp";
+    QSqlQuery query;
+    query.prepare("UPDATE Status SET LAST_APP_START=CURRENT_TIMESTAMP WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+}
+
 long DatabaseManager::getLastFedTimestamp(const Pet &pet) {
     QSqlQuery query = getStatus(pet);
     QSqlRecord rec = query.record();
