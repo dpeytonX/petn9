@@ -45,6 +45,14 @@ Rectangle {
             petItem.y = spriteBottom - petItem.height
             Console.debug("AbstractWorld.qml: pet y " + petItem.y)
         }
+
+
+        var spriteObjectArray = JObjects.register(world).spriteObjectArray;
+
+        for(var i = 0; i < spriteObjectArray.length; i++) {
+            var s = spriteObjectArray[i]
+            s.y = s.y == -1 ? petItem.y + 15 : s.y
+        }
     }
 
     onPetItemChanged: {
@@ -159,7 +167,10 @@ Rectangle {
         for(var i = 0; i < spriteModels.length; i++) {
             var currentModel = spriteModels[i]
             Console.debug("AbstractWorld.qml: sprite Id " + currentModel.id)
-            Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": currentModel.x, "y": currentModel.y, "z": 5, "spriteId": currentModel.id}, spriteCreated)
+            var sX = currentModel.x == -1 ? Math.random() * (ScreenWidth - UI.GAME_OBJECT_WIDTH) : currentModel.x
+            var sY = currentModel.y
+            Console.log("AbstractWorld: new sprite " + sX + " " + sY)
+            Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": sX, "y": sY, "z": 5, "spriteId": currentModel.id}, spriteCreated)
         }
     }
 

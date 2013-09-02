@@ -77,6 +77,7 @@ public:
 
     Q_INVOKABLE void updateLastPoop();
     Q_INVOKABLE void updateLastAppStart();
+
 signals:
     /**
       Emmitted when a Pet is added to the Pet model list.
@@ -100,6 +101,7 @@ private:
 
     void createPetModels();
     void init();
+    void updateStatus();
 };
 
 Q_DECLARE_METATYPE( Pet* )

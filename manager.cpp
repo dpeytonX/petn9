@@ -3,6 +3,9 @@
 #include <QSqlQuery>
 #include <QString>
 #include <QSqlRecord>
+#include <QDateTime>
+
+#include <cmath>
 
 #include "manager.h"
 #include "appsettings.h"
@@ -52,11 +55,42 @@ void Manager::saveOnExit()
 
 void Manager::init() {
     createPetModels();
+    if(petModels->size()) {
+        updateStatus();
+    }
+}
+
+void Manager::updateStatus() {
+    qDebug() << "Manager: updating status";
+    //SQLite stores timestamps in UTC
+    long currentTime = QDateTime::currentDateTimeUtc().toTime_t();
+    qDebug() << "Manager: current time " << currentTime;
+
+    //Calculate
+    long lastPoop = dbManager->getLastPoop(*(getCurrentPet()));
+    qDebug() << "Manager: poop time " << lastPoop;
+    if(lastPoop && currentTime >= lastPoop) {
+        //Create sprites if it's been a long time
+        int spritesToCreate = (currentTime - lastPoop) / 17280;
+        qDebug() << "Manager: spriteToCreate " << spritesToCreate;
+
+        DeclarativeList<SpriteModel>* spriteList = dynamic_cast<DeclarativeList<SpriteModel>*>(getSpriteModels().object);
+        int spriteCount = spriteList->getList().size();
+        int diff = 5 - spriteCount;
+        spritesToCreate = diff <= 0 ? 0 : (int) fmin(spritesToCreate, diff);
+        qDebug() << "Manager: spriteToCreate " << spritesToCreate;
+        while(spritesToCreate--) {
+            qDebug() << "Manager: creating poop spritemodel";
+            createSprite(SpriteModel::POOP, -1, -1);
+        }
+        updateLastPoop();
+    }
 }
 
 void Manager::createPetModels() {
     QSqlQuery petsQuery = dbManager->getPets();
     QSqlRecord rec = petsQuery.record();
+    int idCol = rec.indexOf("PET_ID");
     int typeIdCol = rec.indexOf("TYPE_ID");
     int nameCol = rec.indexOf("NAME");
     int creationCol = rec.indexOf("CREATION");
@@ -68,6 +102,7 @@ void Manager::createPetModels() {
         QString name = petsQuery.value(nameCol).toString();
         long creation = petsQuery.value(creationCol).toLongLong();
         bool dead = petsQuery.value(deadCol).toBool();
+        int id = petsQuery.value(idCol).toInt();
         Pet* pet = new Pet();
         switch(typeId) {
         case 0:
@@ -87,6 +122,7 @@ void Manager::createPetModels() {
             break;
         }
 
+        pet->setId(id);
         pet->setName(name);
         pet->setCreationTime(creation);
         pet->setDead(dead);

@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QDateTime>
 
 #ifdef NEW_DB
 #include <QFile>
@@ -167,8 +168,12 @@ long DatabaseManager::getLastPoop(const Pet &pet)
     int statCol = rec.indexOf("LAST_POOP");
 
     while(query.next()) {
-        qDebug() << "Manager: creating sprite model ";
-        return query.value(statCol).toLongLong();
+        qDebug() << "DatabaseManager: creating sprite model ";
+        QString result = query.value(statCol).toString();
+        qDebug() << "DatabaseManager: time result " << result;
+        QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
+        return time.toTime_t();
     }
     return 0;
 }
@@ -190,16 +195,16 @@ void DatabaseManager::initStatus(int petId) {
     //Initialize Status table
     qDebug() << "DatabaseManager: initializing status table ";
     QSqlQuery query;
-    query.prepare("INSERT INTO Status (PET_ID) VALUES(?)");
+    query.prepare("INSERT INTO Status (PET_ID) VALUES(?);");
     query.addBindValue(petId);
     query.exec();
 }
 
 QSqlQuery DatabaseManager::getStatus(const Pet &pet)
 {
-    qDebug() << "DatabaseManager: getting LAST_FED timestamp";
+    qDebug() << "DatabaseManager: getting status";
     QSqlQuery query;
-    query.prepare("SELECT * FROM Status WHERE PET_ID=?");
+    query.prepare("SELECT * FROM Status WHERE PET_ID = ?");
     query.addBindValue(pet.getId());
     query.exec();
     return query;
