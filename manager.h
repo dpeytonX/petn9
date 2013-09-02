@@ -39,6 +39,8 @@ public:
       */
     QDeclarativeListProperty<SpriteModel> getSpriteModels();
 
+    Q_INVOKABLE void updateFed();
+
     Q_INVOKABLE void deleteSpriteModel(SpriteModel* spriteToRemove);
 
     Q_INVOKABLE SpriteModel* getNewSpriteModel() {
@@ -95,6 +97,7 @@ private:
     SpriteModel* spriteDeclarativeListHolder;
 
     void createPetModels();
+    void init();
 };
 
 Q_DECLARE_METATYPE( Pet* )

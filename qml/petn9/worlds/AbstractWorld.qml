@@ -140,6 +140,7 @@ Rectangle {
         if(dir === null && !!firstFood) {
             Console.debug("AbstractWorld.qml: removing from game " + firstFood.spriteId)
             removeFromGame(firstFood.spriteId)
+            Manager.updateFed()
         }
 
         return {

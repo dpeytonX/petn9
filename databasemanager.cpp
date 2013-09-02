@@ -117,3 +117,70 @@ bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)
 
 DatabaseManager::~DatabaseManager() {
 }
+
+void DatabaseManager::updateLastFedTimestamp(const Pet &pet)
+{
+    initStatus(pet.getId());
+    qDebug() << "DatabaseManager: update LAST_FED timestamp";
+    QSqlQuery query;
+    query.prepare("UPDATE Status SET LAST_FED=CURRENT_TIMESTAMP WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+}
+
+long DatabaseManager::getLastFedTimestamp(const Pet &pet) {
+    QSqlQuery query = getStatus(pet);
+    QSqlRecord rec = query.record();
+    int statCol = rec.indexOf("LAST_FED");
+
+    while(query.next()) {
+        qDebug() << "Manager: creating sprite model ";
+        return query.value(statCol).toLongLong();
+    }
+    return 0;
+}
+
+long DatabaseManager::getLastPoop(const Pet &pet)
+{
+    QSqlQuery query = getStatus(pet);
+    QSqlRecord rec = query.record();
+    int statCol = rec.indexOf("LAST_POOP");
+
+    while(query.next()) {
+        qDebug() << "Manager: creating sprite model ";
+        return query.value(statCol).toLongLong();
+    }
+    return 0;
+}
+
+long DatabaseManager::getLastAppStart(const Pet &pet)
+{
+    QSqlQuery query = getStatus(pet);
+    QSqlRecord rec = query.record();
+    int statCol = rec.indexOf("LAST_APP_START");
+
+    while(query.next()) {
+        qDebug() << "Manager: creating sprite model ";
+        return query.value(statCol).toLongLong();
+    }
+    return 0;
+}
+
+void DatabaseManager::initStatus(int petId) {
+    //Initialize Status table
+    qDebug() << "DatabaseManager: initializing status table ";
+    QSqlQuery query;
+    query.prepare("INSERT INTO Status (PET_ID) VALUES(?)");
+    query.addBindValue(petId);
+    query.exec();
+}
+
+QSqlQuery DatabaseManager::getStatus(const Pet &pet)
+{
+    qDebug() << "DatabaseManager: getting LAST_FED timestamp";
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Status WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+    return query;
+}

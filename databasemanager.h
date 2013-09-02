@@ -26,11 +26,14 @@ public:
     explicit DatabaseManager(const QString& dbPath, QObject* parent=0);
     ~DatabaseManager();
 
-signals:
+    void updateLastFedTimestamp(const Pet& pet);
 
-public slots:
+    long getLastFedTimestamp(const Pet &pet);
 
-public:
+    long getLastPoop(const Pet &pet);
+
+    long getLastAppStart(const Pet &pet);
+
     /**
       Opens a conection to the database.
 
@@ -77,6 +80,9 @@ public:
 private:
     QSqlDatabase db;
     QString dbPath;
+
+    void initStatus(int petId);
+    QSqlQuery getStatus(const Pet& pet);
 };
 
 #endif // DATABASEMANAGER_H

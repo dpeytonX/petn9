@@ -24,7 +24,7 @@ Manager::Manager(QObject *parent) :
         qDebug() << dbManager->lastError().text();
     }
 
-    createPetModels();
+    init();
 }
 
 QString Manager::getWorld() {
@@ -48,6 +48,10 @@ QString Manager::getWorld() {
 void Manager::saveOnExit()
 {
     qDebug() << "Manager: Saving...";
+}
+
+void Manager::init() {
+    createPetModels();
 }
 
 void Manager::createPetModels() {
@@ -100,6 +104,10 @@ Manager::~Manager() {
         }
     }
     delete petModels;
+}
+
+void Manager::updateFed() {
+    dbManager->updateLastFedTimestamp(*(getCurrentPet()));
 }
 
 QDeclarativeListProperty<Pet> Manager::getPetModels() {
