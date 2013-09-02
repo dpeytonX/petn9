@@ -27,9 +27,8 @@ AbstractWorld {
     }
 
     Mountain {
-        anchors.top: parent.top
-        anchors.topMargin: parent.height / 3
+        anchors.bottom: field.top
         anchors.left: parent.left
-        anchors.leftMargin: 20
+        anchors.leftMargin: 50
     }
 }
