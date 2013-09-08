@@ -4,22 +4,22 @@
 <context>
     <name>AbstractWorld</name>
     <message>
-        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="101"/>
+        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="257"/>
         <source>Game Over</source>
         <translation>ゲームオバー</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="102"/>
+        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="258"/>
         <source>You&apos;re pet is dead.</source>
         <translation>ペットが死んでしまいました。</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="103"/>
+        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="259"/>
         <source>Back to Title</source>
         <translation>タイトル画面に戻る</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="104"/>
+        <location filename="../qml/petn9/worlds/AbstractWorld.qml" line="260"/>
         <source>Quit</source>
         <translation>やめる</translation>
     </message>
@@ -55,29 +55,37 @@
     </message>
 </context>
 <context>
+    <name>Game</name>
+    <message>
+        <location filename="../qml/petn9/Game.qml" line="89"/>
+        <source>Quit</source>
+        <translation>やめる</translation>
+    </message>
+</context>
+<context>
     <name>NameSelection</name>
     <message>
-        <location filename="../qml/petn9/NameSelection.qml" line="29"/>
+        <location filename="../qml/petn9/NameSelection.qml" line="37"/>
         <source>Pick your pet&apos;s name</source>
         <translation>ペットの名前を選んでください</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/NameSelection.qml" line="63"/>
+        <location filename="../qml/petn9/NameSelection.qml" line="71"/>
         <source>Type here:</source>
         <translation>ここで記入:</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/NameSelection.qml" line="83"/>
+        <location filename="../qml/petn9/NameSelection.qml" line="91"/>
         <source>OK!</source>
         <translation>OK!</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/NameSelection.qml" line="95"/>
+        <location filename="../qml/petn9/NameSelection.qml" line="103"/>
         <source>Reset</source>
         <translation>消す</translation>
     </message>
     <message>
-        <location filename="../qml/petn9/NameSelection.qml" line="106"/>
+        <location filename="../qml/petn9/NameSelection.qml" line="122"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
