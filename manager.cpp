@@ -48,20 +48,55 @@ QString Manager::getWorld() {
 
 }
 
-void Manager::saveOnExit()
+void Manager::reset()
 {
-    qDebug() << "Manager: Saving...";
+    qDebug() << "Manager: Reset...";
+    SpriteModel* s = new SpriteModel(this);
+    s->setSpriteTypeId(SpriteModel::ALL);
+    deleteSpriteModel(s);
+    removePet();
+
 }
 
 void Manager::init() {
     createPetModels();
     if(petModels->size()) {
+        initPoopModels();
         updateStatus();
     }
 }
 
 void Manager::updateStatus() {
     qDebug() << "Manager: updating status";
+    Pet* pet = getCurrentPet();
+    PetStatus status;
+    long currentTime = QDateTime::currentDateTimeUtc().toTime_t();
+    qDebug() << "Manager: current time " << currentTime;
+    long foodTime = dbManager->getLastFedTimestamp(*pet);
+    qDebug() << "Manager: food time " << foodTime;
+    if(foodTime && currentTime >= foodTime) {
+        long diff = currentTime - foodTime;
+        bool hungry = diff >= (60 * 60 * 24 * 2 / 3);
+        qDebug() << "Manager: pet is" << (hungry ? "" : "not") << "hungry";
+        status.isHungry = hungry;
+        bool dead = diff >= 60 * 60 * 24 * 7;
+        qDebug() << "Manager: pet is" << (dead ? "" : "not") << "dead";
+        status.isDead = dead;
+    }
+    long lastAppStart = dbManager->getLastAppStart(*pet);
+    qDebug() << "Manager: last app start " << lastAppStart;
+    if(lastAppStart && currentTime >= lastAppStart) {
+        long diff = currentTime - lastAppStart;
+        bool sad = diff >= 60 * 60 * 24 * 4;
+        qDebug() << "Manager: pet is" << (sad ? "" : "not") << "sad";
+        status.isSad = sad;
+    }
+
+    pet->setStatus(status);
+}
+
+void Manager::initPoopModels() {
+    qDebug() << "Manager: initializing poop sprites";
     //SQLite stores timestamps in UTC
     long currentTime = QDateTime::currentDateTimeUtc().toTime_t();
     qDebug() << "Manager: current time " << currentTime;
@@ -84,6 +119,17 @@ void Manager::updateStatus() {
             createSprite(SpriteModel::POOP, -1, -1);
         }
         updateLastPoop();
+    }
+}
+
+void Manager::removePet()
+{
+    Pet* pet = getCurrentPet();
+    dbManager->deletePetRecord(*pet);
+    int i = petModels->indexOf(pet);
+    if(i != -1) {
+        petModels->removeAt(i);
+        delete pet;
     }
 }
 

@@ -8,7 +8,7 @@ class QString;
 
 struct PetStatus {
     bool isHungry = false;
-    bool isDead = true;
+    bool isDead = false;
     bool isSad = false;
 };
 
@@ -20,13 +20,13 @@ class Pet : public QObject, public DeclarativeList<Pet>
     Q_OBJECT
     Q_ENUMS(PETS)
     Q_PROPERTY(PETS type READ getType)
-    Q_PROPERTY(bool dead READ isDead)
-    Q_PROPERTY(bool hungry READ isHungry)
-    Q_PROPERTY(bool sad READ isSad)
+    Q_PROPERTY(bool dead READ isDead NOTIFY deadChanged)
+    Q_PROPERTY(bool hungry READ isHungry NOTIFY hungryChanged)
+    Q_PROPERTY(bool sad READ isSad NOTIFY sadChanged)
 
 public:
 
-    enum PETS {PET1, PET2, PET3, PET4, DEAD};
+    enum PETS {PET1, PET2, PET3, PET4};
 
     explicit Pet(QObject *parent = 0);
 
@@ -75,10 +75,23 @@ public:
     }
 
     void setStatus(PetStatus status) {
+        PetStatus prevStat = this->status;
         this->status = status;
+        if(prevStat.isDead != status.isDead) {
+            emit deadChanged();
+        }
+        if(prevStat.isHungry != status.isHungry) {
+            emit hungryChanged();
+        }
+        if(prevStat.isSad != status.isSad) {
+            emit sadChanged();
+        }
     }
 
 signals:
+    void deadChanged();
+    void hungryChanged();
+    void sadChanged();
 
 public slots:
 

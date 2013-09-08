@@ -53,8 +53,14 @@ Sprite {
     property alias content: mouseArea.children
     property int moveLeft: 0
     property int moveRight: 1
+    property bool isDead: false
 
     signal petClicked
+
+    onIsDeadChanged: {
+        if(isDead)
+            reflectLeft.angle = 0
+    }
 
     MouseArea {
         anchors.fill: parent
@@ -171,7 +177,7 @@ Sprite {
     Timer {
         id: animationTimer
         interval: UI.PET_ANIMATION_TIMER
-        running: doStandardAnimations
+        running: !isDead && doStandardAnimations
         repeat: true
         onTriggered: {
             performAnimation()
@@ -181,7 +187,7 @@ Sprite {
     Timer {
         id: foodTimer
         interval: UI.PET_ANIMATION_TIMER
-        running: doFeedingAnimation
+        running: !isDead && doFeedingAnimation
         repeat: true
         onTriggered: {
             performFeedingAnimation()

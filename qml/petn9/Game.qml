@@ -32,7 +32,7 @@ DefaultPage {
     }
 
     function startOver() {
-        Manager.saveOnExit()
+        Manager.reset()
         game.pageStack.replace(Qt.resolvedUrl("Splash.qml"))
     }
 

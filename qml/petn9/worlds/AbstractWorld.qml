@@ -46,7 +46,6 @@ Rectangle {
             Console.debug("AbstractWorld.qml: pet y " + petItem.y)
         }
 
-
         var spriteObjectArray = JObjects.register(world).spriteObjectArray;
 
         for(var i = 0; i < spriteObjectArray.length; i++) {
@@ -56,8 +55,9 @@ Rectangle {
     }
 
     onPetItemChanged: {
+        petItem.isDead = pet.dead
         Console.info("AbstractWorld.qml: pet object obtained")
-        if(!!petItem && !pet.dead) {
+        if(!!petItem) {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.setFoodCallback(hasFood)
             petItem.doStandardAnimations = true
@@ -75,7 +75,15 @@ Rectangle {
     }
 
     onPetChanged: {
+        pet.deadChanged.connect(updatePetStatus)
         Sprite.createPet("../pets/", pet.type, world, {"z": 100}, createPetHandler)
+    }
+
+    function updatePetStatus() {
+        Console.info("AbstractWorld.qml: status changed")
+        if(!!petItem) {
+            petItem.isDead = pet.dead
+        }
     }
 
     function clearSprites() {
@@ -133,6 +141,7 @@ Rectangle {
     }
 
     function hasFood(x) {
+
         var collision = isCollisionFree(x)
 
         var foodObjectArray = JObjects.register(world).foodObjectArray;
@@ -145,7 +154,7 @@ Rectangle {
             dir = Math.abs(firstFood.x - petItem.x) <= petItem.width ? null : dir
         }
 
-        if(dir === null && !!firstFood) {
+        if(dir === null && !!firstFood && !petItem.isDead) {
             Console.debug("AbstractWorld.qml: removing from game " + firstFood.spriteId)
             removeFromGame(firstFood.spriteId)
             Manager.updateFed()
@@ -169,7 +178,7 @@ Rectangle {
             Console.debug("AbstractWorld.qml: sprite Id " + currentModel.id)
             var sX = currentModel.x == -1 ? Math.random() * (ScreenWidth - UI.GAME_OBJECT_WIDTH) : currentModel.x
             var sY = currentModel.y
-            Console.log("AbstractWorld: new sprite " + sX + " " + sY)
+            Console.info("AbstractWorld: new sprite " + sX + " " + sY)
             Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": sX, "y": sY, "z": 5, "spriteId": currentModel.id}, spriteCreated)
         }
     }
@@ -192,6 +201,7 @@ Rectangle {
     }
 
     function feedPet() {
+        if(petItem.isDead) return
         Console.debug("AbstractWolrd.qml: feeding pet action ")
         Sprite.createSprite("../objects/", SpriteModel.FOOD, world.parent, {"z": 5}, foodCreated)
     }
@@ -258,7 +268,7 @@ Rectangle {
 
     Component.onCompleted: {
         pet = Manager.currentPet
-        Console.log(pet.dead)
+        Console.info(pet.dead)
         initSpriteObjectArray()
         spawnSprites();
     }
@@ -270,6 +280,16 @@ Rectangle {
         repeat: true
         onTriggered: {
             spawnPoop()
+        }
+    }
+
+    Timer {
+        id: statTimer
+        interval: UI.STAT_TIMER
+        running: true
+        repeat: true
+        onTriggered: {
+            Manager.updateStatus()
         }
     }
 }

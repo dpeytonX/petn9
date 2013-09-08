@@ -79,6 +79,7 @@ public:
 
     void updateLastAppStartTimestamp(const Pet &pet);
     void updateLastPoopTimestamp(const Pet &pet);
+    bool deletePetRecord(const Pet &petModel);
 private:
     QSqlDatabase db;
     QString dbPath;

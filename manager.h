@@ -73,7 +73,8 @@ public:
       */
     Q_INVOKABLE QString getWorld();
 
-    Q_INVOKABLE void saveOnExit();
+    Q_INVOKABLE void reset();
+    Q_INVOKABLE void updateStatus();
 
     Q_INVOKABLE void updateLastPoop();
     Q_INVOKABLE void updateLastAppStart();
@@ -101,7 +102,8 @@ private:
 
     void createPetModels();
     void init();
-    void updateStatus();
+    void initPoopModels();
+    void removePet();
 };
 
 Q_DECLARE_METATYPE( Pet* )

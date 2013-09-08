@@ -6,6 +6,6 @@ AbstractPet {
     petType: PetModel.PET4
     content: Image {
         anchors.fill: parent
-        source: "qrc:/images/pet4.png"
+        source: isDead ? "qrc:/images/rip.png" : "qrc:/images/pet4.png"
     }
 }

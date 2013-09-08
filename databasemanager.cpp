@@ -116,6 +116,16 @@ bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)
     return query.exec();
 }
 
+bool DatabaseManager::deletePetRecord(const Pet &petModel)
+{
+    qDebug() << "DatabaseManager: deleting pet model " << petModel.getId();
+    QSqlQuery query;
+    query.prepare("DELETE FROM Pet WHERE PET_ID = ?");
+    query.addBindValue(petModel.getId());
+    return query.exec();
+}
+
+
 DatabaseManager::~DatabaseManager() {
 }
 
@@ -156,7 +166,12 @@ long DatabaseManager::getLastFedTimestamp(const Pet &pet) {
 
     while(query.next()) {
         qDebug() << "Manager: creating sprite model ";
-        return query.value(statCol).toLongLong();
+        QString result = query.value(statCol).toString();
+        qDebug() << "DatabaseManager: time result " << result;
+        QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        time.setTimeSpec(Qt::UTC);
+        qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
+        return time.toTime_t();
     }
     return 0;
 }
@@ -172,6 +187,7 @@ long DatabaseManager::getLastPoop(const Pet &pet)
         QString result = query.value(statCol).toString();
         qDebug() << "DatabaseManager: time result " << result;
         QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        time.setTimeSpec(Qt::UTC);
         qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
         return time.toTime_t();
     }
@@ -186,7 +202,12 @@ long DatabaseManager::getLastAppStart(const Pet &pet)
 
     while(query.next()) {
         qDebug() << "Manager: creating sprite model ";
-        return query.value(statCol).toLongLong();
+        QString result = query.value(statCol).toString();
+        qDebug() << "DatabaseManager: time result " << result;
+        QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        time.setTimeSpec(Qt::UTC);
+        qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
+        return time.toTime_t();
     }
     return 0;
 }

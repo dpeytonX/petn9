@@ -22,7 +22,6 @@ PageStackWindow {
 
     Component.onDestruction: {
         Console.critical("main.qml: APP IS CLOSING.")
-        Manager.saveOnExit()
     }
 
     ToolBarStyle {

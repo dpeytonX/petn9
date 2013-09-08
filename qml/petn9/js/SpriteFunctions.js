@@ -1,4 +1,4 @@
-var _petQmlFiles = ["Pet1.qml", "Pet2.qml", "Pet3.qml", "Pet4.qml", "DeadPet.qml"]
+var _petQmlFiles = ["Pet1.qml", "Pet2.qml", "Pet3.qml", "Pet4.qml"]
 var _spriteQmlFiles = ["Poop.qml", "Food.qml"]
 
 function createPet(petPackage, petType, parent, properties, callback) {
