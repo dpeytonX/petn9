@@ -61,6 +61,7 @@ Rectangle {
             petItem.setCollisionCallback(isCollisionFree)
             petItem.setFoodCallback(hasFood)
             petItem.doStandardAnimations = true
+            petItem.doStatusAnimation = true
         }
         petItem.x = (ScreenWidth - petItem.width) / 2
         petItem.y = spriteBottom - petItem.height
@@ -84,6 +85,8 @@ Rectangle {
         if(!!petItem) {
             petItem.isDead = pet.dead
         }
+        petItem.isHungry = pet.hungry
+        petItem.isSad = pet.sad
     }
 
     function clearSprites() {
@@ -124,9 +127,10 @@ Rectangle {
     }
 
     function petClicked() {
-        Console.debug("AbstractWorld.qml: Pet clicked")
+        Console.info("AbstractWorld.qml: Pet clicked")
         if(pet.dead) {
             restartGame.open()
+            return
         }
     }
 

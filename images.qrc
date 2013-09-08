@@ -8,5 +8,7 @@
         <file alias="rip.png">images/rip.png</file>
         <file alias="food.png">images/hamburger.png</file>
         <file alias="icon-feed.png">images/icon-feed.png</file>
+        <file alias="hungry.png">images/hungry.png</file>
+        <file alias="happy.png">images/happy.png</file>
     </qresource>
 </RCC>
