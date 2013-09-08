@@ -3,6 +3,8 @@ folder_01.source = qml/petn9
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
+QMAKE_CXXFLAGS += -std=c++11
+
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
@@ -10,7 +12,7 @@ QT += sql
 
 #defines
 #NO_RANDOM_WORLDS = true
-NEW_DB = true
+#NEW_DB = true
 ALLOW_JP = true #If you set unset this, then remember to alter debian/rules file override_dh_gencontrol
 !isEmpty(NO_RANDOM_WORLDS) {
     DEFINES += NO_RANDOM_WORLDS

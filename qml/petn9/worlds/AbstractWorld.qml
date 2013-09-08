@@ -258,6 +258,7 @@ Rectangle {
 
     Component.onCompleted: {
         pet = Manager.currentPet
+        Console.log(pet.dead)
         initSpriteObjectArray()
         spawnSprites();
     }

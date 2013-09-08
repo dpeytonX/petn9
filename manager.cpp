@@ -94,14 +94,12 @@ void Manager::createPetModels() {
     int typeIdCol = rec.indexOf("TYPE_ID");
     int nameCol = rec.indexOf("NAME");
     int creationCol = rec.indexOf("CREATION");
-    int deadCol = rec.indexOf("IS_DEAD");
 
     while(petsQuery.next()) {
         qDebug() << "Manager: creating pet ";
         int typeId = petsQuery.value(typeIdCol).toInt();
         QString name = petsQuery.value(nameCol).toString();
         long creation = petsQuery.value(creationCol).toLongLong();
-        bool dead = petsQuery.value(deadCol).toBool();
         int id = petsQuery.value(idCol).toInt();
         Pet* pet = new Pet();
         switch(typeId) {
@@ -125,7 +123,6 @@ void Manager::createPetModels() {
         pet->setId(id);
         pet->setName(name);
         pet->setCreationTime(creation);
-        pet->setDead(dead);
         qDebug() << "Manager: pet " << name << " was created";
         petModels->append(pet);
     }

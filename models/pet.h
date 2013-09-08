@@ -6,6 +6,12 @@
 
 class QString;
 
+struct PetStatus {
+    bool isHungry = false;
+    bool isDead = true;
+    bool isSad = false;
+};
+
 /**
   Represents a Pet object.
   */
@@ -15,15 +21,14 @@ class Pet : public QObject, public DeclarativeList<Pet>
     Q_ENUMS(PETS)
     Q_PROPERTY(PETS type READ getType)
     Q_PROPERTY(bool dead READ isDead)
+    Q_PROPERTY(bool hungry READ isHungry)
+    Q_PROPERTY(bool sad READ isSad)
 
 public:
+
     enum PETS {PET1, PET2, PET3, PET4, DEAD};
 
     explicit Pet(QObject *parent = 0);
-
-    void setDead(bool dead) {
-        this->dead = dead;
-    }
 
     void setType(PETS type) {
         this->type = type;
@@ -58,7 +63,19 @@ public:
     }
 
     bool isDead() const {
-        return dead;
+        return status.isDead;
+    }
+
+    bool isHungry() const {
+        return status.isHungry;
+    }
+
+    bool isSad() const {
+        return status.isSad;
+    }
+
+    void setStatus(PetStatus status) {
+        this->status = status;
     }
 
 signals:
@@ -70,7 +87,7 @@ private:
     PETS type;
     QString name;
     long creation;
-    bool dead;
+    PetStatus status;
 };
 
 #endif // PET_H
