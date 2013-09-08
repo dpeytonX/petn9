@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+echo "removing files"
+rm -rf /home/user/.local/share/data/petn9.sqlite
+
+exit 0

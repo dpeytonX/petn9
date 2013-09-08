@@ -15,6 +15,7 @@ QT += sql
 #NO_RANDOM_WORLDS = true
 #NEW_DB = true
 ALLOW_JP = true #If you set unset this, then remember to alter debian/rules file override_dh_gencontrol
+
 !isEmpty(NO_RANDOM_WORLDS) {
     DEFINES += NO_RANDOM_WORLDS
 }
@@ -81,7 +82,8 @@ OTHER_FILES += \
     petn9_harmattan.desktop \
     i18n/tr_jp.qm \
     i18n/tr_en.qm \
-    images/hamburger.png
+    images/hamburger.png \
+    qtc_packaging/debian_harmattan/prerm
 
 HEADERS += \
     databasemanager.h \

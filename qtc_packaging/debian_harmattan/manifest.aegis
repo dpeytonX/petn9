@@ -1,7 +1,6 @@
-AutoGenerateAegisFile
 <!-- Aegis manifest declares the security credentials required by an
-     application to run correctly. By default, a manifest file will be
-     created or updated automatically as a part of build.
+application to run correctly. By default, a manifest file will be
+created or updated automatically as a part of build.
 
      The detection of required credentials is based on static scan of
      application binaries. In some cases, the scan may not be able to
@@ -18,9 +17,9 @@ AutoGenerateAegisFile
       * List the correct credentials for the application in this file.
       * Some commented-out examples of often required tokens are provided.
       * Ensure the path to your application binary given in
-        '<for path="/path/to/app" />' is correct.
+      '<for path="/path/to/app" />' is correct.
       * Please do not request more credentials than what your application
-        actually requires.
+      actually requires.
 
      To disable manifest file:
 
@@ -29,42 +28,15 @@ AutoGenerateAegisFile
 
 -->
 <aegis>
-	<request policy="add">
+<request policy="add">
 
-		<!-- Make a GSM call, send text messages (SMS). -->
-	<!--
-		<credential name="Cellular" />
-	-->
+        </request>
 
-		<!-- Access Facebook social data. -->
-	<!--
-		<credential name="FacebookSocial" />
-	-->
+<request context="INSTALL">
+<credential name="UID::user" />
+<credential name="GID::users" />
+</request>
 
-		<!-- Read access to data stored in tracker. -->
-	<!--
-		<credential name="TrackerReadAccess" />
-	-->
-
-		<!-- Read and write access to data stored in tracker. -->
-	<!--
-		<credential name="TrackerWriteAccess" />
-	-->
-
-		<!-- Read Location information. -->
-	<!--
-		<credential name="Location" />
-	-->
-
-		<!-- Access to Audio, Multimedia and Camera. -->
-	<!--
-		<credential name="GRP::pulse-access" />
-		<credential name="GRP::video" />
-		<credential name="GRP::audio" />
-	-->
-
-	</request>
-
-	<for path="/opt/petn9/bin/petn9" />
-	<for path="applauncherd-launcher::/usr/bin/applauncherd.bin" id="" />
-</aegis>
+        <for path="/opt/petn9/bin/petn9" />
+        <for path="applauncherd-launcher::/usr/bin/applauncherd.bin" id="" />
+        </aegis>

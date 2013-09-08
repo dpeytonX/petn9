@@ -25,6 +25,7 @@ bool DatabaseManager::open()
     qDebug() << "DatabaseManager: removing file " << dbFile;
     QFile::remove(dbFile);
 #endif
+    qDebug() << "DatabaseManager: dbPath " << dbPath;
     db.setDatabaseName(dbPath);
     bool isDbOpen = db.open();
     QSqlQuery exists("SELECT count(*) AS numTbl FROM sqlite_master WHERE type='table' AND name='Pet'", db);
