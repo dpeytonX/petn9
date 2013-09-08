@@ -7,9 +7,11 @@
 class QString;
 
 struct PetStatus {
-    bool isHungry = false;
-    bool isDead = false;
-    bool isSad = false;
+    bool isHungry;
+    bool isDead;
+    bool isSad;
+
+    PetStatus() : isHungry(false), isDead(false), isSad(false) {}
 };
 
 /**

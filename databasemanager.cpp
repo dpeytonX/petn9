@@ -86,10 +86,9 @@ QSqlQuery DatabaseManager::getSprites(SpriteModel::SPRITES typeId) {
 bool DatabaseManager::insertPetRecord(const Pet &pet)
 {
     QSqlQuery query;
-    query.prepare("INSERT Into Pet (TYPE_ID, NAME, IS_DEAD) VALUES(?,?,?)");
+    query.prepare("INSERT Into Pet (TYPE_ID, NAME) VALUES(?,?)");
     query.addBindValue(pet.getType());
     query.addBindValue(pet.getName());
-    query.addBindValue(pet.isDead());
     return query.exec();
 }
 
