@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QDateTime>
 
 #ifdef NEW_DB
 #include <QFile>
@@ -115,5 +116,117 @@ bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)
     return query.exec();
 }
 
+bool DatabaseManager::deletePetRecord(const Pet &petModel)
+{
+    qDebug() << "DatabaseManager: deleting pet model " << petModel.getId();
+    QSqlQuery query;
+    query.prepare("DELETE FROM Pet WHERE PET_ID = ?");
+    query.addBindValue(petModel.getId());
+    return query.exec();
+}
+
+
 DatabaseManager::~DatabaseManager() {
+}
+
+void DatabaseManager::updateLastFedTimestamp(const Pet &pet)
+{
+    initStatus(pet.getId());
+    qDebug() << "DatabaseManager: update LAST_FED timestamp";
+    QSqlQuery query;
+    query.prepare("UPDATE Status SET LAST_FED=CURRENT_TIMESTAMP WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+}
+
+void DatabaseManager::updateLastPoopTimestamp(const Pet &pet)
+{
+    initStatus(pet.getId());
+    qDebug() << "DatabaseManager: update LAST_POOP timestamp";
+    QSqlQuery query;
+    query.prepare("UPDATE Status SET LAST_POOP=CURRENT_TIMESTAMP WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+}
+
+void DatabaseManager::updateLastAppStartTimestamp(const Pet &pet)
+{
+    initStatus(pet.getId());
+    qDebug() << "DatabaseManager: update LAST_APP_START timestamp";
+    QSqlQuery query;
+    query.prepare("UPDATE Status SET LAST_APP_START=CURRENT_TIMESTAMP WHERE PET_ID=?");
+    query.addBindValue(pet.getId());
+    query.exec();
+}
+
+long DatabaseManager::getLastFedTimestamp(const Pet &pet) {
+    QSqlQuery query = getStatus(pet);
+    QSqlRecord rec = query.record();
+    int statCol = rec.indexOf("LAST_FED");
+
+    while(query.next()) {
+        qDebug() << "Manager: creating sprite model ";
+        QString result = query.value(statCol).toString();
+        qDebug() << "DatabaseManager: time result " << result;
+        QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        time.setTimeSpec(Qt::UTC);
+        qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
+        return time.toTime_t();
+    }
+    return 0;
+}
+
+long DatabaseManager::getLastPoop(const Pet &pet)
+{
+    QSqlQuery query = getStatus(pet);
+    QSqlRecord rec = query.record();
+    int statCol = rec.indexOf("LAST_POOP");
+
+    while(query.next()) {
+        qDebug() << "DatabaseManager: creating sprite model ";
+        QString result = query.value(statCol).toString();
+        qDebug() << "DatabaseManager: time result " << result;
+        QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        time.setTimeSpec(Qt::UTC);
+        qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
+        return time.toTime_t();
+    }
+    return 0;
+}
+
+long DatabaseManager::getLastAppStart(const Pet &pet)
+{
+    QSqlQuery query = getStatus(pet);
+    QSqlRecord rec = query.record();
+    int statCol = rec.indexOf("LAST_APP_START");
+
+    while(query.next()) {
+        qDebug() << "Manager: creating sprite model ";
+        QString result = query.value(statCol).toString();
+        qDebug() << "DatabaseManager: time result " << result;
+        QDateTime time = QDateTime::fromString(result, "yyyy-MM-dd hh:mm:ss");
+        time.setTimeSpec(Qt::UTC);
+        qDebug() << "DatabaseManager: DateTimeConversion " << time.toString();
+        return time.toTime_t();
+    }
+    return 0;
+}
+
+void DatabaseManager::initStatus(int petId) {
+    //Initialize Status table
+    qDebug() << "DatabaseManager: initializing status table ";
+    QSqlQuery query;
+    query.prepare("INSERT INTO Status (PET_ID) VALUES(?);");
+    query.addBindValue(petId);
+    query.exec();
+}
+
+QSqlQuery DatabaseManager::getStatus(const Pet &pet)
+{
+    qDebug() << "DatabaseManager: getting status";
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Status WHERE PET_ID = ?");
+    query.addBindValue(pet.getId());
+    query.exec();
+    return query;
 }

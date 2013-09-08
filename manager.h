@@ -39,6 +39,8 @@ public:
       */
     QDeclarativeListProperty<SpriteModel> getSpriteModels();
 
+    Q_INVOKABLE void updateFed();
+
     Q_INVOKABLE void deleteSpriteModel(SpriteModel* spriteToRemove);
 
     Q_INVOKABLE SpriteModel* getNewSpriteModel() {
@@ -71,7 +73,11 @@ public:
       */
     Q_INVOKABLE QString getWorld();
 
-    Q_INVOKABLE void saveOnExit();
+    Q_INVOKABLE void reset();
+    Q_INVOKABLE void updateStatus();
+
+    Q_INVOKABLE void updateLastPoop();
+    Q_INVOKABLE void updateLastAppStart();
 
 signals:
     /**
@@ -95,6 +101,9 @@ private:
     SpriteModel* spriteDeclarativeListHolder;
 
     void createPetModels();
+    void init();
+    void initPoopModels();
+    void removePet();
 };
 
 Q_DECLARE_METATYPE( Pet* )

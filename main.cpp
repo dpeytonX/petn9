@@ -42,6 +42,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //Set context variables
     qmlRegisterType<Pet>("com.blogspot.iamboke", 1,0, "PetModel");
     qmlRegisterType<SpriteModel>("com.blogspot.iamboke", 1,0, "SpriteModel");
+    qRegisterMetaType<PetStatus>("PetStatus");
 
     int screenWidth = viewer.geometry().width();
     int screenHeight = viewer.geometry().height();

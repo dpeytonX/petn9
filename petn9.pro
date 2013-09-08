@@ -3,6 +3,9 @@ folder_01.source = qml/petn9
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
+#Not compatible with QmlApplicationViwer
+#QMAKE_CXXFLAGS += -std=c++11
+
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 

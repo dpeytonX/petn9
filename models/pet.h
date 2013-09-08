@@ -6,6 +6,12 @@
 
 class QString;
 
+struct PetStatus {
+    bool isHungry = false;
+    bool isDead = false;
+    bool isSad = false;
+};
+
 /**
   Represents a Pet object.
   */
@@ -14,16 +20,15 @@ class Pet : public QObject, public DeclarativeList<Pet>
     Q_OBJECT
     Q_ENUMS(PETS)
     Q_PROPERTY(PETS type READ getType)
-    Q_PROPERTY(bool dead READ isDead)
+    Q_PROPERTY(bool dead READ isDead NOTIFY deadChanged)
+    Q_PROPERTY(bool hungry READ isHungry NOTIFY hungryChanged)
+    Q_PROPERTY(bool sad READ isSad NOTIFY sadChanged)
 
 public:
-    enum PETS {PET1, PET2, PET3, PET4, DEAD};
+
+    enum PETS {PET1, PET2, PET3, PET4};
 
     explicit Pet(QObject *parent = 0);
-
-    void setDead(bool dead) {
-        this->dead = dead;
-    }
 
     void setType(PETS type) {
         this->type = type;
@@ -58,10 +63,35 @@ public:
     }
 
     bool isDead() const {
-        return dead;
+        return status.isDead;
+    }
+
+    bool isHungry() const {
+        return status.isHungry;
+    }
+
+    bool isSad() const {
+        return status.isSad;
+    }
+
+    void setStatus(PetStatus status) {
+        PetStatus prevStat = this->status;
+        this->status = status;
+        if(prevStat.isDead != status.isDead) {
+            emit deadChanged();
+        }
+        if(prevStat.isHungry != status.isHungry) {
+            emit hungryChanged();
+        }
+        if(prevStat.isSad != status.isSad) {
+            emit sadChanged();
+        }
     }
 
 signals:
+    void deadChanged();
+    void hungryChanged();
+    void sadChanged();
 
 public slots:
 
@@ -70,7 +100,7 @@ private:
     PETS type;
     QString name;
     long creation;
-    bool dead;
+    PetStatus status;
 };
 
 #endif // PET_H

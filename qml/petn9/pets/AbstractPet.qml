@@ -50,11 +50,30 @@ Sprite {
     property int petType
     property bool doStandardAnimations
     property bool doFeedingAnimation
+    property bool doStatusAnimation
     property alias content: mouseArea.children
     property int moveLeft: 0
     property int moveRight: 1
+    property bool isDead: false
+    property bool isHungry: false
+    property bool isSad: false
 
     signal petClicked
+
+    onIsDeadChanged: {
+        if(isDead)
+            reflectLeft.angle = 0
+    }
+
+    onPetClicked: {
+        Console.info("AbstractPet.qml: pet clicked")
+        if(isHungry) {
+            statusIcon.source = "qrc:/images/hungry.png"
+        } else if(!isSad) {
+            statusIcon.source ="qrc:/images/happy.png"
+        }
+        statusIcon.visible = !isDead && doStatusAnimation
+    }
 
     MouseArea {
         anchors.fill: parent
@@ -63,6 +82,17 @@ Sprite {
         Component.onCompleted: {
             mouseArea.clicked.connect(petClicked)
         }
+    }
+
+    Image {
+        id: statusIcon
+        width: 25
+        height: 25
+        visible: false
+        z: 100
+        anchors.bottom: parent.top
+        anchors.bottomMargin: 10
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     /**
@@ -171,7 +201,7 @@ Sprite {
     Timer {
         id: animationTimer
         interval: UI.PET_ANIMATION_TIMER
-        running: doStandardAnimations
+        running: !isDead && doStandardAnimations
         repeat: true
         onTriggered: {
             performAnimation()
@@ -181,10 +211,21 @@ Sprite {
     Timer {
         id: foodTimer
         interval: UI.PET_ANIMATION_TIMER
-        running: doFeedingAnimation
+        running: !isDead && doFeedingAnimation
         repeat: true
         onTriggered: {
             performFeedingAnimation()
+        }
+    }
+
+    Timer {
+        id: statusIconTimer
+        triggeredOnStart: false
+        interval: UI.STAT_ANIMATION_TIMER
+        running: statusIcon.visible
+        repeat: false
+        onTriggered: {
+            statusIcon.visible = false
         }
     }
 }

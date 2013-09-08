@@ -13,5 +13,7 @@
         <file alias="sun.png">images/sun.png</file>
         <file alias="tumbleweed.png">images/tumbleweed.png</file>
         <file alias="mountain.png">images/mountain.png</file>
+        <file alias="hungry.png">images/hungry.png</file>
+        <file alias="happy.png">images/happy.png</file>
     </qresource>
 </RCC>

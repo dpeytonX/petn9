@@ -28,10 +28,11 @@ DefaultPage {
         worldObject.removeFromGame.connect(deleteModel)
         clean.connect(worldObject.clearSprites)
         feed.connect(worldObject.feedPet)
+        Manager.updateLastAppStart()
     }
 
     function startOver() {
-        Manager.saveOnExit()
+        Manager.reset()
         game.pageStack.replace(Qt.resolvedUrl("Splash.qml"))
     }
 
