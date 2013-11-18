@@ -3,6 +3,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.blogspot.iamboke 1.0
 import "../pets"
+import "../widgets"
 
 import "../QmlLogger/qmllogger/Logger.js" as Console
 import "../js/_private.js" as JObjects
@@ -128,6 +129,10 @@ Rectangle {
 
     function petClicked() {
         Console.info("AbstractWorld.qml: Pet clicked")
+        petStatus.visible = true
+        petStatus.pet = pet
+        statusTimer.start()
+
         if(pet.dead) {
             restartGame.open()
             return
@@ -294,6 +299,30 @@ Rectangle {
         repeat: true
         onTriggered: {
             Manager.updateStatus()
+        }
+    }
+
+    Status {
+        x: 20
+        y: spriteBottom + 20
+        id: petStatus
+        z: 100
+
+        color: "#00000000"
+        visible: false
+
+        width: 500
+        height: 500
+    }
+
+    Timer {
+        id: statusTimer
+        triggeredOnStart: false
+        interval: UI.PET_STATUS_BAR_TIMER
+        running: petStatus.visible
+        repeat: false
+        onTriggered: {
+            petStatus.visible = false
         }
     }
 }

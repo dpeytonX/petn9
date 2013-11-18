@@ -16,3 +16,6 @@ var GAME_OBJECT_HEIGHT = 50
 
 // Sprite Constants
 var MAX_POOP_OBJECTS = 25
+
+// World Constants
+var PET_STATUS_BAR_TIMER = 5000 //in ms

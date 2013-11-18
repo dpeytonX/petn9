@@ -25,6 +25,7 @@ class Pet : public QObject, public DeclarativeList<Pet>
     Q_PROPERTY(bool dead READ isDead NOTIFY deadChanged)
     Q_PROPERTY(bool hungry READ isHungry NOTIFY hungryChanged)
     Q_PROPERTY(bool sad READ isSad NOTIFY sadChanged)
+    Q_PROPERTY(QString name READ getName)
 
 public:
 
