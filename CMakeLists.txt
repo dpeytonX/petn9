@@ -9,6 +9,8 @@ find_package (Qt5Gui REQUIRED)
 get_target_property(QtGui_location Qt5::Gui LOCATION)
 find_package (Qt5Qml REQUIRED)
 get_target_property(QtQml_location Qt5::Qml LOCATION)
+find_package (Qt5Sql REQUIRED)
+get_target_property(QtSql_location Qt5::Sql LOCATION)
 
 set (petn9_VERSION_MAJOR 1)
 set (petn9_VERSION_MINOR 1)
@@ -21,16 +23,16 @@ configure_file (
   
 include_directories("${PROJECT_BINARY_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}")
-include_directories("qtdeclarative-helper")
+include_directories("${PROJECT_SOURCE_DIR}/qtdeclarative-helper")
+include_directories("${PROJECT_SOURCE_DIR}/models")
 
 #sub directories
-#include_directories ("${PROJECT_SOURCE_DIR}/petn9convert")
 add_subdirectory (models)
 
-set (petn9_SOURCES main.cpp manager.cpp databasemanager.cpp declarativelist.cpp)
-set (petn9_HEADER manager.h databasemanager.h declarativelist.h)
-set (petn9_MOC_HEADERS manager.h databasemanager.h declarativelist.h)
-set (petn9_RESOURCES images.qrc qml.qrc)
+set (petn9_SOURCES main.cpp manager.cpp databasemanager.cpp qtdeclarative-helper/declarativelist.cpp)
+set (petn9_MOC_HEADERS manager.h databasemanager.h )
+set (petn9_HEADER ${petn9_MOC_HEADERS} qtdeclarative-helper/declarativelist.h qtdeclarative-helper/declarativelist_global.h)
+set (petn9_RESOURCES petn9.qrc images.qrc qml.qrc)
 qt5_wrap_cpp(petn9_MOC ${petn9_MOC_HEADERS})
 qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
 
@@ -40,6 +42,7 @@ add_executable (petn9 ${petn9_SOURCES} ${petn9_HEADER} ${petn9_RESOURCES_RCC} ${
 target_link_libraries (petn9 Qt5::Core)
 target_link_libraries (petn9 Qt5::Gui)
 target_link_libraries (petn9 Qt5::Qml)
+target_link_libraries (petn9 Qt5::Sql)
 target_link_libraries (petn9 petn9models)
 
 install (TARGETS petn9 DESTINATION bin)

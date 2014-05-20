@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QVariant>
 #include <QList>
-#include <QDeclarativeListProperty>
 
 
 #include <cstdlib>
@@ -13,15 +12,18 @@
 #include "databasemanager.h"
 #include "models/pet.h"
 
+template <typename T>
+class QQmlListProperty;
+
 /**
   Back-end for QML providing necessary functions for manipulating DTO models and managing the application's database.
   */
 class Manager : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeListProperty<Pet> pets READ getPetModels)
+    Q_PROPERTY(QQmlListProperty<Pet> pets READ getPetModels)
     Q_PROPERTY(Pet* currentPet READ getCurrentPet)
-    Q_PROPERTY(QDeclarativeListProperty<SpriteModel> sprites READ getSpriteModels)
+    Q_PROPERTY(QQmlListProperty<SpriteModel> sprites READ getSpriteModels)
 public:
     explicit Manager(QObject *parent = 0);
     ~Manager();
@@ -30,14 +32,14 @@ public:
       Returns the pets registered with the application.
       @return a QML accessible list of Pet objects.
       */
-    QDeclarativeListProperty<Pet> getPetModels();
+    QQmlListProperty<Pet> getPetModels();
 
     /**
       Gets the sprite models in use by the game.
       The models returned are not used for persistence so changes will not be saved.
       @return a QML list of SpriteModels
       */
-    QDeclarativeListProperty<SpriteModel> getSpriteModels();
+    QQmlListProperty<SpriteModel> getSpriteModels();
 
     Q_INVOKABLE void updateFed();
 
@@ -97,8 +99,8 @@ public slots:
 private:
     DatabaseManager* dbManager;
     QList<Pet*>* petModels;
-    Pet* petDeclarativeListHolder;
-    SpriteModel* spriteDeclarativeListHolder;
+    Pet* petQQmlListPropertyHolder;
+    SpriteModel* spriteQQmlListPropertyHolder;
 
     void createPetModels();
     void init();

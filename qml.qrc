@@ -1,0 +1,37 @@
+<RCC>
+ <qresource prefix="/">
+ <file>qml/petn9/DefaultPage.qml</file>
+ <file>qml/petn9/Sprite.qml</file>
+ <file>qml/petn9/Splash.qml</file>
+ <file>qml/petn9/main.qml</file>
+ <file>qml/petn9/NameSelection.qml</file>
+ <file>qml/petn9/Game.qml</file>
+ <file>qml/petn9/PetSelection.qml</file>
+ <file>qml/petn9/objects/Poop.qml</file>
+ <file>qml/petn9/objects/GameObject.qml</file>
+ <file>qml/petn9/pets/Pet1.qml</file>
+ <file>qml/petn9/pets/Pet3.qml</file>
+ <file>qml/petn9/pets/Pet2.qml</file>
+ <file>qml/petn9/pets/Pet4.qml</file>
+ <file>qml/petn9/pets/AbstractPet.qml</file>
+ <file>qml/petn9/QmlLogger/.git</file>
+ <file>qml/petn9/QmlLogger/README.md</file>
+ <file>qml/petn9/QmlLogger/qmllogger/Logger.js</file>
+ <file>qml/petn9/QmlLogger/qmllogger/main.qml</file>
+ <file>qml/petn9/js/SpriteFunctions.js</file>
+ <file>qml/petn9/js/UIConstants.js</file>
+ <file>qml/petn9/worlds/MountainRange.qml</file>
+ <file>qml/petn9/worlds/Plain.qml</file>
+ <file>qml/petn9/worlds/Desert.qml</file>
+ <file>qml/petn9/worlds/AbstractWorld.qml</file>
+ <file>qml/petn9/worlds/elements/GrassyField.qml</file>
+ <file>qml/petn9/worlds/elements/SnowyField.qml</file>
+ <file>qml/petn9/worlds/elements/Tumbleweed.qml</file>
+ <file>qml/petn9/worlds/elements/DesertField.qml</file>
+ <file>qml/petn9/worlds/elements/Cloud.qml</file>
+ <file>qml/petn9/worlds/elements/Cactus.qml</file>
+ <file>qml/petn9/worlds/elements/Sun.qml</file>
+ <file>qml/petn9/worlds/elements/Mountain.qml</file>
+ <file>qml/petn9/worlds/elements/Field.qml</file>
+ </qresource>
+</RCC>

@@ -4,21 +4,20 @@
 #include <QString>
 #include <QSqlRecord>
 #include <QDateTime>
+#include <QStandardPaths>
 
 #include <cmath>
 
 #include "manager.h"
-#include "appsettings.h"
 #include "databasemanager.h"
 #include "models/pet.h"
-#include "qtdeclarative-helper/declarativelist.h"
+#include <declarativelist.h>
 
 Manager::Manager(QObject *parent) :
     QObject(parent),
     petModels(new QList<Pet*>())
 {
-    AppSettings settings;
-    QString dbPath = settings.getDatabasePath();
+    QString dbPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/petn9.sqlite";
     dbManager = new DatabaseManager(dbPath, this);
 
     bool isOpen = dbManager->open();
@@ -197,23 +196,23 @@ void Manager::updateLastAppStart() {
     dbManager->updateLastAppStartTimestamp(*(getCurrentPet()));
 }
 
-QDeclarativeListProperty<Pet> Manager::getPetModels() {
-    petDeclarativeListHolder = new Pet(this);
-    petDeclarativeListHolder->setManageMemory(false);
+QQmlListProperty<Pet> Manager::getPetModels() {
+    petQQmlListPropertyHolder = new Pet(this);
+    petQQmlListPropertyHolder->setManageMemory(false);
     foreach(Pet* o, *petModels) {
-        petDeclarativeListHolder->getList().append(o);
+        petQQmlListPropertyHolder->getList().append(o);
     }
-    return QDeclarativeListProperty<Pet>(petDeclarativeListHolder, 0,
+    return QQmlListProperty<Pet>(petQQmlListPropertyHolder, 0,
                                          &DeclarativeList<Pet>::appendObject,
                                          &DeclarativeList<Pet>::count,
                                          &DeclarativeList<Pet>::atIndex,
                                          &DeclarativeList<Pet>::clearObject);
 }
 
-QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
+QQmlListProperty<SpriteModel> Manager::getSpriteModels()
 {
     qDebug() << "Manager: retrieving sprite models ";
-    spriteDeclarativeListHolder = new SpriteModel(this);
+    spriteQQmlListPropertyHolder = new SpriteModel(this);
     //Populate Sprite Models
     QSqlQuery spriteQuery = dbManager->getSprites(SpriteModel::ALL);
     QSqlRecord rec = spriteQuery.record();
@@ -245,10 +244,10 @@ QDeclarativeListProperty<SpriteModel> Manager::getSpriteModels()
         spriteObj->setX(x);
         spriteObj->setY(y);
         qDebug() << "Manager: sprite " << spriteId << " was created of type " << spriteTypeId;
-        spriteDeclarativeListHolder->getList().append(spriteObj);
+        spriteQQmlListPropertyHolder->getList().append(spriteObj);
     }
     //return QDeclListProp
-    return QDeclarativeListProperty<SpriteModel>(spriteDeclarativeListHolder, 0,
+    return QQmlListProperty<SpriteModel>(spriteQQmlListPropertyHolder, 0,
                                                  &DeclarativeList<SpriteModel>::appendObject,
                                                  &DeclarativeList<SpriteModel>::count,
                                                  &DeclarativeList<SpriteModel>::atIndex,
@@ -260,7 +259,7 @@ void Manager::deleteSpriteModel(SpriteModel *spriteToRemove)
     qDebug() << "Removing sprite " << spriteToRemove->getId();
     if(spriteToRemove->getSpriteTypeId() == SpriteModel::ALL) {
         qDebug() << "Manager: removing all sprites";
-        QDeclarativeListProperty<SpriteModel> spriteProp = getSpriteModels();
+        QQmlListProperty<SpriteModel> spriteProp = getSpriteModels();
         DeclarativeList<SpriteModel>* sprites = dynamic_cast<DeclarativeList<SpriteModel>* >(spriteProp.object);
         foreach(SpriteModel* s,sprites->getList()) {
             qDebug() << "Removing sprite " << s->getId();
