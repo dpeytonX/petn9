@@ -58,7 +58,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     //viewer.showExpanded();
     
-    viewer.load ( QUrl ( QStringLiteral ( "qrc:///main.qml" ) ) );
+    viewer.load ( QUrl ( QStringLiteral ( "qrc:///qml/petn9/main.qml" ) ) );
 
     return app->exec();
 }
