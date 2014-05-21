@@ -12,16 +12,23 @@ ApplicationWindow {
     id: appWindow
     objectName: "appWindow"
     visible: true
-    width: ScreenWidth
-    height: ScreenHeighta
-    flags: W
+    width: Math.min(Screen.desktopAvailableWidth, 800)
+    height: Math.min(Screen.desktopAvailableHeight, 600)
+    x: (Screen.desktopAvailableWidth - width ) / 2
+    y: (Screen.desktopAvailableHeight - height) / 2
+    property alias pageStack: stackView
+    
     //showStatusBar: false
 
     //initialPage:
-    Splash { anchors.fill: parent}
+    StackView {
+      id: stackView
+      Splash { id: splash; anchors.fill: parent}
+      initialItem: splash
+    }
 
     Component.onCompleted: {
-        Console.LOG_PRIORITY = Console.INFO
+        Console.LOG_PRIORITY = Console.TRACE
         //pageStack.toolBar.platformStyle = tbStyle
     }
 

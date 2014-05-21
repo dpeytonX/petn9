@@ -1,5 +1,6 @@
-import QtQuick 1.1
-import com.nokia.meego 1.0
+import QtQuick 2.2
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
 import com.blogspot.iamboke 1.0
 
 import "js/SpriteFunctions.js" as Sprite
@@ -12,14 +13,14 @@ import "QmlLogger/qmllogger/Logger.js" as Console
   */
 DefaultPage {
     id: game
-    tools: gameTools
+    //tools: gameTools
 
     signal clean
     signal feed
 
     Component.onCompleted: {
         var world = Manager.getWorld()
-        Sprite.createWorld("worlds/"+world+".qml", game, {"anchors.fill": game}, finishedWorld)
+        Sprite.createWorld("../worlds/"+world+".qml", game, {"anchors.fill": game}, finishedWorld)
     }
 
     function finishedWorld(worldObject) {
@@ -52,10 +53,10 @@ DefaultPage {
         Qt.quit();
     }
 
-    ToolBarLayout {
+    RowLayout {
         id: gameTools
-        ToolButtonRow {
-            ToolIcon {
+        Row {
+            /*ToolIcon {
                 iconId: "toolbar-delete"
                 onClicked: {
                     deleteModel(-1)
@@ -71,16 +72,16 @@ DefaultPage {
                     Console.info("Game.qml: Feeding")
                     feed()
                 }
-            }
+            }*/
         }
 
-        ToolIcon {
+        /*ToolIcon {
             iconId: "toolbar-view-menu"
             onClicked: (mainMenu.status === DialogStatus.Closed) ? mainMenu.open() : mainMenu.close()
-        }
+        }*/
     }
 
-    Menu {
+    /*Menu {
         id: mainMenu
         visualParent: pageStack
         MenuLayout {
@@ -90,5 +91,5 @@ DefaultPage {
                 onClicked: Qt.quit()
             }
         }
-    }
+    }*/
 }

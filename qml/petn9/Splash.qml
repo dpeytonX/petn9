@@ -36,6 +36,8 @@ DefaultPage {
                 onClicked: {
                     if(!Manager.pets.length) {
                         Console.info("Splash.qml: empty pets. Creating first run wizard.")
+			Console.debug("appwindow: " + appWindow)
+			Console.debug("pagestack: " + appWindow.pageStack)
                         appWindow.pageStack.push(Qt.resolvedUrl("PetSelection.qml"))
                     } else {
                         Console.info("Splash.qml: has pets, creating game")

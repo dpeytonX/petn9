@@ -1,9 +1,8 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
-import QtQuick 1.1
-import com.nokia.meego 1.0
+import QtQuick 2.2
+import QtQuick.Dialogs 1.1
 import com.blogspot.iamboke 1.0
 import "../pets"
-import "../widgets"
+//import "../widgets"
 
 import "../QmlLogger/qmllogger/Logger.js" as Console
 import "../js/_private.js" as JObjects
@@ -257,13 +256,13 @@ Rectangle {
         }
     }
 
-    QueryDialog {
+    MessageDialog {
         id: restartGame
-        titleText: qsTr("Game Over")
-        message: qsTr("You're pet is dead.")
-        acceptButtonText: qsTr("Back to Title")
+        //titleText: qsTr("Game Over")
+        //message: qsTr("You're pet is dead.")
+        /*acceptButtonText: qsTr("Back to Title")
         rejectButtonText: qsTr("Quit")
-
+*/
         onAccepted: {
             Console.info("AbstractWorld.qml: do over")
             exitWorld()
@@ -302,7 +301,7 @@ Rectangle {
         }
     }
 
-    Status {
+    /*Status {
         x: 20
         y: spriteBottom + 20
         id: petStatus
@@ -313,7 +312,7 @@ Rectangle {
 
         width: 500
         height: 500
-    }
+    }*/
 
     Timer {
         id: statusTimer

@@ -44,11 +44,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<SpriteModel>("com.blogspot.iamboke", 1,0, "SpriteModel");
     qRegisterMetaType<PetStatus>("PetStatus");
 
-    int screenWidth = 800;//viewer.geometry().width();
-    int screenHeight = 600;//viewer.geometry().height();
-    qDebug() << "main.cpp: dimensions (" << screenWidth << "," << screenHeight << ")";
-    viewer.rootContext()->setContextProperty("ScreenWidth", screenWidth);
-    viewer.rootContext()->setContextProperty("ScreenHeight", screenHeight);
+    //int screenWidth = viewer.geometry().width();
+    //int screenHeight = viewer.geometry().height();
+    //qDebug() << "main.cpp: dimensions (" << screenWidth << "," << screenHeight << ")";
+    //viewer.rootContext()->setContextProperty("ScreenWidth", screenWidth);
+    //viewer.rootContext()->setContextProperty("ScreenHeight", screenHeight);
     viewer.rootContext()->setContextProperty("Manager", manager);
 
     //Open initial view

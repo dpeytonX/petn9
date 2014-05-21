@@ -20,6 +20,7 @@
  <file>qml/petn9/QmlLogger/qmllogger/main.qml</file>
  <file>qml/petn9/js/SpriteFunctions.js</file>
  <file>qml/petn9/js/UIConstants.js</file>
+ <file>qml/petn9/js/_private.js</file>
  <file>qml/petn9/worlds/MountainRange.qml</file>
  <file>qml/petn9/worlds/Plain.qml</file>
  <file>qml/petn9/worlds/Desert.qml</file>
