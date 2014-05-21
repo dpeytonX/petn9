@@ -1,6 +1,6 @@
-import QtQuick 1.1
-import com.nokia.meego 1.0
-import com.blogspot.iamboke 1.0
+import QtQuick 2.2
+import QtQuick.Window 2.1
+import QtQuick.Controls 1.1
 import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
@@ -8,24 +8,29 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 
   Contains the page stack and manages common tools
   */
-PageStackWindow {
+ApplicationWindow {
     id: appWindow
     objectName: "appWindow"
-    showStatusBar: false
+    visible: true
+    width: ScreenWidth
+    height: ScreenHeighta
+    flags: W
+    //showStatusBar: false
 
-    initialPage: Splash { anchors.fill: parent}
+    //initialPage:
+    Splash { anchors.fill: parent}
 
     Component.onCompleted: {
         Console.LOG_PRIORITY = Console.INFO
-        pageStack.toolBar.platformStyle = tbStyle
+        //pageStack.toolBar.platformStyle = tbStyle
     }
 
     Component.onDestruction: {
         Console.critical("main.qml: APP IS CLOSING.")
     }
 
-    ToolBarStyle {
+    /*ToolBarStyle {
         id: tbStyle
         //inverted: true
-    }
+    }*/
 }

@@ -1,6 +1,6 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
-import QtQuick 1.1
-import com.nokia.meego 1.0
+import QtQuick 2.2
+import QtQuick.Window 2.1
+import QtQuick.Controls 1.1
 import com.blogspot.iamboke 1.0
 
 /**
@@ -8,9 +8,9 @@ import com.blogspot.iamboke 1.0
   
   A page element with common view settings.
   */
-Page {
+Item {
     id: page
-    orientationLock: Manager.isSimulator() ? PageOrientation.Automatic : PageOrientation.LockLandscape
+    //orientationLock: Manager.isSimulator() ? PageOrientation.Automatic : PageOrientation.LockLandscape
     
     property alias content: backgroundRect.children
     Rectangle {

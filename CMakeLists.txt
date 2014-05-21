@@ -9,6 +9,8 @@ find_package (Qt5Gui REQUIRED)
 get_target_property(QtGui_location Qt5::Gui LOCATION)
 find_package (Qt5Qml REQUIRED)
 get_target_property(QtQml_location Qt5::Qml LOCATION)
+find_package (Qt5Quick REQUIRED)
+get_target_property(QtQuick_location Qt5::Quick LOCATION)
 find_package (Qt5Sql REQUIRED)
 get_target_property(QtSql_location Qt5::Sql LOCATION)
 
@@ -42,6 +44,7 @@ add_executable (petn9 ${petn9_SOURCES} ${petn9_HEADER} ${petn9_RESOURCES_RCC} ${
 target_link_libraries (petn9 Qt5::Core)
 target_link_libraries (petn9 Qt5::Gui)
 target_link_libraries (petn9 Qt5::Qml)
+target_link_libraries (petn9 Qt5::Quick)
 target_link_libraries (petn9 Qt5::Sql)
 target_link_libraries (petn9 petn9models)
 
