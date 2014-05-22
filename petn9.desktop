@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Exec=petn9
+Icon=petn9.svg
+Type=Application
+
+GenericName=PetN9
+GenericName[ja]=ペットＮ９
+
+Name=PetN9
+Name[ja]=ペットＮ９
+
+Categories=Qt;KDE;Settings;Game;Simulation

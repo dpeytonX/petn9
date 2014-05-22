@@ -38,6 +38,9 @@ set (petn9_SOURCES main.cpp manager.cpp databasemanager.cpp qtdeclarative-helper
 set (petn9_MOC_HEADERS manager.h databasemanager.h )
 set (petn9_HEADER ${petn9_MOC_HEADERS} ${PROJECT_BINARY_DIR}/petn9.h qtdeclarative-helper/declarativelist.h qtdeclarative-helper/declarativelist_global.h)
 set (petn9_RESOURCES petn9.qrc images.qrc qml.qrc translations.qrc)
+set (petn9_DESKTOP petn9.desktop)
+set (petn9_ICONS petn9.svg)
+
 qt5_wrap_cpp(petn9_MOC ${petn9_MOC_HEADERS})
 qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
 
@@ -53,3 +56,5 @@ target_link_libraries (petn9 petn9models)
 
 install (TARGETS petn9 DESTINATION bin)
 install (FILES ${petn9_HEADER} DESTINATION include)
+install (FILES ${petn9_DESKTOP} DESTINATION share/applications)
+install (FILES ${petn9_ICONS} DESTINATION share/icons/hicolor/scalable/apps)

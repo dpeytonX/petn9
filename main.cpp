@@ -12,14 +12,6 @@
 #include "manager.h"
 #include <spritemodel.h>
 
-/**
- * TODO: Get the toolbar button icons
- * TODO: Fix the toolbars, status bars, etc. in the QML files
- * TODO: test pet death
- * TODO: desktop icons
- * TODO: install script
- */
-
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QGuiApplication> app(new QGuiApplication ( argc, argv ));
