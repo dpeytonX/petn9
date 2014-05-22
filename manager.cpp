@@ -5,6 +5,7 @@
 #include <QSqlRecord>
 #include <QDateTime>
 #include <QStandardPaths>
+#include <QDir>
 
 #include <cmath>
 
@@ -17,6 +18,9 @@ Manager::Manager(QObject *parent) :
     QObject(parent),
     petModels(new QList<Pet*>())
 {
+    QString storagePath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    qDebug() << "Standard Path: " << storagePath;
+    QDir().mkpath(storagePath);
     QString dbPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/petn9.sqlite";
     dbManager = new DatabaseManager(dbPath, this);
 
@@ -32,7 +36,7 @@ Manager::Manager(QObject *parent) :
 QString Manager::getWorld() {
 
     //Random world selection
-#ifndef NO_RANDOM_WORLDS
+#if NO_RANDOM_WORLDS > 0
     int selection = qrand();
     if(selection < RAND_MAX / 3) {
         return "MountainRange";

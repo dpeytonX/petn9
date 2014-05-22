@@ -16,28 +16,22 @@ ApplicationWindow {
     height: Math.min(Screen.desktopAvailableHeight, 600)
     x: (Screen.desktopAvailableWidth - width ) / 2
     y: (Screen.desktopAvailableHeight - height) / 2
+
+    
     property alias pageStack: stackView
     
-    //showStatusBar: false
-
-    //initialPage:
     StackView {
       id: stackView
-      Splash { id: splash; anchors.fill: parent}
-      initialItem: splash
+      anchors.fill: parent
+      
+      initialItem: Splash { id: splash }
     }
 
     Component.onCompleted: {
-        Console.LOG_PRIORITY = Console.TRACE
-        //pageStack.toolBar.platformStyle = tbStyle
+        Console.LOG_PRIORITY = Console.DEBUG
     }
 
     Component.onDestruction: {
         Console.critical("main.qml: APP IS CLOSING.")
     }
-
-    /*ToolBarStyle {
-        id: tbStyle
-        //inverted: true
-    }*/
 }

@@ -10,7 +10,9 @@ import com.blogspot.iamboke 1.0
   */
 Item {
     id: page
-    //orientationLock: Manager.isSimulator() ? PageOrientation.Automatic : PageOrientation.LockLandscape
+    
+    property var tools
+    property var menus
     
     property alias content: backgroundRect.children
     Rectangle {
@@ -27,5 +29,13 @@ Item {
             }
         }
         anchors.fill: parent
+    }
+    
+    onMenusChanged: {
+      appWindow.menuBar = menus
+    }
+    
+    onToolsChanged: {
+      appWindow.toolBar = tools
     }
 }

@@ -2,7 +2,6 @@ import QtQuick 2.2
 import QtQuick.Dialogs 1.1
 import com.blogspot.iamboke 1.0
 import "../pets"
-//import "../widgets"
 
 import "../QmlLogger/qmllogger/Logger.js" as Console
 import "../js/_private.js" as JObjects
@@ -29,10 +28,10 @@ Rectangle {
     property PetModel pet
 
     /** Must be defined by sub-elements to provide Sprite boundaries*/
-    property real spriteBottom: ScreenHeight
+    property real spriteBottom: appWindow.height
     property real spriteTop: 0
     property real spriteLeft: 0
-    property real spriteRight: ScreenWidth
+    property real spriteRight: appWindow.width
     property AbstractPet petItem
 
     signal exitWorld
@@ -53,6 +52,21 @@ Rectangle {
             s.y = s.y == -1 ? petItem.y + 15 : s.y
         }
     }
+    
+    onSpriteRightChanged: {
+        Console.debug("AbstractWorld.qml: new sprite right: " + spriteRight)
+        if(!!petItem) {
+            petItem.x = spriteRight - petItem.width
+            Console.debug("AbstractWorld.qml: pet x " + petItem.x)
+        }
+
+        var spriteObjectArray = JObjects.register(world).spriteObjectArray;
+
+        for(var i = 0; i < spriteObjectArray.length; i++) {
+            var s = spriteObjectArray[i]
+            s.x = s.x == -1 ? petItem.x + 15 : s.x
+        }
+    }
 
     onPetItemChanged: {
         petItem.isDead = pet.dead
@@ -63,7 +77,7 @@ Rectangle {
             petItem.doStandardAnimations = true
             petItem.doStatusAnimation = true
         }
-        petItem.x = (ScreenWidth - petItem.width) / 2
+        petItem.x = (spriteRight - petItem.width) / 2
         petItem.y = spriteBottom - petItem.height
         petItem.petClicked.connect(petClicked)
         Console.debug("AbstractWorld.qml: pet position ("+ petItem.x +"," + petItem.y+")")
@@ -301,7 +315,7 @@ Rectangle {
         }
     }
 
-    /*Status {
+    Rectangle {
         x: 20
         y: spriteBottom + 20
         id: petStatus
@@ -312,7 +326,7 @@ Rectangle {
 
         width: 500
         height: 500
-    }*/
+    }
 
     Timer {
         id: statusTimer

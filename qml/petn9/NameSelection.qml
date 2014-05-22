@@ -15,7 +15,8 @@ import "js/UIConstants.js" as UI
   */
 DefaultPage {
     id: nameSelection
-    //tools: nameSelectionTools
+    tools: nameSelectionTools
+    
     property int petType
 
     content: Item {
@@ -111,12 +112,12 @@ DefaultPage {
         }
     }
 
-    RowLayout {
+    ToolBar {
         id: nameSelectionTools
-        /*ToolIcon {
-            iconId: "toolbar-back"
+        ToolButton {
+            iconSource: "toolbar-back"
             onClicked: appWindow.pageStack.pop();
-        }*/
+        }
     }
 
     Component.onCompleted: {

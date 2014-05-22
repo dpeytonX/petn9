@@ -13,8 +13,9 @@ import "QmlLogger/qmllogger/Logger.js" as Console
   */
 DefaultPage {
     id: game
-    //tools: gameTools
-
+    tools: gameTools
+    menus: mainMenu
+    
     signal clean
     signal feed
 
@@ -24,6 +25,7 @@ DefaultPage {
     }
 
     function finishedWorld(worldObject) {
+        Console.debug("Inside finished world");
         worldObject.exitWorld.connect(startOver)
         worldObject.exitGame.connect(gameOver)
         worldObject.removeFromGame.connect(deleteModel)
@@ -53,11 +55,13 @@ DefaultPage {
         Qt.quit();
     }
 
+    ToolBar {
+      id: gameTools
     RowLayout {
-        id: gameTools
+        
         Row {
-            /*ToolIcon {
-                iconId: "toolbar-delete"
+            ToolButton {
+                iconSource: "toolbar-delete"
                 onClicked: {
                     deleteModel(-1)
                 }
@@ -66,30 +70,25 @@ DefaultPage {
                 }
             }
 
-            ToolIcon {
+            ToolButton {
                 iconSource: "qrc:/images/icon-feed.png"
                 onClicked: {
                     Console.info("Game.qml: Feeding")
                     feed()
                 }
-            }*/
-        }
-
-        /*ToolIcon {
-            iconId: "toolbar-view-menu"
-            onClicked: (mainMenu.status === DialogStatus.Closed) ? mainMenu.open() : mainMenu.close()
-        }*/
-    }
-
-    /*Menu {
-        id: mainMenu
-        visualParent: pageStack
-        MenuLayout {
-
-            MenuItem {
-                text: qsTr("Quit")
-                onClicked: Qt.quit()
             }
         }
-    }*/
+    }}
+
+    MenuBar {
+        id: mainMenu
+        Menu {
+	  title: qsTr("File")
+	  visible: true
+            MenuItem {
+                text: qsTr("Quit")
+                onTriggered: Qt.quit()
+            }
+	}
+    }
 }

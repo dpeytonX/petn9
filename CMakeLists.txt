@@ -17,6 +17,9 @@ get_target_property(QtSql_location Qt5::Sql LOCATION)
 set (petn9_VERSION_MAJOR 1)
 set (petn9_VERSION_MINOR 1)
 set (petn9_LOG_FORMAT "TRACE")
+set (petn9_NO_RANDOM_WORLDS 0)
+set (petn9_NEW_DB 0)
+set (petn9_ALLOW_JP 1)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/petn9.h.in"
@@ -33,8 +36,8 @@ add_subdirectory (models)
 
 set (petn9_SOURCES main.cpp manager.cpp databasemanager.cpp qtdeclarative-helper/declarativelist.cpp)
 set (petn9_MOC_HEADERS manager.h databasemanager.h )
-set (petn9_HEADER ${petn9_MOC_HEADERS} qtdeclarative-helper/declarativelist.h qtdeclarative-helper/declarativelist_global.h)
-set (petn9_RESOURCES petn9.qrc images.qrc qml.qrc)
+set (petn9_HEADER ${petn9_MOC_HEADERS} ${PROJECT_BINARY_DIR}/petn9.h qtdeclarative-helper/declarativelist.h qtdeclarative-helper/declarativelist_global.h)
+set (petn9_RESOURCES petn9.qrc images.qrc qml.qrc translations.qrc)
 qt5_wrap_cpp(petn9_MOC ${petn9_MOC_HEADERS})
 qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
 
