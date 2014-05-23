@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <QDateTime>
 
+#include <petn9.h>
 #ifdef NEW_DB
 #include <QFile>
 #include <QDir>
@@ -19,9 +20,9 @@ DatabaseManager::DatabaseManager(const QString &dbPath, QObject *parent) :
 bool DatabaseManager::open()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-#ifdef NEW_DB
+#if NEW_DB > 0
     QDir dir;
-    QString dbFile = dir.absolutePath() + dir.separator() + dbPath;
+    QString dbFile = dbPath;
     qDebug() << "DatabaseManager: removing file " << dbFile;
     QFile::remove(dbFile);
 #endif

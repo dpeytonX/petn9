@@ -1,10 +1,8 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
-import QtQuick 1.1
-import com.nokia.meego 1.0
+import QtQuick 2.2
 import com.blogspot.iamboke 1.0
 import "pets"
 
-import "js/SpriteFunctions.js" as Sprite
+import "js/SpriteFunctions.js" as SpriteFunctions
 import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
@@ -48,28 +46,28 @@ DefaultPage {
                 }
 
                 Pet1 {
-                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+                    onPetClicked: appWindow.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
 
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }
 
                 Pet2 {
-                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+                    onPetClicked: appWindow.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
 
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }
 
                 Pet3 {
-                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+                    onPetClicked: appWindow.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
 
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)
                 }
 
                 Pet4 {
-                    onPetClicked: petSelection.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
+                    onPetClicked: appWindow.pageStack.push(Qt.resolvedUrl("NameSelection.qml"), {"petType": petType})
 
                     doStandardAnimations: true
                     Component.onCompleted: setCollisionCallback(parent.demoMovement)

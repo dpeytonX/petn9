@@ -1,10 +1,10 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
-import QtQuick 1.1
-import com.nokia.meego 1.0
+import QtQuick 2.2
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
 import com.blogspot.iamboke 1.0
-
+import "."
 import "QmlLogger/qmllogger/Logger.js" as Console
-import "js/SpriteFunctions.js" as Sprite
+import "js/SpriteFunctions.js" as SpriteFunctions
 import "js/UIConstants.js" as UI
 
 /**
@@ -16,6 +16,7 @@ import "js/UIConstants.js" as UI
 DefaultPage {
     id: nameSelection
     tools: nameSelectionTools
+    
     property int petType
 
     content: Item {
@@ -52,13 +53,14 @@ DefaultPage {
                 spacing: 20
 
                 Sprite {
+                    id: petArea1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    id:petArea1
                     width: UI.PET_WIDTH
                     height: UI.PET_HEIGHT
 
                     Component.onCompleted: {
-                        Sprite.createPet("pets/", petType, petArea1, {}, firstRunName.petCreated)
+                        SpriteFunctions.createPet("../pets/", petType, petArea1, {}, firstRunName.petCreated)
+			Console.debug("Created pet object")
                     }
                 }
 
@@ -83,7 +85,7 @@ DefaultPage {
                     }
                 }
 
-                ButtonRow {
+                Row {
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     Button {
@@ -91,7 +93,7 @@ DefaultPage {
                         text: qsTr("OK!")
                         onClicked: {
                             if(Manager.createPet(petType, nameInput.text)) {
-                                nameSelection.pageStack.push(Qt.resolvedUrl("Game.qml"))
+                                appWindow.pageStack.push(Qt.resolvedUrl("Game.qml"))
                             } else {
                                 Console.error("NameSelection.qml: could not create a pet model")
                             }
@@ -110,11 +112,11 @@ DefaultPage {
         }
     }
 
-    ToolBarLayout {
+    ToolBar {
         id: nameSelectionTools
-        ToolIcon {
-            iconId: "toolbar-back"
-            onClicked: pageStack.pop();
+        ToolButton {
+            iconSource: "qrc:/icons/icon-back.png"
+            onClicked: appWindow.pageStack.pop();
         }
     }
 

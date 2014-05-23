@@ -2,7 +2,7 @@
 #define PET_H
 
 #include <QObject>
-#include "qtdeclarative-helper/declarativelist.h"
+#include <declarativelist.h>
 
 class QString;
 

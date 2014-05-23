@@ -2,7 +2,7 @@
 #define SPRITEMODEL_H
 
 #include <QObject>
-#include "qtdeclarative-helper/declarativelist.h"
+#include <declarativelist.h>
 
 /**
   Represents the extra models that are added to the game.
