@@ -14,7 +14,6 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 DefaultPage {
     id: game
     tools: gameTools
-    menus: mainMenu
     
     signal clean
     signal feed
@@ -61,7 +60,7 @@ DefaultPage {
         
         Row {
             ToolButton {
-                iconSource: "toolbar-delete"
+                iconSource: "qrc:/icons/icon-delete.png"
                 onClicked: {
                     deleteModel(-1)
                 }
@@ -71,7 +70,7 @@ DefaultPage {
             }
 
             ToolButton {
-                iconSource: "qrc:/images/icon-feed.png"
+                iconSource: "qrc:/icons/icon-feed.png"
                 onClicked: {
                     Console.info("Game.qml: Feeding")
                     feed()
@@ -80,15 +79,4 @@ DefaultPage {
         }
     }}
 
-    MenuBar {
-        id: mainMenu
-        Menu {
-	  title: qsTr("File")
-	  visible: true
-            MenuItem {
-                text: qsTr("Quit")
-                onTriggered: Qt.quit()
-            }
-	}
-    }
 }

@@ -115,7 +115,7 @@ DefaultPage {
     ToolBar {
         id: nameSelectionTools
         ToolButton {
-            iconSource: "toolbar-back"
+            iconSource: "qrc:/icons/icon-back.png"
             onClicked: appWindow.pageStack.pop();
         }
     }

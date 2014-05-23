@@ -62,7 +62,7 @@ Rectangle {
 
         var spriteObjectArray = JObjects.register(world).spriteObjectArray;
 
-        for(var i = 0; i < spriteObjectArray.length; i++) {
+        for(var i = 0; !!spriteObjectArray && i < spriteObjectArray.length; i++) {
             var s = spriteObjectArray[i]
             s.x = s.x == -1 ? petItem.x + 15 : s.x
         }
@@ -272,18 +272,13 @@ Rectangle {
 
     MessageDialog {
         id: restartGame
-        //titleText: qsTr("Game Over")
-        //message: qsTr("You're pet is dead.")
-        /*acceptButtonText: qsTr("Back to Title")
-        rejectButtonText: qsTr("Quit")
-*/
+        title: qsTr("Game Over")
+        detailedText: qsTr("Back to Title")
+        standardButtons: StandardButton.Ok 
+        
         onAccepted: {
             Console.info("AbstractWorld.qml: do over")
             exitWorld()
-        }
-        onRejected: {
-            Console.debug("AbstractWorld.qml: quit left")
-            exitGame()
         }
     }
 

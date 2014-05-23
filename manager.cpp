@@ -9,9 +9,10 @@
 
 #include <cmath>
 
+#include <petn9.h>
 #include "manager.h"
 #include "databasemanager.h"
-#include "models/pet.h"
+#include <pet.h>
 #include <declarativelist.h>
 
 Manager::Manager(QObject *parent) :
@@ -36,7 +37,8 @@ Manager::Manager(QObject *parent) :
 QString Manager::getWorld() {
 
     //Random world selection
-#if NO_RANDOM_WORLDS > 0
+#if RANDOM_WORLDS > 0
+    qDebug() << "No random worlds";
     int selection = qrand();
     if(selection < RAND_MAX / 3) {
         return "MountainRange";
