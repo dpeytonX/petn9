@@ -27,16 +27,16 @@ set (petn9_ALLOW_JP 1)
 set (petn9_PLASMA 0)
 
 #Plasma requirements
-#set(CMAKE_CXX_FLAGS "-fPIC")
-#set (QT_INCLUDE "/usr/include")
-#set (QT_QT_INCLUDE_DIR "/usr/include")
+set(CMAKE_CXX_FLAGS "-fPIC")
+set (QT_INCLUDE "/usr/include")
+set (QT_QT_INCLUDE_DIR "/usr/include")
 
-#find_package(KDE4)
-#if (KDE4_FOUND)
-#  include (KDE4Defaults)
-#  message ("CMAKE: Found KDE4. Building plasma applet")
-#  set (petn9_PLASMA 1)
-#endif ()
+find_package(KDE4)
+if (KDE4_FOUND)
+  include (KDE4Defaults)
+  message ("CMAKE: Found KDE4. Building plasma applet")
+  set (petn9_PLASMA 1)
+endif ()
 
 
 configure_file (
@@ -77,11 +77,11 @@ install (FILES ${petn9_HEADER} DESTINATION include/petn9)
 install (FILES ${petn9_DESKTOP} DESTINATION share/applications)
 install (FILES ${petn9_ICONS} DESTINATION share/icons/hicolor/scalable/apps)
 
-#if (${KDE4_FOUND})
-#  install(DIRECTORY plasma/
-#        DESTINATION ${DATA_INSTALL_DIR}/plasma/plasmoids/petn9)
-#  install(DIRECTORY qml/plasma/
-#        DESTINATION ${DATA_INSTALL_DIR}/plasma/plasmoids/petn9/contents/ui)
-#  install(FILES plasma/metadata.desktop
-#        DESTINATION ${SERVICES_INSTALL_DIR} RENAME plasma-applet-petn9.desktop)
-#endif ()
+if (${KDE4_FOUND})
+  install(DIRECTORY plasma/
+        DESTINATION ${DATA_INSTALL_DIR}/plasma/plasmoids/petn9)
+  install(DIRECTORY qml/plasma/
+        DESTINATION ${DATA_INSTALL_DIR}/plasma/plasmoids/petn9/contents/ui)
+  install(FILES plasma/metadata.desktop
+        DESTINATION ${SERVICES_INSTALL_DIR} RENAME plasma-applet-petn9.desktop)
+endif ()

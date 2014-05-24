@@ -198,7 +198,7 @@ Rectangle {
         for(var i = 0; i < spriteModels.length; i++) {
             var currentModel = spriteModels[i]
             Console.debug("AbstractWorld.qml: sprite Id " + currentModel.id)
-            var sX = currentModel.x == -1 ? Math.random() * (appWindow.width - UI.GAME_OBJECT_WIDTH) : currentModel.x
+            var sX = currentModel.x == -1 ? Math.random() * (ScreenWidth - UI.GAME_OBJECT_WIDTH) : currentModel.x
             var sY = currentModel.y
             Console.info("AbstractWorld: new sprite " + sX + " " + sY)
             Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": sX, "y": sY, "z": 5, "spriteId": currentModel.id}, spriteCreated)
