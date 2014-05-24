@@ -1,6 +1,7 @@
-import QtQuick 2.2
-import QtQuick.Window 2.1
-import QtQuick.Controls 1.1
+import QtQuick 1.1
+import org.kde.plasma.core 0.1 as PlasmaCore
+import org.kde.plasma.extras 0.1 as PlasmaExtras
+
 import "QmlLogger/qmllogger/Logger.js" as Console
 
 /**
@@ -8,7 +9,7 @@ import "QmlLogger/qmllogger/Logger.js" as Console
 
   Contains the page stack and manages common tools
   */
-ApplicationWindow {
+PlasmaExtras.App {
     id: appWindow
     objectName: "appWindow"
     visible: true
