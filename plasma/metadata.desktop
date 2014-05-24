@@ -1,0 +1,22 @@
+[Desktop Entry]
+Name=Petn9
+Comment=Virtual Pet Simulator
+Icon=petn9
+ 
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/main.qml
+X-Plasma-DefaultSize=400,300
+ 
+X-KDE-PluginInfo-Author=Dametrious Peyton
+X-KDE-PluginInfo-Email=dametriouspeyton@rocketmail.com
+X-KDE-PluginInfo-Website=http://github.com/prplmnky/petn9
+X-KDE-PluginInfo-Category=Game
+X-KDE-PluginInfo-Name=petn9-qml
+X-KDE-PluginInfo-Version=0.0
+ 
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ServiceTypes=Plasma/Applet
+Type=Service
+ServiceTypes=Plasma/Applet
