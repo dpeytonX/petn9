@@ -3,6 +3,9 @@ project (petn9)
 cmake_minimum_required (VERSION 2.8.11)
 set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
 
+message ("cmake vars")
+
+#Qt requirements
 find_package (Qt5Core REQUIRED)
 get_target_property(QtCore_location Qt5::Core LOCATION)
 find_package (Qt5Gui REQUIRED)
@@ -14,12 +17,27 @@ get_target_property(QtQuick_location Qt5::Quick LOCATION)
 find_package (Qt5Sql REQUIRED)
 get_target_property(QtSql_location Qt5::Sql LOCATION)
 
+
 set (petn9_VERSION_MAJOR 1)
 set (petn9_VERSION_MINOR 1)
 set (petn9_LOG_FORMAT "TRACE")
 set (petn9_RANDOM_WORLDS 1)
 set (petn9_NEW_DB 0)
 set (petn9_ALLOW_JP 1)
+set (petn9_PLASMA 0)
+
+#Plasma requirements
+#set(CMAKE_CXX_FLAGS "-fPIC")
+#set (QT_INCLUDE "/usr/include")
+#set (QT_QT_INCLUDE_DIR "/usr/include")
+
+#find_package(KDE4)
+#if (KDE4_FOUND)
+#  include (KDE4Defaults)
+#  message ("CMAKE: Found KDE4. Building plasma applet")
+#  set (petn9_PLASMA 1)
+#endif ()
+
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/petn9.h.in"
@@ -58,3 +76,12 @@ install (TARGETS petn9 DESTINATION bin)
 install (FILES ${petn9_HEADER} DESTINATION include/petn9)
 install (FILES ${petn9_DESKTOP} DESTINATION share/applications)
 install (FILES ${petn9_ICONS} DESTINATION share/icons/hicolor/scalable/apps)
+
+#if (${KDE4_FOUND})
+#  install(DIRECTORY plasma/
+#        DESTINATION ${DATA_INSTALL_DIR}/plasma/plasmoids/petn9)
+#  install(DIRECTORY qml/plasma/
+#        DESTINATION ${DATA_INSTALL_DIR}/plasma/plasmoids/petn9/contents/ui)
+#  install(FILES plasma/metadata.desktop
+#        DESTINATION ${SERVICES_INSTALL_DIR} RENAME plasma-applet-petn9.desktop)
+#endif ()
