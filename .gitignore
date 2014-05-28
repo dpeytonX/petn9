@@ -19,7 +19,6 @@ qrc_*.cpp
 Makefile
 *-build-*
 debian/
-petn9
 petn9*.changes
 petn9*.deb
 build/
