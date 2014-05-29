@@ -3,8 +3,6 @@ project (petn9)
 cmake_minimum_required (VERSION 2.8.11)
 set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
 
-message ("cmake vars")
-
 #Qt requirements
 find_package (Qt5Core REQUIRED)
 get_target_property(QtCore_location Qt5::Core LOCATION)
@@ -25,6 +23,9 @@ set (petn9_RANDOM_WORLDS 1)
 set (petn9_NEW_DB 0)
 set (petn9_ALLOW_JP 1)
 
+set (PROJECT_SOURCE_DIR "src")
+set (PROJECT_RESOURCE_DIR "resources")
+
 configure_file (
   "${PROJECT_SOURCE_DIR}/petn9.h.in"
   "${PROJECT_BINARY_DIR}/petn9.h"
@@ -32,18 +33,29 @@ configure_file (
   
 include_directories("${PROJECT_BINARY_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}")
-include_directories("${PROJECT_SOURCE_DIR}/qtdeclarative-helper")
 include_directories("${PROJECT_SOURCE_DIR}/models")
+include_directories("${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper")
 
 #sub directories
-add_subdirectory (models)
+add_subdirectory ("${PROJECT_SOURCE_DIR}/models")
 
-set (petn9_SOURCES main.cpp manager.cpp databasemanager.cpp qtdeclarative-helper/declarativelist.cpp)
-set (petn9_MOC_HEADERS manager.h databasemanager.h )
-set (petn9_HEADER ${petn9_MOC_HEADERS} ${PROJECT_BINARY_DIR}/petn9.h qtdeclarative-helper/declarativelist.h qtdeclarative-helper/declarativelist_global.h)
-set (petn9_RESOURCES petn9.qrc icons.qrc images.qrc qml.qrc translations.qrc)
-set (petn9_DESKTOP petn9.desktop)
-set (petn9_ICONS petn9.svg)
+set (petn9_SOURCES "${PROJECT_SOURCE_DIR}/main.cpp"
+			"${PROJECT_SOURCE_DIR}/manager.cpp"
+			"${PROJECT_SOURCE_DIR}/databasemanager.cpp"
+			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist.cpp")
+set (petn9_MOC_HEADERS "${PROJECT_SOURCE_DIR}/manager.h"
+			"${PROJECT_SOURCE_DIR}/databasemanager.h" )
+set (petn9_HEADER ${petn9_MOC_HEADERS}
+			"${PROJECT_BINARY_DIR}/petn9.h"
+			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist.h"
+			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist_global.h")
+set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
+			"${PROJECT_RESOURCE_DIR}/icons.qrc"
+			"${PROJECT_RESOURCE_DIR}/images.qrc"
+			"${PROJECT_RESOURCE_DIR}/qml.qrc"
+			"${PROJECT_RESOURCE_DIR}/translations.qrc")
+set (petn9_DESKTOP "${PROJECT_RESOURCE_DIR}/petn9.desktop")
+set (petn9_ICONS "${PROJECT_RESOURCE_DIR}/petn9.svg")
 
 qt5_wrap_cpp(petn9_MOC ${petn9_MOC_HEADERS})
 qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
