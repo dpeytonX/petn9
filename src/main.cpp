@@ -12,8 +12,7 @@
 #include "manager.h"
 #include <spritemodel.h>
 
-Q_DECL_EXPORT int main(int argc, char *argv[])
-{
+Q_DECL_EXPORT int main(int argc, char* argv[]) {
     QScopedPointer<QGuiApplication> app(new QGuiApplication ( argc, argv ));
     QTranslator translator;
 

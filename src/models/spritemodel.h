@@ -7,8 +7,7 @@
 /**
   Represents the extra models that are added to the game.
   */
-class SpriteModel : public QObject, public DeclarativeList<SpriteModel>
-{
+class SpriteModel : public QObject, public DeclarativeList<SpriteModel> {
     Q_OBJECT
     Q_ENUMS(SPRITES)
     Q_PROPERTY(int id READ getId WRITE setId)
@@ -18,7 +17,7 @@ class SpriteModel : public QObject, public DeclarativeList<SpriteModel>
 public:
     /** Sprite Models For the Game **/
     enum SPRITES {POOP, FOOD, OTHER, ALL};
-    explicit SpriteModel(QObject *parent = 0);
+    explicit SpriteModel(QObject* parent = 0);
 
     SPRITES getSpriteTypeId() const {
         return type;

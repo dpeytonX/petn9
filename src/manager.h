@@ -18,14 +18,13 @@ class QQmlListProperty;
 /**
   Back-end for QML providing necessary functions for manipulating DTO models and managing the application's database.
   */
-class Manager : public QObject
-{
+class Manager : public QObject {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Pet> pets READ getPetModels)
     Q_PROPERTY(Pet* currentPet READ getCurrentPet)
     Q_PROPERTY(QQmlListProperty<SpriteModel> sprites READ getSpriteModels)
 public:
-    explicit Manager(QObject *parent = 0);
+    explicit Manager(QObject* parent = 0);
     ~Manager();
 
     /**
@@ -92,7 +91,7 @@ public slots:
       Creates a new Pet object
       @param is the Pet type. It should match a value in Pet::PETS.
       */
-    Pet* createPet(int typeId, const QString &name);
+    Pet* createPet(int typeId, const QString& name);
 
     SpriteModel* createSprite(int spriteTypeId, int x, int y);
 
