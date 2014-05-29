@@ -1,4 +1,1 @@
-TODO: reorganize QML for modularization
-TODO: reorganize Project to make it more modular
-TODO: rename qml dir to reflect the platform it is built with.
-TODO: generic qml objects should be in a common dir
+TODO: fix qml imports
