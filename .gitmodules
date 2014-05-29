@@ -1,5 +1,5 @@
 [submodule "qml/petn9/QmlLogger"]
-	path = resources/qml/petn9/QmlLogger
+	path = resources/qml/QmlLogger
 	url = https://github.com/prplmnky/QmlLogger.git
 [submodule "qtdeclarative-helper"]
 	path = src/models/qtdeclarative-helper
