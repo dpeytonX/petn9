@@ -17,7 +17,7 @@ get_target_property(QtSql_location Qt5::Sql LOCATION)
 
 
 set (petn9_VERSION_MAJOR 1)
-set (petn9_VERSION_MINOR 1)
+set (petn9_VERSION_MINOR 2)
 set (petn9_LOG_FORMAT "TRACE")
 set (petn9_RANDOM_WORLDS 1)
 set (petn9_NEW_DB 0)
