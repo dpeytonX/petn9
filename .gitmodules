@@ -1,0 +1,6 @@
+[submodule "src/models/qtdeclarative-helper"]
+	path = src/models/qtdeclarative-helper
+	url = https://www.github.com/prplmnky/qtdeclarative-helper.git
+[submodule "resources/qml/QmlLogger"]
+	path = resources/qml/QmlLogger
+	url = https://www.github.com/prplmnky/QmlLogger
