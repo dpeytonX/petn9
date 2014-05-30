@@ -17,8 +17,7 @@ struct PetStatus {
 /**
   Represents a Pet object.
   */
-class Pet : public QObject, public DeclarativeList<Pet>
-{
+class Pet : public QObject, public DeclarativeList<Pet> {
     Q_OBJECT
     Q_ENUMS(PETS)
     Q_PROPERTY(PETS type READ getType)
@@ -31,13 +30,13 @@ public:
 
     enum PETS {PET1, PET2, PET3, PET4};
 
-    explicit Pet(QObject *parent = 0);
+    explicit Pet(QObject* parent = 0);
 
     void setType(PETS type) {
         this->type = type;
     }
 
-    void setName(const QString & name) {
+    void setName(const QString& name) {
         this->name = name;
     }
 

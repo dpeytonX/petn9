@@ -2,8 +2,8 @@ import QtQuick 2.2
 import com.blogspot.iamboke 1.0
 import "pets"
 
-import "js/SpriteFunctions.js" as SpriteFunctions
-import "QmlLogger/qmllogger/Logger.js" as Console
+import "/js/SpriteFunctions.js" as SpriteFunctions
+import "/QmlLogger/Logger.js" as Console
 
 /**
   PetSelection.qml

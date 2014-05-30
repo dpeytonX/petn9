@@ -11,14 +11,12 @@
 #include <QDir>
 #endif
 
-DatabaseManager::DatabaseManager(const QString &dbPath, QObject *parent) :
+DatabaseManager::DatabaseManager(const QString& dbPath, QObject* parent) :
     QObject(parent),
-    dbPath(dbPath)
-{
+    dbPath(dbPath) {
 }
 
-bool DatabaseManager::open()
-{
+bool DatabaseManager::open() {
     db = QSqlDatabase::addDatabase("QSQLITE");
 #if NEW_DB > 0
     QDir dir;
@@ -61,8 +59,7 @@ QSqlError DatabaseManager::lastError() {
     return db.lastError();
 }
 
-void DatabaseManager::close()
-{
+void DatabaseManager::close() {
     db.close();
 }
 
@@ -85,8 +82,7 @@ QSqlQuery DatabaseManager::getSprites(SpriteModel::SPRITES typeId) {
     return spriteQuery;
 }
 
-bool DatabaseManager::insertPetRecord(const Pet &pet)
-{
+bool DatabaseManager::insertPetRecord(const Pet& pet) {
     QSqlQuery query;
     query.prepare("INSERT Into Pet (TYPE_ID, NAME) VALUES(?,?)");
     query.addBindValue(pet.getType());
@@ -94,8 +90,7 @@ bool DatabaseManager::insertPetRecord(const Pet &pet)
     return query.exec();
 }
 
-QSqlQuery DatabaseManager::insertSpriteRecord(const SpriteModel &spriteModel)
-{
+QSqlQuery DatabaseManager::insertSpriteRecord(const SpriteModel& spriteModel) {
     QSqlQuery query;
     query.prepare("INSERT Into Sprite (SPRITE_TYPE_ID, X, Y) VALUES(?,?,?)");
     query.addBindValue(spriteModel.getSpriteTypeId());
@@ -108,8 +103,7 @@ QSqlQuery DatabaseManager::insertSpriteRecord(const SpriteModel &spriteModel)
     return query2;
 }
 
-bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)
-{
+bool DatabaseManager::deleteSpriteModel(const SpriteModel& spriteModel) {
     qDebug() << "DatabaseManager: deleting sprite model " << spriteModel.getId();
     QSqlQuery query;
     query.prepare("DELETE FROM Sprite WHERE SPRITE_ID = ?");
@@ -117,8 +111,7 @@ bool DatabaseManager::deleteSpriteModel(const SpriteModel &spriteModel)
     return query.exec();
 }
 
-bool DatabaseManager::deletePetRecord(const Pet &petModel)
-{
+bool DatabaseManager::deletePetRecord(const Pet& petModel) {
     qDebug() << "DatabaseManager: deleting pet model " << petModel.getId();
     QSqlQuery query;
     query.prepare("DELETE FROM Pet WHERE PET_ID = ?");
@@ -130,8 +123,7 @@ bool DatabaseManager::deletePetRecord(const Pet &petModel)
 DatabaseManager::~DatabaseManager() {
 }
 
-void DatabaseManager::updateLastFedTimestamp(const Pet &pet)
-{
+void DatabaseManager::updateLastFedTimestamp(const Pet& pet) {
     initStatus(pet.getId());
     qDebug() << "DatabaseManager: update LAST_FED timestamp";
     QSqlQuery query;
@@ -140,8 +132,7 @@ void DatabaseManager::updateLastFedTimestamp(const Pet &pet)
     query.exec();
 }
 
-void DatabaseManager::updateLastPoopTimestamp(const Pet &pet)
-{
+void DatabaseManager::updateLastPoopTimestamp(const Pet& pet) {
     initStatus(pet.getId());
     qDebug() << "DatabaseManager: update LAST_POOP timestamp";
     QSqlQuery query;
@@ -150,8 +141,7 @@ void DatabaseManager::updateLastPoopTimestamp(const Pet &pet)
     query.exec();
 }
 
-void DatabaseManager::updateLastAppStartTimestamp(const Pet &pet)
-{
+void DatabaseManager::updateLastAppStartTimestamp(const Pet& pet) {
     initStatus(pet.getId());
     qDebug() << "DatabaseManager: update LAST_APP_START timestamp";
     QSqlQuery query;
@@ -160,7 +150,7 @@ void DatabaseManager::updateLastAppStartTimestamp(const Pet &pet)
     query.exec();
 }
 
-long DatabaseManager::getLastFedTimestamp(const Pet &pet) {
+long DatabaseManager::getLastFedTimestamp(const Pet& pet) {
     QSqlQuery query = getStatus(pet);
     QSqlRecord rec = query.record();
     int statCol = rec.indexOf("LAST_FED");
@@ -177,8 +167,7 @@ long DatabaseManager::getLastFedTimestamp(const Pet &pet) {
     return 0;
 }
 
-long DatabaseManager::getLastPoop(const Pet &pet)
-{
+long DatabaseManager::getLastPoop(const Pet& pet) {
     QSqlQuery query = getStatus(pet);
     QSqlRecord rec = query.record();
     int statCol = rec.indexOf("LAST_POOP");
@@ -195,8 +184,7 @@ long DatabaseManager::getLastPoop(const Pet &pet)
     return 0;
 }
 
-long DatabaseManager::getLastAppStart(const Pet &pet)
-{
+long DatabaseManager::getLastAppStart(const Pet& pet) {
     QSqlQuery query = getStatus(pet);
     QSqlRecord rec = query.record();
     int statCol = rec.indexOf("LAST_APP_START");
@@ -222,8 +210,7 @@ void DatabaseManager::initStatus(int petId) {
     query.exec();
 }
 
-QSqlQuery DatabaseManager::getStatus(const Pet &pet)
-{
+QSqlQuery DatabaseManager::getStatus(const Pet& pet) {
     qDebug() << "DatabaseManager: getting status";
     QSqlQuery query;
     query.prepare("SELECT * FROM Status WHERE PET_ID = ?");

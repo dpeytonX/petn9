@@ -1,7 +1,7 @@
 import com.blogspot.iamboke 1.0
-import ".."
+import "../../../common/widgets"
 
-import "../js/UIConstants.js" as UI
+import "/js/UIConstants.js" as UI
 
 Sprite {
     property int type

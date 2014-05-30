@@ -15,10 +15,9 @@
 #include <pet.h>
 #include <declarativelist.h>
 
-Manager::Manager(QObject *parent) :
+Manager::Manager(QObject* parent) :
     QObject(parent),
-    petModels(new QList<Pet*>())
-{
+    petModels(new QList<Pet*>()) {
     QString storagePath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     qDebug() << "Standard Path: " << storagePath;
     QDir().mkpath(storagePath);
@@ -53,8 +52,7 @@ QString Manager::getWorld() {
 
 }
 
-void Manager::reset()
-{
+void Manager::reset() {
     qDebug() << "Manager: Reset...";
     SpriteModel* s = new SpriteModel(this);
     s->setSpriteTypeId(SpriteModel::ALL);
@@ -127,8 +125,7 @@ void Manager::initPoopModels() {
     }
 }
 
-void Manager::removePet()
-{
+void Manager::removePet() {
     Pet* pet = getCurrentPet();
     dbManager->deletePetRecord(*pet);
     int i = petModels->indexOf(pet);
@@ -209,14 +206,13 @@ QQmlListProperty<Pet> Manager::getPetModels() {
         petQQmlListPropertyHolder->getList().append(o);
     }
     return QQmlListProperty<Pet>(petQQmlListPropertyHolder, 0,
-                                         &DeclarativeList<Pet>::appendObject,
-                                         &DeclarativeList<Pet>::count,
-                                         &DeclarativeList<Pet>::atIndex,
-                                         &DeclarativeList<Pet>::clearObject);
+                                 &DeclarativeList<Pet>::appendObject,
+                                 &DeclarativeList<Pet>::count,
+                                 &DeclarativeList<Pet>::atIndex,
+                                 &DeclarativeList<Pet>::clearObject);
 }
 
-QQmlListProperty<SpriteModel> Manager::getSpriteModels()
-{
+QQmlListProperty<SpriteModel> Manager::getSpriteModels() {
     qDebug() << "Manager: retrieving sprite models ";
     spriteQQmlListPropertyHolder = new SpriteModel(this);
     //Populate Sprite Models
@@ -254,14 +250,13 @@ QQmlListProperty<SpriteModel> Manager::getSpriteModels()
     }
     //return QDeclListProp
     return QQmlListProperty<SpriteModel>(spriteQQmlListPropertyHolder, 0,
-                                                 &DeclarativeList<SpriteModel>::appendObject,
-                                                 &DeclarativeList<SpriteModel>::count,
-                                                 &DeclarativeList<SpriteModel>::atIndex,
-                                                 &DeclarativeList<SpriteModel>::clearObject);
+                                         &DeclarativeList<SpriteModel>::appendObject,
+                                         &DeclarativeList<SpriteModel>::count,
+                                         &DeclarativeList<SpriteModel>::atIndex,
+                                         &DeclarativeList<SpriteModel>::clearObject);
 }
 
-void Manager::deleteSpriteModel(SpriteModel *spriteToRemove)
-{
+void Manager::deleteSpriteModel(SpriteModel* spriteToRemove) {
     qDebug() << "Removing sprite " << spriteToRemove->getId();
     if(spriteToRemove->getSpriteTypeId() == SpriteModel::ALL) {
         qDebug() << "Manager: removing all sprites";
@@ -276,8 +271,7 @@ void Manager::deleteSpriteModel(SpriteModel *spriteToRemove)
     dbManager->deleteSpriteModel(*spriteToRemove);
 }
 
-Pet *Manager::createPet(int typeId, const QString& name)
-{
+Pet* Manager::createPet(int typeId, const QString& name) {
     qDebug() << "Manager: creating pet of type: " << typeId;
     Pet* pet = new Pet();
     switch(typeId) {
@@ -309,8 +303,7 @@ Pet *Manager::createPet(int typeId, const QString& name)
     return pet;
 }
 
-SpriteModel *Manager::createSprite(int spriteTypeId, int x, int y)
-{
+SpriteModel* Manager::createSprite(int spriteTypeId, int x, int y) {
     qDebug() << "Manager: creating sprite of type: " << spriteTypeId;
     SpriteModel* sprite = new SpriteModel(this);
     switch(spriteTypeId) {

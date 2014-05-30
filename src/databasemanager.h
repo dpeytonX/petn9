@@ -12,8 +12,7 @@
 /**
   Manages database connections for the application.
   */
-class DatabaseManager : public QObject
-{
+class DatabaseManager : public QObject {
     Q_OBJECT
 public:
     /**
@@ -28,11 +27,11 @@ public:
 
     void updateLastFedTimestamp(const Pet& pet);
 
-    long getLastFedTimestamp(const Pet &pet);
+    long getLastFedTimestamp(const Pet& pet);
 
-    long getLastPoop(const Pet &pet);
+    long getLastPoop(const Pet& pet);
 
-    long getLastAppStart(const Pet &pet);
+    long getLastAppStart(const Pet& pet);
 
     /**
       Opens a conection to the database.
@@ -77,9 +76,9 @@ public:
 
     bool deleteSpriteModel(const SpriteModel& spriteModel);
 
-    void updateLastAppStartTimestamp(const Pet &pet);
-    void updateLastPoopTimestamp(const Pet &pet);
-    bool deletePetRecord(const Pet &petModel);
+    void updateLastAppStartTimestamp(const Pet& pet);
+    void updateLastPoopTimestamp(const Pet& pet);
+    bool deletePetRecord(const Pet& petModel);
 private:
     QSqlDatabase db;
     QString dbPath;
