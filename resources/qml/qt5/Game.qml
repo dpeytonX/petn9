@@ -3,8 +3,9 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import com.blogspot.iamboke 1.0
 
-import "js/SpriteFunctions.js" as Sprite
-import "QmlLogger/qmllogger/Logger.js" as Console
+import "/js/SpriteFunctions.js" as SpriteFunctions
+import "/js/UIConstants.js" as UI
+import "/QmlLogger/Logger.js" as Console
 
 /**
   Game.qml
@@ -20,7 +21,7 @@ DefaultPage {
 
     Component.onCompleted: {
         var world = Manager.getWorld()
-        Sprite.createWorld("../worlds/"+world+".qml", game, {"anchors.fill": game}, finishedWorld)
+        SpriteFunctions.createWorld(UI.QML_QT5_WORLDS + world + ".qml", game, {"anchors.fill": game}, finishedWorld)
     }
 
     function finishedWorld(worldObject) {

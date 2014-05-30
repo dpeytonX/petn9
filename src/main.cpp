@@ -46,7 +46,7 @@ Q_DECL_EXPORT int main(int argc, char* argv[]) {
 
     viewer.rootContext()->setContextProperty("Manager", manager);
 
-    viewer.load ( QUrl ( QStringLiteral ( "qrc:///qml/petn9/main.qml" ) ) );
+    viewer.load ( QUrl ( QStringLiteral ( "qrc:///qml/qt5/main.qml" ) ) );
 
     return app->exec();
 }

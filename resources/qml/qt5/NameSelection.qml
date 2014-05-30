@@ -3,9 +3,10 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import com.blogspot.iamboke 1.0
 import "."
-import "QmlLogger/qmllogger/Logger.js" as Console
-import "js/SpriteFunctions.js" as SpriteFunctions
-import "js/UIConstants.js" as UI
+import "../../common/widgets"
+import "/QmlLogger/Logger.js" as Console
+import "/js/SpriteFunctions.js" as SpriteFunctions
+import "/js/UIConstants.js" as UI
 
 /**
   NameSelection.qml
@@ -59,7 +60,7 @@ DefaultPage {
                     height: UI.PET_HEIGHT
 
                     Component.onCompleted: {
-                        SpriteFunctions.createPet("../pets/", petType, petArea1, {}, firstRunName.petCreated)
+                        SpriteFunctions.createPet(UI.QML_QT5_PETS, petType, petArea1, {}, firstRunName.petCreated)
 			Console.debug("Created pet object")
                     }
                 }

@@ -3,10 +3,10 @@ import QtQuick.Dialogs 1.1
 import com.blogspot.iamboke 1.0
 import "../pets"
 
-import "../QmlLogger/qmllogger/Logger.js" as Console
-import "../js/_private.js" as JObjects
-import "../js/SpriteFunctions.js" as Sprite
-import "../js/UIConstants.js" as UI
+import "/QmlLogger/Logger.js" as Console
+import "/js/_private.js" as JObjects
+import "/js/SpriteFunctions.js" as SpriteFunctions
+import "/js/UIConstants.js" as UI
 
 /**
   AbstractWorld.qml
@@ -91,7 +91,7 @@ Rectangle {
 
     onPetChanged: {
         pet.deadChanged.connect(updatePetStatus)
-        Sprite.createPet("../pets/", pet.type, world, {"z": 100}, createPetHandler)
+        SpriteFunctions.createPet("/qml/qt5/pets/", pet.type, world, {"z": 100}, createPetHandler)
     }
 
     function updatePetStatus() {
@@ -201,7 +201,7 @@ Rectangle {
             var sX = currentModel.x == -1 ? Math.random() * (appWindow.width - UI.GAME_OBJECT_WIDTH) : currentModel.x
             var sY = currentModel.y
             Console.info("AbstractWorld: new sprite " + sX + " " + sY)
-            Sprite.createSprite("../objects/", currentModel.typeId, world, {"x": sX, "y": sY, "z": 5, "spriteId": currentModel.id}, spriteCreated)
+            SpriteFunctions.createSprite(UI.QML_QT5_OBJS, currentModel.typeId, world, {"x": sX, "y": sY, "z": 5, "spriteId": currentModel.id}, spriteCreated)
         }
     }
 
@@ -217,7 +217,7 @@ Rectangle {
             }
 
             Console.debug("AbstractPet.qml: pet just pooped " + UI.PET_POOP_CHANCE)
-            Sprite.createSprite("../objects/", SpriteModel.POOP, world.parent, {"z": 5}, poopCreated)
+            SpriteFunctions.createSprite(UI.QML_QT5_OBJS, SpriteModel.POOP, world.parent, {"z": 5}, poopCreated)
             Manager.updateLastPoop();
         }
     }
@@ -225,7 +225,7 @@ Rectangle {
     function feedPet() {
         if(petItem.isDead) return
         Console.debug("AbstractWolrd.qml: feeding pet action ")
-        Sprite.createSprite("../objects/", SpriteModel.FOOD, world.parent, {"z": 5}, foodCreated)
+        SpriteFunctions.createSprite(UI.QML_QT5_OBJS, SpriteModel.FOOD, world.parent, {"z": 5}, foodCreated)
     }
 
     function spriteCreated(spriteItem) {

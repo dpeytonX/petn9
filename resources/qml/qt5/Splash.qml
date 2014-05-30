@@ -1,8 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import com.blogspot.iamboke 1.0
-
-import "QmlLogger/qmllogger/Logger.js" as Console
+import "/QmlLogger/Logger.js" as Console
 
 /**
   Splash.qml

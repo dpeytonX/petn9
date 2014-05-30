@@ -1,11 +1,9 @@
 import QtQuick 2.2
 import com.blogspot.iamboke 1.0
-import ".."
-
-import "../QmlLogger/qmllogger/Logger.js" as Console
-import "../js/_private.js" as JObjects
-import "../js/SpriteFunctions.js" as Sprite
-import "../js/UIConstants.js" as UI
+import "../../../common/widgets"
+import "/QmlLogger/Logger.js" as Console
+import "/js/_private.js" as JObjects
+import "/js/UIConstants.js" as UI
 
 /**
   AbstractPet.qml

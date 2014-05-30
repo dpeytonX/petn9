@@ -1,7 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.1
-import "QmlLogger/qmllogger/Logger.js" as Console
+import "/QmlLogger/Logger.js" as Console
 
 /**
   main.qml
