@@ -12,6 +12,8 @@ find_package (Qt5Qml REQUIRED)
 get_target_property(QtQml_location Qt5::Qml LOCATION)
 find_package (Qt5Quick REQUIRED)
 get_target_property(QtQuick_location Qt5::Quick LOCATION)
+find_package (Qt5Multimedia REQUIRED)
+get_target_property(QtMultimedia_location Qt5::Multimedia LOCATION)
 find_package (Qt5Sql REQUIRED)
 get_target_property(QtSql_location Qt5::Sql LOCATION)
 
@@ -53,7 +55,8 @@ set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
 			"${PROJECT_RESOURCE_DIR}/icons.qrc"
 			"${PROJECT_RESOURCE_DIR}/images.qrc"
 			"${PROJECT_RESOURCE_DIR}/qml.qrc"
-			"${PROJECT_RESOURCE_DIR}/translations.qrc")
+			"${PROJECT_RESOURCE_DIR}/translations.qrc"
+			"${PROJECT_RESOURCE_DIR}/sounds.qrc")
 set (petn9_DESKTOP "${PROJECT_RESOURCE_DIR}/petn9.desktop")
 set (petn9_ICONS "${PROJECT_RESOURCE_DIR}/petn9.svg")
 
@@ -68,6 +71,7 @@ target_link_libraries (petn9 Qt5::Gui)
 target_link_libraries (petn9 Qt5::Qml)
 target_link_libraries (petn9 Qt5::Quick)
 target_link_libraries (petn9 Qt5::Sql)
+target_link_libraries (petn9 Qt5::Multimedia)
 target_link_libraries (petn9 petn9models)
 
 install (TARGETS petn9 DESTINATION bin)

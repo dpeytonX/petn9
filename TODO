@@ -4,4 +4,5 @@ http://soundbible.com/royalty-free-sounds-1.html
 
 
 TODO:
-update licensing README
+create a qml element which can play sound files from a qrc
+

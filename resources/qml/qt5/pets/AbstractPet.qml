@@ -1,4 +1,5 @@
 import QtQuick 2.2
+import QtMultimedia 5.0
 import com.blogspot.iamboke 1.0
 import "../../../common/widgets"
 import "/QmlLogger/Logger.js" as Console
@@ -64,6 +65,10 @@ Sprite {
 
     onPetClicked: {
         Console.info("AbstractPet.qml: pet clicked")
+	Console.info("AbstractPet.qml: playing sound")
+	
+	petClickSound.play()
+	
         if(isHungry) {
             statusIcon.source = "qrc:/images/hungry.png"
         } else if(!isSad) {
@@ -90,6 +95,11 @@ Sprite {
         anchors.bottom: parent.top
         anchors.bottomMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
+    }
+    
+    SoundEffect {
+      id: petClickSound
+      source: "qrc:/sounds/petclick"
     }
 
     /**
