@@ -46,16 +46,18 @@ Rectangle {
         }
 
         var spriteObjectArray = JObjects.register(world).spriteObjectArray;
+	
+	Console.debug("Sprite numbers: " + spriteObjectArray.length);
 
-        for(var i = 0; i < spriteObjectArray.length; i++) {
+        for(var i = 0; !!spriteObjectArray && i < spriteObjectArray.length; i++) {
             var s = spriteObjectArray[i]
-            s.y = s.y == -1 ? petItem.y + 15 : s.y
+            s.y = spriteBottom - (!!s.height ? s.height : UI.GAME_OBJECT_HEIGHT)
         }
     }
     
     onSpriteRightChanged: {
         Console.debug("AbstractWorld.qml: new sprite right: " + spriteRight)
-        if(!!petItem) {
+        if(!!petItem && petItem.x - petItem.width > spriteRight) {
             petItem.x = spriteRight - petItem.width
             Console.debug("AbstractWorld.qml: pet x " + petItem.x)
         }
@@ -64,7 +66,8 @@ Rectangle {
 
         for(var i = 0; !!spriteObjectArray && i < spriteObjectArray.length; i++) {
             var s = spriteObjectArray[i]
-            s.x = s.x == -1 ? petItem.x + 15 : s.x
+            if(s.x > spriteRight)
+                s.x = spriteRight - (!!s.width ? s.width : UI.GAME_OBJECT_WIDTH)
         }
     }
 
