@@ -12,6 +12,8 @@ find_package (Qt5Qml REQUIRED)
 get_target_property(QtQml_location Qt5::Qml LOCATION)
 find_package (Qt5Quick REQUIRED)
 get_target_property(QtQuick_location Qt5::Quick LOCATION)
+find_package (Qt5Multimedia REQUIRED)
+get_target_property(QtMultimedia_location Qt5::Multimedia LOCATION)
 find_package (Qt5Sql REQUIRED)
 get_target_property(QtSql_location Qt5::Sql LOCATION)
 
@@ -42,8 +44,10 @@ add_subdirectory ("${PROJECT_SOURCE_DIR}/models")
 set (petn9_SOURCES "${PROJECT_SOURCE_DIR}/main.cpp"
 			"${PROJECT_SOURCE_DIR}/manager.cpp"
 			"${PROJECT_SOURCE_DIR}/databasemanager.cpp"
+			"${PROJECT_SOURCE_DIR}/appsettings.cpp"
 			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist.cpp")
 set (petn9_MOC_HEADERS "${PROJECT_SOURCE_DIR}/manager.h"
+			"${PROJECT_SOURCE_DIR}/appsettings.h"
 			"${PROJECT_SOURCE_DIR}/databasemanager.h" )
 set (petn9_HEADER ${petn9_MOC_HEADERS}
 			"${PROJECT_BINARY_DIR}/petn9.h"
@@ -54,8 +58,10 @@ set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
 			"${PROJECT_RESOURCE_DIR}/images.qrc"
 			"${PROJECT_RESOURCE_DIR}/qml.qrc"
 			"${PROJECT_RESOURCE_DIR}/translations.qrc")
+			#"${PROJECT_RESOURCE_DIR}/sounds.qrc")
 set (petn9_DESKTOP "${PROJECT_RESOURCE_DIR}/petn9.desktop")
 set (petn9_ICONS "${PROJECT_RESOURCE_DIR}/petn9.svg")
+set (petn9_SOUNDS "${PROJECT_RESOURCE_DIR}/sounds/blop.wav")
 
 qt5_wrap_cpp(petn9_MOC ${petn9_MOC_HEADERS})
 qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
@@ -68,9 +74,11 @@ target_link_libraries (petn9 Qt5::Gui)
 target_link_libraries (petn9 Qt5::Qml)
 target_link_libraries (petn9 Qt5::Quick)
 target_link_libraries (petn9 Qt5::Sql)
+target_link_libraries (petn9 Qt5::Multimedia)
 target_link_libraries (petn9 petn9models)
 
 install (TARGETS petn9 DESTINATION bin)
 install (FILES ${petn9_HEADER} DESTINATION include/petn9)
 install (FILES ${petn9_DESKTOP} DESTINATION share/applications)
 install (FILES ${petn9_ICONS} DESTINATION share/icons/hicolor/scalable/apps)
+install (FILES ${petn9_SOUNDS} DESTINATION share/petn9/sounds)

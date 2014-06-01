@@ -37,3 +37,6 @@ isExecutable=false
 
 [Project]
 VersionControlSupport=kdevgit
+
+[SourceFileTemplates]
+LastUsedTemplate=/home/dametrious/.kde/share/apps/kdevfiletemplates/template_descriptions/qobject.desktop

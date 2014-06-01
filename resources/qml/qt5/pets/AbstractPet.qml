@@ -1,9 +1,11 @@
 import QtQuick 2.2
+import QtMultimedia 5.0
 import com.blogspot.iamboke 1.0
 import "../../../common/widgets"
 import "/QmlLogger/Logger.js" as Console
 import "/js/_private.js" as JObjects
 import "/js/UIConstants.js" as UI
+import "/js/SpriteFunctions.js" as SpriteFunctions
 
 /**
   AbstractPet.qml
@@ -64,6 +66,10 @@ Sprite {
 
     onPetClicked: {
         Console.info("AbstractPet.qml: pet clicked")
+	Console.info("AbstractPet.qml: playing sound")
+	
+	petClickSound.play()
+	
         if(isHungry) {
             statusIcon.source = "qrc:/images/hungry.png"
         } else if(!isSad) {
@@ -91,7 +97,14 @@ Sprite {
         anchors.bottomMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
     }
+    
+    SoundEffect {
+      id: petClickSound
+      volume: 1
+      source: "file:" + SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK)//Qt.resolvedUrl(SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK))
+    }
 
+    
     /**
       Sets the collision callback to detect the boundaries of pet movement.
       @param cb is the callback

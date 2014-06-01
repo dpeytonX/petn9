@@ -2,6 +2,8 @@ import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.1
 import "/QmlLogger/Logger.js" as Console
+import "/js/SpriteFunctions.js" as SpriteFunctions
+import "/js/UIConstants.js" as UI
 
 /**
   main.qml
@@ -26,7 +28,7 @@ ApplicationWindow {
       
       initialItem: Splash { id: splash }
     }
-
+    
     Component.onCompleted: {
         Console.LOG_PRIORITY = Console.DEBUG
     }

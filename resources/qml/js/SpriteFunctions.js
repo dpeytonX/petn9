@@ -41,3 +41,6 @@ function createObject(component, parent, properties, callback) {
     }
 }
 
+function locateSoundFile(file) {
+  return AppSettings.locateSoundFile(file);
+}
