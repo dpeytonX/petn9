@@ -30,17 +30,8 @@ ApplicationWindow {
       initialItem: Splash { id: splash }
     }
     
-    SoundEffect {
-      id: petClickSound
-      volume: 1
-      source: SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK)//Qt.resolvedUrl(SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK))
-    }
-
     Component.onCompleted: {
         Console.LOG_PRIORITY = Console.DEBUG
-        if(Console.LOG_PRIORITY == Console.DEBUG) {
-	    Console.debug(petClickSound.source)
-	}
     }
 
     Component.onDestruction: {

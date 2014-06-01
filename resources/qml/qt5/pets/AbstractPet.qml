@@ -98,6 +98,13 @@ Sprite {
         anchors.horizontalCenter: parent.horizontalCenter
     }
     
+    SoundEffect {
+      id: petClickSound
+      volume: 1
+      source: "file:" + SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK)//Qt.resolvedUrl(SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK))
+    }
+
+    
     /**
       Sets the collision callback to detect the boundaries of pet movement.
       @param cb is the callback
