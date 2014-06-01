@@ -44,8 +44,10 @@ add_subdirectory ("${PROJECT_SOURCE_DIR}/models")
 set (petn9_SOURCES "${PROJECT_SOURCE_DIR}/main.cpp"
 			"${PROJECT_SOURCE_DIR}/manager.cpp"
 			"${PROJECT_SOURCE_DIR}/databasemanager.cpp"
+			"${PROJECT_SOURCE_DIR}/appsettings.cpp"
 			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist.cpp")
 set (petn9_MOC_HEADERS "${PROJECT_SOURCE_DIR}/manager.h"
+			"${PROJECT_SOURCE_DIR}/appsettings.h"
 			"${PROJECT_SOURCE_DIR}/databasemanager.h" )
 set (petn9_HEADER ${petn9_MOC_HEADERS}
 			"${PROJECT_BINARY_DIR}/petn9.h"
@@ -55,10 +57,11 @@ set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
 			"${PROJECT_RESOURCE_DIR}/icons.qrc"
 			"${PROJECT_RESOURCE_DIR}/images.qrc"
 			"${PROJECT_RESOURCE_DIR}/qml.qrc"
-			"${PROJECT_RESOURCE_DIR}/translations.qrc"
-			"${PROJECT_RESOURCE_DIR}/sounds.qrc")
+			"${PROJECT_RESOURCE_DIR}/translations.qrc")
+			#"${PROJECT_RESOURCE_DIR}/sounds.qrc")
 set (petn9_DESKTOP "${PROJECT_RESOURCE_DIR}/petn9.desktop")
 set (petn9_ICONS "${PROJECT_RESOURCE_DIR}/petn9.svg")
+set (petn9_SOUNDS "${PROJECT_RESOURCE_DIR}/sounds/blop.wav")
 
 qt5_wrap_cpp(petn9_MOC ${petn9_MOC_HEADERS})
 qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
@@ -78,3 +81,4 @@ install (TARGETS petn9 DESTINATION bin)
 install (FILES ${petn9_HEADER} DESTINATION include/petn9)
 install (FILES ${petn9_DESKTOP} DESTINATION share/applications)
 install (FILES ${petn9_ICONS} DESTINATION share/icons/hicolor/scalable/apps)
+install (FILES ${petn9_SOUNDS} DESTINATION share/petn9/sounds)

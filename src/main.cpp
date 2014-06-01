@@ -9,8 +9,10 @@
 
 #include <petn9.h>
 #include <pet.h>
-#include "manager.h"
 #include <spritemodel.h>
+
+#include "manager.h"
+#include "appsettings.h"
 
 Q_DECL_EXPORT int main(int argc, char* argv[]) {
     QScopedPointer<QGuiApplication> app(new QGuiApplication ( argc, argv ));
@@ -31,13 +33,13 @@ Q_DECL_EXPORT int main(int argc, char* argv[]) {
 #endif
     app->installTranslator(&translator);
 
-
     QQmlApplicationEngine viewer;
     //Startup context
     QTime time = QTime::currentTime(); //initialize random numbers
     qsrand((uint)time.msec());
 
     Manager* manager = new Manager(&viewer);
+    AppSettings* appSettings = new AppSettings(&viewer);
 
     //Set context variables
     qmlRegisterType<Pet>("com.blogspot.iamboke", 1,0, "PetModel");
@@ -45,6 +47,7 @@ Q_DECL_EXPORT int main(int argc, char* argv[]) {
     qRegisterMetaType<PetStatus>("PetStatus");
 
     viewer.rootContext()->setContextProperty("Manager", manager);
+    viewer.rootContext()->setContextProperty("AppSettings", appSettings);
 
     viewer.load ( QUrl ( QStringLiteral ( "qrc:///qml/qt5/main.qml" ) ) );
 

@@ -1,7 +1,10 @@
 import QtQuick 2.2
 import QtQuick.Window 2.1
 import QtQuick.Controls 1.1
+import QtMultimedia 5.0
 import "/QmlLogger/Logger.js" as Console
+import "/js/SpriteFunctions.js" as SpriteFunctions
+import "/js/UIConstants.js" as UI
 
 /**
   main.qml
@@ -26,9 +29,18 @@ ApplicationWindow {
       
       initialItem: Splash { id: splash }
     }
+    
+    SoundEffect {
+      id: petClickSound
+      volume: 1
+      source: SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK)//Qt.resolvedUrl(SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK))
+    }
 
     Component.onCompleted: {
         Console.LOG_PRIORITY = Console.DEBUG
+        if(Console.LOG_PRIORITY == Console.DEBUG) {
+	    Console.debug(petClickSound.source)
+	}
     }
 
     Component.onDestruction: {

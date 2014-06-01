@@ -5,6 +5,7 @@ import "../../../common/widgets"
 import "/QmlLogger/Logger.js" as Console
 import "/js/_private.js" as JObjects
 import "/js/UIConstants.js" as UI
+import "/js/SpriteFunctions.js" as SpriteFunctions
 
 /**
   AbstractPet.qml
@@ -97,11 +98,6 @@ Sprite {
         anchors.horizontalCenter: parent.horizontalCenter
     }
     
-    SoundEffect {
-      id: petClickSound
-      source: "qrc:/sounds/petclick"
-    }
-
     /**
       Sets the collision callback to detect the boundaries of pet movement.
       @param cb is the callback

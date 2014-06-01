@@ -4,6 +4,9 @@ var QML_QT5 = "/qml/qt5/"
 var QML_QT5_PETS = QML_QT5 + "pets/"
 var QML_QT5_OBJS = QML_QT5 + "objects/"
 var QML_QT5_WORLDS = QML_QT5 + "worlds/"
+
+// Sound Locations
+var SND_PET_CLICK = "blop.wav"
  
 // Pet Constants
 var PET_MOVEMENT = 10
