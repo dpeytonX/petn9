@@ -1,22 +1,21 @@
 project (petn9)
 
 cmake_minimum_required (VERSION 2.8.11)
-set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
+set_property (GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
 
 #Qt requirements
 find_package (Qt5Core REQUIRED)
-get_target_property(QtCore_location Qt5::Core LOCATION)
+get_target_property (QtCore_location Qt5::Core LOCATION)
 find_package (Qt5Gui REQUIRED)
-get_target_property(QtGui_location Qt5::Gui LOCATION)
+get_target_property (QtGui_location Qt5::Gui LOCATION)
 find_package (Qt5Qml REQUIRED)
-get_target_property(QtQml_location Qt5::Qml LOCATION)
+get_target_property (QtQml_location Qt5::Qml LOCATION)
 find_package (Qt5Quick REQUIRED)
-get_target_property(QtQuick_location Qt5::Quick LOCATION)
+get_target_property (QtQuick_location Qt5::Quick LOCATION)
 find_package (Qt5Multimedia REQUIRED)
-get_target_property(QtMultimedia_location Qt5::Multimedia LOCATION)
+get_target_property (QtMultimedia_location Qt5::Multimedia LOCATION)
 find_package (Qt5Sql REQUIRED)
-get_target_property(QtSql_location Qt5::Sql LOCATION)
-
+get_target_property (QtSql_location Qt5::Sql LOCATION)
 
 set (petn9_VERSION_MAJOR 1)
 set (petn9_VERSION_MINOR 3)
@@ -27,6 +26,7 @@ set (petn9_ALLOW_JP 1)
 
 set (PROJECT_SOURCE_DIR "src")
 set (PROJECT_RESOURCE_DIR "resources")
+set (PROJECT_TEST_DIR "test")
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/petn9.h.in"
@@ -58,7 +58,6 @@ set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
 			"${PROJECT_RESOURCE_DIR}/images.qrc"
 			"${PROJECT_RESOURCE_DIR}/qml.qrc"
 			"${PROJECT_RESOURCE_DIR}/translations.qrc")
-			#"${PROJECT_RESOURCE_DIR}/sounds.qrc")
 set (petn9_DESKTOP "${PROJECT_RESOURCE_DIR}/petn9.desktop")
 set (petn9_ICONS "${PROJECT_RESOURCE_DIR}/petn9.svg")
 set (petn9_SOUNDS "${PROJECT_RESOURCE_DIR}/sounds/blop.wav")
@@ -69,13 +68,36 @@ qt5_add_resources(petn9_RESOURCES_RCC ${petn9_RESOURCES})
 add_executable (petn9 ${petn9_SOURCES} ${petn9_HEADER} ${petn9_RESOURCES_RCC} ${petn9_MOC})
 
 #Linking Options
+target_link_libraries (petn9 petn9models)
 target_link_libraries (petn9 Qt5::Core)
 target_link_libraries (petn9 Qt5::Gui)
 target_link_libraries (petn9 Qt5::Qml)
 target_link_libraries (petn9 Qt5::Quick)
 target_link_libraries (petn9 Qt5::Sql)
 target_link_libraries (petn9 Qt5::Multimedia)
-target_link_libraries (petn9 petn9models)
+
+
+message ("CMAKE_BUILD_TYPE = " ${CMAKE_BUILD_TYPE})
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL TEST)
+  enable_testing()
+
+  # Tell CMake to run moc when necessary:
+  set(CMAKE_AUTOMOC ON)
+
+  # As moc files are generated in the binary dir, tell CMake
+  # to always look for includes there:
+  set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+  find_package(Qt5Test REQUIRED)
+  get_target_property (QtTest_location Qt5::Test LOCATION)
+
+  add_executable(firsttest "${PROJECT_TEST_DIR}/firsttest.cpp")
+  add_test(firsttest firsttest)
+
+  target_link_libraries(firsttest Qt5::Test)
+endif()
+
 
 install (TARGETS petn9 DESTINATION bin)
 install (FILES ${petn9_HEADER} DESTINATION include/petn9)
