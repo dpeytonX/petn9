@@ -2,6 +2,7 @@ project (petn9)
 
 cmake_minimum_required (VERSION 2.8.11)
 set_property (GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 #Qt requirements
 find_package (Qt5Core REQUIRED)
@@ -91,11 +92,25 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL TEST)
 
   find_package(Qt5Test REQUIRED)
   get_target_property (QtTest_location Qt5::Test LOCATION)
-
-  add_executable(firsttest "${PROJECT_TEST_DIR}/firsttest.cpp")
-  add_test(firsttest firsttest)
-
-  target_link_libraries(firsttest Qt5::Test)
+  
+  set (t_SOURCES "${PROJECT_SOURCE_DIR}/appsettings.cpp")
+  set (t_MOC_HEADERS "${PROJECT_SOURCE_DIR}/appsettings.h")
+  set (t_HEADERS ${t_MOC_HEADERS})
+  
+  macro(qt5_add_test test_name test_file test_sources test_headers test_moc_headers)
+    add_executable(${test_name} ${test_file} ${test_sources} ${test_headers})
+    add_test(${test_name} ${test_name})
+    target_link_libraries (${test_name} Qt5::Test)
+    target_link_libraries (${test_name} petn9models)
+    target_link_libraries (${test_name} Qt5::Core)
+    target_link_libraries (${test_name} Qt5::Gui)
+    target_link_libraries (${test_name} Qt5::Qml)
+    target_link_libraries (${test_name} Qt5::Quick)
+    target_link_libraries (${test_name} Qt5::Sql)
+    target_link_libraries (${test_name} Qt5::Multimedia)
+  endmacro(qt5_add_test)
+  
+  qt5_add_test (locatetest "${PROJECT_TEST_DIR}/locatetest.cpp" "${t_SOURCES}" "${t_HEADERS}" "${t_MOC_HEADERS}")
 endif()
 
 
