@@ -5,6 +5,9 @@
 
 class QString;
 
+/**
+ * Application functions that are accessible through QML.
+ */
 class AppSettings : public QObject {
     Q_OBJECT
 

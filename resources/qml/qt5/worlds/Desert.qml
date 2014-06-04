@@ -1,5 +1,10 @@
 import "elements"
 
+/**
+ * Desert
+ * 
+ * An abstract world that looks like a Desert
+ */
 AbstractWorld {
     color: "#b1c2c2"
 

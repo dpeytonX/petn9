@@ -5,6 +5,11 @@
 
 using namespace std;
 
+/**
+ * LocateTest
+ *
+ * This object tests the AppSettings utility to search for resources in the Qt Standard Paths locations.
+ */
 class LocateTest: public QObject {
     Q_OBJECT
 private slots:

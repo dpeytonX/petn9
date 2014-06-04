@@ -40,8 +40,16 @@ public:
       */
     QQmlListProperty<SpriteModel> getSpriteModels();
 
+    /**
+     * Updates the status of the pet's last fed timestamp.
+     */
     Q_INVOKABLE void updateFed();
 
+    /**
+     * Removes the given sprite model from the manager's internal store.
+     *
+     * @param spriteToRemove points to the sprite model to remove.
+     */
     Q_INVOKABLE void deleteSpriteModel(SpriteModel* spriteToRemove);
 
     Q_INVOKABLE SpriteModel* getNewSpriteModel() {
@@ -54,18 +62,6 @@ public:
       */
     Pet* getCurrentPet() {
         return petModels->empty() ? NULL : petModels->at(petModels->size() - 1);
-    }
-
-    /**
-      Returns whether this is a simulated environment.
-      @return true if this is the NOKIA simulator. False, otherwise.
-      */
-    Q_INVOKABLE bool isSimulator() {
-#if defined(Q_WS_SIMULATOR)
-        return true;
-#else
-        return false;
-#endif
     }
 
     /**
