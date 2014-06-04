@@ -1,5 +1,12 @@
 import "elements"
 
+
+/**
+ * MountainRange
+ * 
+ * An abstract world that looks like a mountain plain.
+ */
+
 AbstractWorld {
     color: "#b1c2c2"
     spriteBottom: height - field.height;

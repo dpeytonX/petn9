@@ -3,6 +3,13 @@ import "../../../common/widgets"
 
 import "/js/UIConstants.js" as UI
 
+/**
+ * 
+ * GameObject 
+ * 
+ * A sprite type that is customized for petn9.
+ */
+
 Sprite {
     property int type
     width: UI.GAME_OBJECT_WIDTH

@@ -59,25 +59,16 @@ Sprite {
 
     signal petClicked
 
-    onIsDeadChanged: {
-        if(isDead)
-            reflectLeft.angle = 0
+    transform: Rotation {
+        id: reflectLeft
+        axis {x: 0; y: 1; z: 0}
+        origin.x: width / 2
+        origin.y: height / 2
+        angle: 0
     }
 
-    onPetClicked: {
-        Console.info("AbstractPet.qml: pet clicked")
-	Console.info("AbstractPet.qml: playing sound")
-	
-	petClickSound.play()
-	
-        if(isHungry) {
-            statusIcon.source = "qrc:/images/hungry.png"
-        } else if(!isSad) {
-            statusIcon.source ="qrc:/images/happy.png"
-        }
-        statusIcon.visible = !isDead && doStatusAnimation
-    }
-
+    
+    //Component Area
     MouseArea {
         anchors.fill: parent
         id: mouseArea
@@ -103,7 +94,66 @@ Sprite {
       volume: 1
       source: "file:" + SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK)//Qt.resolvedUrl(SpriteFunctions.locateSoundFile(UI.SND_PET_CLICK))
     }
+    
+    Rotation {
+        id: reflectRight
 
+        axis {x: 0; y: 1; z: 0}
+        angle: -180
+    }
+
+    Timer {
+        id: animationTimer
+        interval: UI.PET_ANIMATION_TIMER
+        running: !isDead && doStandardAnimations
+        repeat: true
+        onTriggered: {
+            performAnimation()
+        }
+    }
+
+    Timer {
+        id: foodTimer
+        interval: UI.PET_ANIMATION_TIMER
+        running: !isDead && doFeedingAnimation
+        repeat: true
+        onTriggered: {
+            performFeedingAnimation()
+        }
+    }
+
+    Timer {
+        id: statusIconTimer
+        triggeredOnStart: false
+        interval: UI.STAT_ANIMATION_TIMER
+        running: statusIcon.visible
+        repeat: false
+        onTriggered: {
+            statusIcon.visible = false
+        }
+    }
+
+    //Property Handlers
+    onIsDeadChanged: {
+        if(isDead)
+            reflectLeft.angle = 0
+    }
+
+    onPetClicked: {
+        Console.info("AbstractPet.qml: pet clicked")
+	Console.info("AbstractPet.qml: playing sound")
+	
+	petClickSound.play()
+	
+        if(isHungry) {
+            statusIcon.source = "qrc:/images/hungry.png"
+        } else if(!isSad) {
+            statusIcon.source ="qrc:/images/happy.png"
+        }
+        statusIcon.visible = !isDead && doStatusAnimation
+    }
+    
+    //Javascript Functions
     
     /**
       Sets the collision callback to detect the boundaries of pet movement.
@@ -193,49 +243,5 @@ Sprite {
         }
     }
 
-    transform: Rotation {
-        id: reflectLeft
-        axis {x: 0; y: 1; z: 0}
-        origin.x: width / 2
-        origin.y: height / 2
-        angle: 0
-    }
-
-    Rotation {
-        id: reflectRight
-
-        axis {x: 0; y: 1; z: 0}
-        angle: -180
-    }
-
-    Timer {
-        id: animationTimer
-        interval: UI.PET_ANIMATION_TIMER
-        running: !isDead && doStandardAnimations
-        repeat: true
-        onTriggered: {
-            performAnimation()
-        }
-    }
-
-    Timer {
-        id: foodTimer
-        interval: UI.PET_ANIMATION_TIMER
-        running: !isDead && doFeedingAnimation
-        repeat: true
-        onTriggered: {
-            performFeedingAnimation()
-        }
-    }
-
-    Timer {
-        id: statusIconTimer
-        triggeredOnStart: false
-        interval: UI.STAT_ANIMATION_TIMER
-        running: statusIcon.visible
-        repeat: false
-        onTriggered: {
-            statusIcon.visible = false
-        }
-    }
+    
 }

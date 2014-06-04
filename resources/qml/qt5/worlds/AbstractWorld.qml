@@ -37,7 +37,72 @@ Rectangle {
     signal exitWorld
     signal exitGame
     signal removeFromGame (int spriteId)
+    
+    MessageDialog {
+        id: restartGame
+        title: qsTr("Game Over")
+        detailedText: qsTr("Back to Title")
+        standardButtons: StandardButton.Ok 
+        
+        onAccepted: {
+            Console.info("AbstractWorld.qml: do over")
+            exitWorld()
+        }
+    }
 
+
+    Component.onCompleted: {
+        pet = Manager.currentPet
+        Console.info(pet.dead)
+        initSpriteObjectArray()
+        spawnSprites();
+    }
+
+    Timer {
+        id: poopTimer
+        interval: UI.PET_POOP_TIMER
+        running: true
+        repeat: true
+        onTriggered: {
+            spawnPoop()
+        }
+    }
+
+    Timer {
+        id: statTimer
+        interval: UI.STAT_TIMER
+        running: true
+        repeat: true
+        onTriggered: {
+            Manager.updateStatus()
+        }
+    }
+
+    Rectangle {
+        x: 20
+        y: spriteBottom + 20
+        id: petStatus
+        z: 100
+
+        color: "#00000000"
+        visible: false
+
+        width: 500
+        height: 500
+    }
+
+    Timer {
+        id: statusTimer
+        triggeredOnStart: false
+        interval: UI.PET_STATUS_BAR_TIMER
+        running: petStatus.visible
+        repeat: false
+        onTriggered: {
+            petStatus.visible = false
+        }
+    }
+
+    //Property Handlers
     onSpriteBottomChanged: {
         Console.debug("AbstractWorld.qml: new sprite bottom: " + spriteBottom)
         if(!!petItem) {
@@ -97,6 +162,7 @@ Rectangle {
         SpriteFunctions.createPet("/qml/qt5/pets/", pet.type, world, {"z": 100}, createPetHandler)
     }
 
+    // Javascript Functions
     function updatePetStatus() {
         Console.info("AbstractWorld.qml: status changed")
         if(!!petItem) {
@@ -273,67 +339,4 @@ Rectangle {
         }
     }
 
-    MessageDialog {
-        id: restartGame
-        title: qsTr("Game Over")
-        detailedText: qsTr("Back to Title")
-        standardButtons: StandardButton.Ok 
-        
-        onAccepted: {
-            Console.info("AbstractWorld.qml: do over")
-            exitWorld()
-        }
-    }
-
-
-    Component.onCompleted: {
-        pet = Manager.currentPet
-        Console.info(pet.dead)
-        initSpriteObjectArray()
-        spawnSprites();
-    }
-
-    Timer {
-        id: poopTimer
-        interval: UI.PET_POOP_TIMER
-        running: true
-        repeat: true
-        onTriggered: {
-            spawnPoop()
-        }
-    }
-
-    Timer {
-        id: statTimer
-        interval: UI.STAT_TIMER
-        running: true
-        repeat: true
-        onTriggered: {
-            Manager.updateStatus()
-        }
-    }
-
-    Rectangle {
-        x: 20
-        y: spriteBottom + 20
-        id: petStatus
-        z: 100
-
-        color: "#00000000"
-        visible: false
-
-        width: 500
-        height: 500
-    }
-
-    Timer {
-        id: statusTimer
-        triggeredOnStart: false
-        interval: UI.PET_STATUS_BAR_TIMER
-        running: petStatus.visible
-        repeat: false
-        onTriggered: {
-            petStatus.visible = false
-        }
-    }
 }

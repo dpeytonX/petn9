@@ -8,10 +8,10 @@ import "/js/UIConstants.js" as UI
 import "/QmlLogger/Logger.js" as Console
 
 /**
-  Game.qml
-
-  Represents the window which contains the environment that the user interacts with.
-  */
+ * Game
+ * 
+ * Represents the window which contains the environment that the user interacts with.
+ */
 DefaultPage {
     id: game
     tools: gameTools

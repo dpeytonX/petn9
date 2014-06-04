@@ -1,5 +1,10 @@
 import "elements"
 
+/**
+ * Plain
+ * 
+ * An abstract world that looks like a grassy plain.
+ */
 AbstractWorld {
     color: "#b1c2c2"
 
