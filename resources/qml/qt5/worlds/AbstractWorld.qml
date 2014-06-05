@@ -53,7 +53,8 @@ Rectangle {
 
     Component.onCompleted: {
         pet = Manager.currentPet
-        Console.info(pet.dead)
+        if(!!pet)
+	  Console.info(pet.dead)
         initSpriteObjectArray()
         spawnSprites();
     }
@@ -83,6 +84,8 @@ Rectangle {
         y: spriteBottom + 20
         id: petStatus
         z: 100
+        
+        property PetModel pet
 
         color: "#00000000"
         visible: false
@@ -112,7 +115,8 @@ Rectangle {
 
         var spriteObjectArray = JObjects.register(world).spriteObjectArray;
 	
-	Console.debug("Sprite numbers: " + spriteObjectArray.length);
+	if(!!spriteObjectArray)
+	  Console.debug("Sprite numbers: " + spriteObjectArray.length);
 
         for(var i = 0; !!spriteObjectArray && i < spriteObjectArray.length; i++) {
             var s = spriteObjectArray[i]

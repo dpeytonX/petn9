@@ -8,9 +8,9 @@ ProjectRootRelative=./
 
 [CMake][CMake Build Directory 0]
 Build Directory Path=file:///home/dametrious/Projects/qt/petn9/build
-Build Type=TEST
+Build Type=
 CMake Binary=file:///usr/bin/cmake
-Environment Profile=
+Environment Profile=default
 Extra Arguments=
 Install Directory=file:///usr/local
 
