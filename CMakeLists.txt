@@ -18,6 +18,14 @@ get_target_property (QtMultimedia_location Qt5::Multimedia LOCATION)
 find_package (Qt5Sql REQUIRED)
 get_target_property (QtSql_location Qt5::Sql LOCATION)
 
+set (petn9_KDE 0)
+find_package (KF5Declarative)
+if (KF5Declarative_FOUND)
+  get_target_property(KDeclarative_location KF5::Declarative LOCATION)
+  set (petn9_KDE 1)
+endif ()
+
+
 set (petn9_VERSION_MAJOR 1)
 set (petn9_VERSION_MINOR 4)
 set (petn9_LOG_FORMAT "TRACE")
@@ -76,6 +84,9 @@ target_link_libraries (petn9 Qt5::Qml)
 target_link_libraries (petn9 Qt5::Quick)
 target_link_libraries (petn9 Qt5::Sql)
 target_link_libraries (petn9 Qt5::Multimedia)
+if (KF5Declarative_FOUND)
+  target_link_libraries (petn9 KF5::Declarative)
+endif ()
 
 
 message ("CMAKE_BUILD_TYPE = " ${CMAKE_BUILD_TYPE})
