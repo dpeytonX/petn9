@@ -1,0 +1,40 @@
+<RCC>
+ <qresource prefix="/">
+ <file alias="qml/qt5/DefaultPage.qml">qml/kde5/DefaultPage.qml</file>
+ <file alias="qml/qt5/Splash.qml">qml/kde5/Splash.qml</file>
+ <file alias="qml/qt5/main.qml">qml/kde5/main.qml</file>
+ <file alias="qml/qt5/NameSelection.qml">qml/kde5/NameSelection.qml</file>
+ <file alias="qml/qt5/Game.qml">qml/kde5/Game.qml</file>
+ <file alias="qml/qt5/PetSelection.qml">qml/kde5/PetSelection.qml</file>
+ <file alias="qml/qt5/objects/Food.qml">qml/kde5/objects/Food.qml</file>
+ <file alias="qml/qt5/objects/Poop.qml">qml/kde5/objects/Poop.qml</file>
+ <file alias="qml/qt5/objects/GameObject.qml">qml/kde5/objects/GameObject.qml</file>
+ <file alias="qml/qt5/pets/Pet1.qml">qml/kde5/pets/Pet1.qml</file>
+ <file alias="qml/qt5/pets/Pet3.qml">qml/kde5/pets/Pet3.qml</file>
+ <file alias="qml/qt5/pets/Pet2.qml">qml/kde5/pets/Pet2.qml</file>
+ <file alias="qml/qt5/pets/Pet4.qml">qml/kde5/pets/Pet4.qml</file>
+ <file alias="qml/qt5/pets/AbstractPet.qml">qml/kde5/pets/AbstractPet.qml</file>
+ <file alias="qml/qt5/worlds/MountainRange.qml">qml/kde5/worlds/MountainRange.qml</file>
+ <file alias="qml/qt5/worlds/Plain.qml">qml/kde5/worlds/Plain.qml</file>
+ <file alias="qml/qt5/worlds/Desert.qml">qml/kde5/worlds/Desert.qml</file>
+ <file alias="qml/qt5/worlds/AbstractWorld.qml">qml/kde5/worlds/AbstractWorld.qml</file>
+ <file alias="qml/qt5/worlds/elements/GrassyField.qml">qml/kde5/worlds/elements/GrassyField.qml</file>
+ <file alias="qml/qt5/worlds/elements/SnowyField.qml">qml/kde5/worlds/elements/SnowyField.qml</file>
+ <file alias="qml/qt5/worlds/elements/Tumbleweed.qml">qml/kde5/worlds/elements/Tumbleweed.qml</file>
+ <file alias="qml/qt5/worlds/elements/DesertField.qml">qml/kde5/worlds/elements/DesertField.qml</file>
+ <file alias="qml/qt5/worlds/elements/Cloud.qml">qml/kde5/worlds/elements/Cloud.qml</file>
+ <file alias="qml/qt5/worlds/elements/Cactus.qml">qml/kde5/worlds/elements/Cactus.qml</file>
+ <file alias="qml/qt5/worlds/elements/Sun.qml">qml/kde5/worlds/elements/Sun.qml</file>
+ <file alias="qml/qt5/worlds/elements/Mountain.qml">qml/kde5/worlds/elements/Mountain.qml</file>
+ <file alias="qml/qt5/worlds/elements/Field.qml">qml/kde5/worlds/elements/Field.qml</file>
+ <file alias="/common/widgets/Sprite.qml">qml/common/widgets/Sprite.qml</file>
+ </qresource>
+ <qresource prefix="/QmlLogger">
+ <file alias="Logger.js">qml/QmlLogger/qmllogger/Logger.js</file>
+ </qresource>
+ <qresource prefix="/js">
+ <file alias="SpriteFunctions.js">qml/js/SpriteFunctions.js</file>
+ <file alias="UIConstants.js">qml/js/UIConstants.js</file>
+ <file alias="_private.js">qml/js/_private.js</file>
+ </qresource>
+</RCC>

@@ -40,12 +40,7 @@ Q_DECL_EXPORT int main(int argc, char* argv[]) {
     app->setApplicationDisplayName(app->tr("Pet N9"));
     app->setApplicationVersion(PETN9_VERSION_MAJOR + "." + PETN9_VERSION_MINOR);
 
-#if PETN9_KDE > 0
-    KDeclarative::QmlObject* context = new KDeclarative::QmlObject(app.data());
-    QQmlEngine* viewer = (context->engine());
-#else
     QQmlApplicationEngine* viewer = new QQmlApplicationEngine(app.data());
-#endif
 
     //Startup context
     QTime time = QTime::currentTime(); //initialize random numbers
@@ -64,7 +59,8 @@ Q_DECL_EXPORT int main(int argc, char* argv[]) {
 
     QUrl qurl( QStringLiteral ( "qrc:///qml/qt5/main.qml" ) );
 #if PETN9_KDE > 0
-    context->createObjectFromSource (qurl, new QQmlContext(viewer));
+    KDeclarative::QmlObject* context = new KDeclarative::QmlObject(viewer, app.data());
+    context->setSource (qurl);
 #else
     viewer->load (qurl );
 #endif

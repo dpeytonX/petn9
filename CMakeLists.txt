@@ -62,11 +62,20 @@ set (petn9_HEADER ${petn9_MOC_HEADERS}
 			"${PROJECT_BINARY_DIR}/petn9.h"
 			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist.h"
 			"${PROJECT_SOURCE_DIR}/models/qtdeclarative-helper/declarativelist_global.h")
+if (KF5Declarative_FOUND)
+set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
+			"${PROJECT_RESOURCE_DIR}/icons.qrc"
+			"${PROJECT_RESOURCE_DIR}/images.qrc"
+			"${PROJECT_RESOURCE_DIR}/qml-kde5.qrc"
+			"${PROJECT_RESOURCE_DIR}/translations.qrc")
+else ()
 set (petn9_RESOURCES "${PROJECT_RESOURCE_DIR}/petn9.qrc"
 			"${PROJECT_RESOURCE_DIR}/icons.qrc"
 			"${PROJECT_RESOURCE_DIR}/images.qrc"
 			"${PROJECT_RESOURCE_DIR}/qml.qrc"
 			"${PROJECT_RESOURCE_DIR}/translations.qrc")
+endif ()
+
 set (petn9_DESKTOP "${PROJECT_RESOURCE_DIR}/petn9.desktop")
 set (petn9_ICONS "${PROJECT_RESOURCE_DIR}/petn9.svg")
 set (petn9_SOUNDS "${PROJECT_RESOURCE_DIR}/sounds/blop.wav")
