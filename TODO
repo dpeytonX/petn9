@@ -1,5 +1,17 @@
 TODO
 
-start version 2
+add menu bar to application
+File
+  ->Quit
+Help
+  ->About
+  ->Standard KDE Help Menu
 
 
+Help Menu
+-KHelpMenu
+-Create Menu Items on QML side
+-Connect to slots in KHelpMenu
+http://api.kde.org/frameworks-api/frameworks5-apidocs/
+http://api.kde.org/frameworks-api/frameworks5-apidocs/kxmlgui/html/classKHelpMenu.html
+http://api.kde.org/frameworks-api/frameworks5-apidocs/plasma-framework/html/classorg_1_1kde_1_1plasma_1_1components_1_1MenuItem.html
