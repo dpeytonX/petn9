@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
+import org.kde.plasma.components 2.0 as PlasmaComponents
 import com.blogspot.iamboke 1.0
 import "."
 import "../../common/widgets"
@@ -89,7 +90,7 @@ DefaultPage {
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
 
-                    Button {
+                    PlasmaComponents.Button {
                         id: okButton
                         text: qsTr("OK!")
                         onClicked: {
@@ -101,7 +102,7 @@ DefaultPage {
                         }
                         enabled: nameInput.acceptableInput
                     }
-                    Button {
+                    PlasmaComponents.Button {
                         id: resetButton
                         text: qsTr("Reset")
                         onClicked: {
